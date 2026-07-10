@@ -1,99 +1,147 @@
-import { ArrowDown, ArrowUp, Plus, Trash2 } from 'lucide-react';
-import { useState } from 'react';
-import Button from '../components/Button';
-import Card from '../components/Card';
-import Modal from '../components/Modal';
-import { termCredits } from '../utils/graduation';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { roadmapData } from '../data/roadmapData';
+import GraduationNode from '../components/roadmap/GraduationNode';
+import RoadmapPath from '../components/roadmap/RoadmapPath';
+import RoadmapSummary from '../components/roadmap/RoadmapSummary';
+import SemesterDetailSheet from '../components/roadmap/SemesterDetailSheet';
+import SemesterNode from '../components/roadmap/SemesterNode';
 
-export default function Roadmap({ roadmap, setRoadmap, metrics }) {
-  const [reason, setReason] = useState(null);
-  const [newCourse, setNewCourse] = useState('');
+const STORAGE_KEY = 'plan-h-roadmap-v2';
 
-  const removeCourse = (termId, courseId) => {
-    setRoadmap(roadmap.map((term) => (term.id === termId ? { ...term, courses: term.courses.filter((course) => course.id !== courseId) } : term)));
+function loadRoadmapState() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    return saved ? JSON.parse(saved) : roadmapData;
+  } catch {
+    return roadmapData;
+  }
+}
+
+function statusLabel(status) {
+  return {
+    completed: '완료',
+    current: '현재 학기',
+    planned: '예정',
+    attention: '주의 필요',
+  }[status];
+}
+
+function toAppRoadmap(semesters) {
+  return semesters.map((semester) => ({
+    id: semester.id,
+    term: semester.label,
+    goal: semester.goal,
+    courses: semester.courses
+      .filter((course) => course.included !== false)
+      .map((course) => ({
+        id: course.id,
+        name: course.name,
+        credits: course.credits,
+        type: course.category,
+        required: course.required,
+      })),
+    reason: semester.aiReason,
+  }));
+}
+
+export default function Roadmap({ setRoadmap, metrics }) {
+  const [semesters, setSemesters] = useState(loadRoadmapState);
+  const [selectedId, setSelectedId] = useState(null);
+  const topRef = useRef(null);
+  const currentRef = useRef(null);
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(semesters));
+    setRoadmap(toAppRoadmap(semesters));
+  }, [semesters]);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => currentRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 450);
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  const selectedSemester = semesters.find((semester) => semester.id === selectedId);
+  const actualCredits = useMemo(() => {
+    const completedPast = semesters
+      .filter((semester) => semester.status === 'completed')
+      .reduce((sum, semester) => sum + semester.completedCredits, 0);
+    const activeCompleted = semesters
+      .filter((semester) => semester.status !== 'completed')
+      .flatMap((semester) => semester.courses)
+      .filter((course) => course.included !== false && course.completed)
+      .reduce((sum, course) => sum + course.credits, 0);
+    return completedPast + activeCompleted;
+  }, [semesters]);
+  const completedCount = semesters.filter((semester) => semester.status === 'completed').length;
+  const lastRequiredMissing = semesters
+    .find((semester) => semester.id === 'year4-semester2')
+    ?.courses.some((course) => course.required && course.included === false);
+  const graduationReady = !lastRequiredMissing && actualCredits + 26 >= metrics.totalRequired;
+
+  const updateCourse = (semesterId, courseId, changes) => {
+    setSemesters((current) =>
+      current.map((semester) =>
+        semester.id === semesterId
+          ? {
+              ...semester,
+              courses: semester.courses.map((course) => (course.id === courseId ? { ...course, ...changes } : course)),
+            }
+          : semester,
+      ),
+    );
   };
 
-  const moveCourse = (fromIndex, courseId, direction) => {
-    const toIndex = fromIndex + direction;
-    if (toIndex < 0 || toIndex >= roadmap.length) return;
-    const draft = roadmap.map((term) => ({ ...term, courses: [...term.courses] }));
-    const courseIndex = draft[fromIndex].courses.findIndex((course) => course.id === courseId);
-    const [course] = draft[fromIndex].courses.splice(courseIndex, 1);
-    draft[toIndex].courses.push(course);
-    setRoadmap(draft);
+  const scrollToCurrent = () => {
+    currentRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setSelectedId('year4-semester1');
   };
 
-  const addCourse = () => {
-    if (!newCourse.trim()) return;
-    setRoadmap(roadmap.map((term, index) => index === 0 ? {
-      ...term,
-      courses: [...term.courses, { id: `custom-${Date.now()}`, name: newCourse, credits: 3, type: '직접 추가', required: false }],
-    } : term));
-    setNewCourse('');
+  const scrollToTop = () => {
+    topRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
-
-  let cumulative = 108;
 
   return (
-    <div className="pageStack">
-      <Card className="roadmapControl">
-        <h3>과목 추가</h3>
-        <div className="inlineInput">
-          <input value={newCourse} onChange={(event) => setNewCourse(event.target.value)} placeholder="예: 일본경제세미나" />
-          <button className="iconButton filled" onClick={addCourse} aria-label="과목 추가"><Plus size={18} /></button>
-        </div>
-        <p className={metrics.canGraduateWithPlan ? 'okText' : 'warnText'}>
-          현재 로드맵 기준: {metrics.canGraduateWithPlan ? '졸업 가능' : '졸업요건 확인 필요'}
-        </p>
-      </Card>
+    <div className="roadmapPage" ref={topRef}>
+      <RoadmapSummary
+        actualCredits={actualCredits}
+        totalCredits={metrics.totalRequired}
+        remainingCredits={Math.max(metrics.totalRequired - actualCredits, 0)}
+        completedCount={completedCount}
+        onShowAll={scrollToTop}
+        onShowCurrent={scrollToCurrent}
+      />
 
-      <div className="timeline">
-        {roadmap.map((term, termIndex) => {
-          cumulative += termCredits(term);
-          return (
-            <Card className="termCard" key={term.id}>
-              <div className="termHeader">
-                <div>
-                  <p className="eyebrow">{term.goal}</p>
-                  <h3>{term.term}</h3>
-                </div>
-                <strong>{termCredits(term)}학점</strong>
-              </div>
-              <div className="courseChips">
-                {term.courses.map((course) => (
-                  <div className="roadCourse" key={course.id}>
-                    <div>
-                      <strong>{course.name}</strong>
-                      <span>{course.type} · {course.credits}학점</span>
-                    </div>
-                    <div className="courseActions">
-                      <button onClick={() => moveCourse(termIndex, course.id, -1)} aria-label="이전 학기로 이동"><ArrowUp size={15} /></button>
-                      <button onClick={() => moveCourse(termIndex, course.id, 1)} aria-label="다음 학기로 이동"><ArrowDown size={15} /></button>
-                      <button onClick={() => removeCourse(term.id, course.id)} aria-label="삭제"><Trash2 size={15} /></button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className="termFooter">
-                <span>예상 누적 {cumulative}학점</span>
-                <span>{cumulative >= 134 ? '졸업학점 충족' : '진행 중'}</span>
-              </div>
-              <Button variant="ghost" onClick={() => setReason(term)}>AI가 추천한 이유</Button>
-            </Card>
-          );
-        })}
-      </div>
+      <section className="roadmapJourney" aria-label="입학부터 졸업까지 학업 로드맵">
+        <div className="yearMist yearOne">1학년</div>
+        <div className="yearMist yearTwo">2학년</div>
+        <div className="yearMist yearThree">3학년</div>
+        <div className="yearMist yearFour">4학년</div>
+        <RoadmapPath semesters={semesters} />
+        <span className="roadLabel start">입학</span>
+        {semesters.map((semester) => (
+          <SemesterNode
+            key={semester.id}
+            semester={semester}
+            isSelected={selectedId === semester.id}
+            statusLabel={statusLabel(semester.status)}
+            onClick={() => setSelectedId(semester.id)}
+            nodeRef={semester.status === 'current' ? currentRef : undefined}
+          />
+        ))}
+        <GraduationNode ready={graduationReady} />
+      </section>
 
-      {reason && (
-        <Modal title="AI 추천 근거" onClose={() => setReason(null)}>
-          <p>{reason.reason}</p>
-          <ul className="reasonList">
-            <li>전공필수 과목이므로 졸업 전에 이수해야 합니다.</li>
-            <li>선수과목 이수 조건을 충족했습니다.</li>
-            <li>다음 학기에는 개설되지 않을 가능성이 있습니다.</li>
-            <li>관심 분야인 데이터 분석과 관련된 과목입니다.</li>
-          </ul>
-        </Modal>
+      {selectedSemester && (
+        <SemesterDetailSheet
+          semester={selectedSemester}
+          statusLabel={statusLabel(selectedSemester.status)}
+          metrics={metrics}
+          actualCredits={actualCredits}
+          graduationReady={graduationReady}
+          onClose={() => setSelectedId(null)}
+          onToggleComplete={(courseId, completed) => updateCourse(selectedSemester.id, courseId, { completed })}
+          onToggleIncluded={(courseId, included) => updateCourse(selectedSemester.id, courseId, { included })}
+        />
       )}
     </div>
   );

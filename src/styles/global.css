@@ -255,6 +255,435 @@ input, select {
 }
 .reasonList { padding-left: 18px; color: #4f5d70; line-height: 1.55; }
 
+.roadmapPage {
+  display: grid;
+  gap: 14px;
+  padding-bottom: 272px;
+}
+.roadmapIntro {
+  display: grid;
+  gap: 12px;
+}
+.roadmapIntro h2 {
+  margin: 0 0 6px;
+  font-size: 25px;
+  letter-spacing: 0;
+}
+.roadmapIntro p {
+  margin: 0;
+  color: #68758a;
+  line-height: 1.45;
+}
+.roadmapSummaryCard {
+  display: grid;
+  grid-template-columns: 44px 1fr 1fr;
+  gap: 12px;
+  align-items: center;
+}
+.summaryIcon {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: #eaf5ff;
+  color: #1d5f91;
+  grid-row: span 2;
+}
+.roadmapSummaryCard div:not(.summaryIcon) {
+  display: grid;
+  gap: 3px;
+}
+.roadmapSummaryCard span {
+  font-size: 11px;
+  color: #7c8798;
+  font-weight: 800;
+}
+.roadmapSummaryCard strong {
+  font-size: 14px;
+  color: #172033;
+}
+.roadmapViewActions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.roadmapJourney {
+  position: relative;
+  min-height: 1040px;
+  border-radius: 14px;
+  background:
+    linear-gradient(180deg, rgba(234, 245, 255, .78), rgba(255, 255, 255, .82)),
+    #fff;
+  border: 1px solid #e5ebf4;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(31, 49, 81, 0.06);
+}
+.roadSvg {
+  position: absolute;
+  inset: 32px 0 72px;
+  width: 100%;
+  height: calc(100% - 104px);
+  pointer-events: none;
+}
+.roadBase,
+.roadSegment {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+.roadBase {
+  stroke: #dbe3ee;
+  stroke-width: 28;
+}
+.roadSegment {
+  stroke-width: 18;
+}
+.roadSegment.completed { stroke: #1d2f6f; }
+.roadSegment.current { stroke: #47b8e8; }
+.roadSegment.attention { stroke: #f29b38; }
+.roadSegment.planned { stroke: #c9d4e3; }
+.roadLabel {
+  position: absolute;
+  left: 8%;
+  top: 3.4%;
+  border-radius: 999px;
+  padding: 6px 10px;
+  background: #1d2f6f;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 900;
+  box-shadow: 0 6px 14px rgba(29, 47, 111, .18);
+}
+.yearMist {
+  position: absolute;
+  right: 12px;
+  font-weight: 900;
+  color: rgba(29, 47, 111, .07);
+  font-size: 48px;
+  letter-spacing: 0;
+  pointer-events: none;
+}
+.yearOne { top: 58px; }
+.yearTwo { top: 315px; left: 12px; right: auto; }
+.yearThree { top: 585px; }
+.yearFour { top: 795px; left: 16px; right: auto; }
+.semesterStage {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  min-width: 176px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.semesterStage.left {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+.semesterNodeButton {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  border: 5px solid #fff;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-weight: 900;
+  box-shadow: 0 8px 18px rgba(23, 32, 51, .18);
+  position: relative;
+  flex: 0 0 auto;
+}
+.semesterStage.completed .semesterNodeButton { background: #1d2f6f; }
+.semesterStage.current .semesterNodeButton {
+  background: #47b8e8;
+  box-shadow: 0 0 0 8px rgba(71, 184, 232, .2), 0 10px 22px rgba(25, 122, 171, .25);
+  animation: currentPulse 1.8s ease-in-out infinite;
+}
+.semesterStage.planned .semesterNodeButton {
+  background: #d8e2ef;
+  color: #3b4b63;
+}
+.semesterStage.attention .semesterNodeButton {
+  background: #fff;
+  color: #d37416;
+  border-color: #f29b38;
+}
+.semesterStage.selected .semesterNodeButton {
+  outline: 3px solid rgba(29, 47, 111, .18);
+  outline-offset: 3px;
+}
+.semesterNodeText {
+  width: 118px;
+  border: 0;
+  background: rgba(255, 255, 255, .92);
+  border: 1px solid #e3eaf3;
+  border-radius: 8px;
+  padding: 8px 9px;
+  display: grid;
+  gap: 3px;
+  text-align: left;
+  color: #172033;
+  box-shadow: 0 6px 15px rgba(31, 49, 81, .08);
+}
+.semesterStage.left .semesterNodeText {
+  text-align: right;
+}
+.semesterNodeText strong {
+  font-size: 13px;
+  line-height: 1.2;
+}
+.semesterNodeText span,
+.semesterNodeText small,
+.semesterNodeText i {
+  font-style: normal;
+  color: #6d7889;
+  font-size: 11px;
+  line-height: 1.25;
+}
+.semesterNodeText em {
+  justify-self: start;
+  border-radius: 999px;
+  padding: 3px 7px;
+  background: #eaf5ff;
+  color: #1d5f91;
+  font-style: normal;
+  font-size: 10px;
+  font-weight: 900;
+}
+.semesterStage.left .semesterNodeText em {
+  justify-self: end;
+}
+.semesterStage.attention .semesterNodeText em {
+  background: #fff0dc;
+  color: #b65b00;
+}
+.graduationStage {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  width: 210px;
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 14px;
+  padding: 12px;
+  background: #fff;
+  border: 1px solid #dfe7f1;
+  box-shadow: 0 8px 20px rgba(31, 49, 81, .12);
+  z-index: 2;
+}
+.graduationBadge {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  color: #fff;
+}
+.graduationStage.ready .graduationBadge { background: #11805b; }
+.graduationStage.blocked .graduationBadge { background: #d37416; }
+.graduationStage strong {
+  display: block;
+  font-size: 16px;
+}
+.graduationStage span {
+  display: block;
+  margin-top: 3px;
+  color: #667386;
+  font-size: 12px;
+  line-height: 1.3;
+}
+.roadmapSheetBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 18;
+  background: rgba(13, 24, 43, .24);
+  display: grid;
+  align-items: end;
+  justify-content: center;
+}
+.roadmapDetailSheet {
+  width: min(100vw, 430px);
+  max-height: calc(100vh - 116px);
+  margin-bottom: 72px;
+  overflow: auto;
+  background: #fff;
+  border-radius: 18px 18px 0 0;
+  padding: 10px 16px 18px;
+  box-shadow: 0 -16px 40px rgba(23, 32, 51, .22);
+}
+.sheetHandle {
+  width: 42px;
+  height: 5px;
+  border-radius: 999px;
+  background: #d6dee9;
+  margin: 2px auto 12px;
+}
+.sheetTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.sheetTop h3 {
+  margin: 0 0 5px;
+  font-size: 20px;
+}
+.sheetTop span {
+  color: #6b7688;
+  font-size: 13px;
+}
+.requirementSnapshot {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+  margin: 14px 0;
+}
+.requirementSnapshot span,
+.categorySummary span {
+  border-radius: 8px;
+  background: #f1f6fb;
+  padding: 8px;
+  font-size: 12px;
+  color: #39465a;
+  font-weight: 800;
+}
+.sheetInfoGrid {
+  display: grid;
+  gap: 8px;
+}
+.sheetInfoGrid div,
+.aiReasonBox {
+  border-radius: 8px;
+  background: #f8fbff;
+  border: 1px solid #e3ebf5;
+  padding: 10px;
+}
+.sheetInfoGrid span {
+  display: block;
+  color: #7a8697;
+  font-size: 11px;
+  font-weight: 900;
+  margin-bottom: 4px;
+}
+.sheetInfoGrid strong {
+  font-size: 13px;
+  line-height: 1.45;
+}
+.categorySummary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 12px 0;
+}
+.sheetSection h4,
+.aiReasonBox h4 {
+  margin: 0 0 8px;
+}
+.detailCourseList {
+  display: grid;
+  gap: 9px;
+}
+.detailCourse {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 10px;
+  border: 1px solid #e3eaf3;
+  border-radius: 8px;
+  padding: 10px;
+  background: #fff;
+}
+.detailCourse.excluded {
+  background: #f7f8fa;
+  opacity: .72;
+}
+.detailCourseCheck {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 5px;
+  min-height: 54px;
+  border-radius: 8px;
+  background: #f1f6fb;
+  color: #526070;
+  font-size: 11px;
+  font-weight: 900;
+}
+.detailCourseCheck input {
+  width: 18px;
+  min-height: 18px;
+}
+.detailCourseBody h5 {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.detailCourseBody p {
+  margin: 5px 0;
+  color: #68758a;
+  font-size: 12px;
+  line-height: 1.45;
+}
+.detailCourseBody div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.detailCourseBody span,
+.requiredMark {
+  border-radius: 999px;
+  background: #eef4fb;
+  color: #46566d;
+  padding: 4px 7px;
+  font-size: 11px;
+  font-weight: 800;
+}
+.detailCourseBody .requiredMark {
+  background: #fff0dc;
+  color: #a35200;
+}
+.includeToggle {
+  grid-column: 1 / -1;
+  min-height: 36px;
+  border: 1px solid #f0c48b;
+  border-radius: 8px;
+  background: #fff8ef;
+  color: #a35200;
+  font-weight: 900;
+}
+.aiReasonBox {
+  margin-top: 12px;
+}
+.aiReasonBox p {
+  margin: 0 0 8px;
+  color: #5d6878;
+  line-height: 1.5;
+}
+.aiReasonBox strong {
+  display: block;
+  color: #b65b00;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+.aiReasonBox span {
+  color: #1d5f91;
+  font-size: 12px;
+  font-weight: 900;
+}
+@keyframes currentPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.07); }
+}
+
 .segmented {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
