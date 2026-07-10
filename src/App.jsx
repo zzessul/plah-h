@@ -29,7 +29,7 @@ export default function App() {
       roadmap: typeof roadmap === 'function' ? roadmap(current.roadmap) : roadmap,
     }));
 
-  const resetAll = () => setState({ ...resetState(), onboarded: true, activeTab: 'home' });
+  const resetAll = () => setState(resetState());
 
   if (!state.onboarded) {
     return (
