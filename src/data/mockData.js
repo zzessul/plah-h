@@ -20,7 +20,7 @@ export const ssaiGraduationRequirements = {
 
 export const demoUser = {
   name: '',
-  studentId: '',
+  studentId: '2024학번',
   school: '한국외국어대학교',
   admissionYear: '2024',
   grade: '2학년',

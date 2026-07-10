@@ -110,6 +110,48 @@ button:disabled { opacity: .5; cursor: not-allowed; }
 .onboardingHero h1 { font-size: 42px; margin: 12px 0; letter-spacing: 0; }
 .onboardingForm { display: grid; gap: 10px; }
 .onboardingForm label { display: grid; gap: 6px; font-weight: 700; font-size: 13px; color: #3d485a; }
+.interestPicker {
+  display: grid;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 13px;
+  color: #3d485a;
+}
+.interestGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.interestGrid button {
+  border: 1px solid #d8e0ec;
+  background: #fff;
+  color: #3d485a;
+  border-radius: 999px;
+  padding: 8px 10px;
+  font-size: 12px;
+  font-weight: 800;
+}
+.interestGrid button.selected {
+  background: #1d2f6f;
+  border-color: #1d2f6f;
+  color: #fff;
+}
+.otherInterest {
+  display: grid;
+  grid-template-columns: 1fr 58px;
+  gap: 7px;
+}
+.otherInterest button {
+  border: 0;
+  border-radius: 8px;
+  background: #eaf5ff;
+  color: #1d5f91;
+  font-weight: 900;
+}
+.interestPicker small {
+  color: #647083;
+  line-height: 1.4;
+}
 input, select {
   width: 100%;
   min-height: 42px;

@@ -4,13 +4,12 @@ import { demoUser } from '../data/mockData';
 
 const textFields = [
   ['name', '이름', '예: 홍길동'],
-  ['studentId', '학번', '예: 202400000'],
-  ['interests', '관심 분야', '예: 정책 AI, 자연어 처리'],
   ['earnedCredits', '현재 이수 학점', '예: 52'],
 ];
 
 const selectFields = [
-  ['admissionYear', '입학년도', ['2022', '2023', '2024', '2025', '2026']],
+  ['studentId', '학번', ['2019학번', '2020학번', '2021학번', '2022학번', '2023학번', '2024학번', '2025학번', '2026학번']],
+  ['admissionYear', '입학년도', ['2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026']],
   ['grade', '현재 학년', ['1학년', '2학년', '3학년', '4학년']],
   ['semester', '현재 학기', ['1학기', '2학기', '여름학기', '겨울학기']],
   ['primaryMajor', '제1전공', ['Social Science & AI융합학부']],
@@ -29,10 +28,29 @@ const completionTypeMap = {
   'SSAI 부전공': 'minor',
 };
 
+const interestKeywords = [
+  '사회과학 데이터 분석',
+  '정책 AI',
+  '자연어 처리',
+  '사회연결망 분석',
+  '빅데이터 시각화',
+  '미디어 데이터',
+  '비즈니스 데이터',
+  'GIS/공간 데이터',
+  'AI 윤리',
+  '헬스 애널리틱스',
+];
+
+function splitInterests(value = '') {
+  return value.split(',').map((item) => item.trim()).filter(Boolean);
+}
+
 export default function Onboarding({ user, onStart }) {
   const [profile, setProfile] = useState({ ...demoUser, ...user });
+  const [otherInterest, setOtherInterest] = useState('');
   const [error, setError] = useState('');
   const [saved, setSaved] = useState(false);
+  const selectedInterests = splitInterests(profile.interests);
 
   useEffect(() => {
     setProfile({ ...demoUser, ...user });
@@ -43,8 +61,25 @@ export default function Onboarding({ user, onStart }) {
     setProfile((current) => ({
       ...current,
       [key]: value,
+      ...(key === 'admissionYear' ? { studentId: `${value}학번` } : {}),
       ...(key === 'secondMajor' ? { completionType: completionTypeMap[value] || current.completionType } : {}),
     }));
+  };
+
+  const toggleInterest = (keyword) => {
+    setSaved(false);
+    const next = selectedInterests.includes(keyword)
+      ? selectedInterests.filter((item) => item !== keyword)
+      : [...selectedInterests, keyword];
+    setProfile((current) => ({ ...current, interests: next.join(', ') }));
+  };
+
+  const addOtherInterest = () => {
+    const value = otherInterest.trim();
+    if (!value || selectedInterests.includes(value)) return;
+    setProfile((current) => ({ ...current, interests: [...selectedInterests, value].join(', ') }));
+    setOtherInterest('');
+    setSaved(false);
   };
 
   const start = () => {
@@ -87,6 +122,31 @@ export default function Onboarding({ user, onStart }) {
             </select>
           </label>
         ))}
+        <div className="interestPicker">
+          <span>관심 분야</span>
+          <div className="interestGrid">
+            {interestKeywords.map((keyword) => (
+              <button
+                type="button"
+                key={keyword}
+                className={selectedInterests.includes(keyword) ? 'selected' : ''}
+                onClick={() => toggleInterest(keyword)}
+              >
+                {keyword}
+              </button>
+            ))}
+          </div>
+          <div className="otherInterest">
+            <input
+              value={otherInterest}
+              placeholder="기타 관심 분야 입력"
+              onChange={(event) => setOtherInterest(event.target.value)}
+              onKeyDown={(event) => event.key === 'Enter' && addOtherInterest()}
+            />
+            <button type="button" onClick={addOtherInterest}>추가</button>
+          </div>
+          {selectedInterests.length > 0 && <small>선택됨: {selectedInterests.join(', ')}</small>}
+        </div>
       </section>
       {error && <p className="formError">{error}</p>}
       {saved && <p className="formSuccess">사용자 정보가 저장되었습니다.</p>}
