@@ -53,13 +53,13 @@ export default function CalendarPage({ events, setEvents }) {
 
   return (
     <div className="pageStack">
-      <Card>
+      <Card className="calendarCard">
         <div className="calendarHeader">
           <button className="iconButton" onClick={() => shiftMonth(-1)} aria-label="이전 달"><ChevronLeft size={18} /></button>
           <h2>{month.replace('-', '년 ')}월</h2>
           <button className="iconButton" onClick={() => shiftMonth(1)} aria-label="다음 달"><ChevronRight size={18} /></button>
-          <span>{selected.slice(5).replace('-', '월 ')}일</span>
         </div>
+        <span className="selectedDateLabel">선택한 날짜 · {selected.slice(5).replace('-', '월 ')}일</span>
         <Button variant="ghost" onClick={() => { setMonth('2026-07'); setSelected('2026-07-15'); }}>오늘로 이동</Button>
         <div className="monthGrid">
           {monthDays.map((date) => {
@@ -76,7 +76,7 @@ export default function CalendarPage({ events, setEvents }) {
         </div>
       </Card>
 
-      <Card>
+      <Card className="calendarPanel">
         <h3>선택한 날짜 일정</h3>
         <select value={filter} onChange={(event) => setFilter(event.target.value)}>
           <option>전체</option>
@@ -91,7 +91,7 @@ export default function CalendarPage({ events, setEvents }) {
         </div>
       </Card>
 
-      <Card>
+      <Card className="calendarPanel">
         <h3>새 일정 추가</h3>
         <div className="inlineInput">
           <input value={title} onChange={(event) => setTitle(event.target.value)} placeholder="일정 이름" />
