@@ -11,7 +11,7 @@ const categoryClass = {
   팀플: 'green',
   '학사 일정': 'indigo',
   학사일정: 'indigo',
-  졸업: 'purple',
+  졸업: 'sky',
   '개인 일정': 'green',
 };
 
