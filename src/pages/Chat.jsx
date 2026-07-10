@@ -1,5 +1,6 @@
 import { HelpCircle, Send, Sparkles } from 'lucide-react';
 import { useState } from 'react';
+import Button from '../components/Button';
 import Card from '../components/Card';
 import Modal from '../components/Modal';
 import planiMascot from '../assets/plani-mascot.png';
@@ -63,6 +64,10 @@ export default function Chat({ chat, setChat, user, metrics, events = [] }) {
     updateSpeech(dynamicText, answer.sources, mood);
     setInput('');
   };
+  const clearChat = () => {
+    updateSpeech('질문을 선택하거나 직접 입력해보세요. 플래니가 바로 옆에서 정리해드릴게요.', [], '상담 중');
+  };
+
   return (
     <div className="chatPage planiChatPage">
       <section className="planiHeader">
@@ -108,6 +113,7 @@ export default function Chat({ chat, setChat, user, metrics, events = [] }) {
             <button key={question} onClick={() => ask(question)}>{question}</button>
           ))}
         </div>
+        <Button variant="ghost" onClick={clearChat}>대화 초기화</Button>
       </Card>
 
       <div className="chatInput">
