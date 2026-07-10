@@ -44,8 +44,8 @@ export default function App() {
   const page = {
     home: (
       <Home
-        user={state.user}
         metrics={metrics}
+        user={state.user}
         completedCourses={state.completedCourses}
         setCompletedCourses={(completedCourses) => patch({ completedCourses })}
         setActiveTab={(activeTab) => patch({ activeTab })}
@@ -58,6 +58,7 @@ export default function App() {
         roadmap={state.roadmap}
         setRoadmap={setRoadmapState}
         metrics={metrics}
+        user={state.user}
         completedCourses={state.completedCourses}
         setCompletedCourses={(completedCourses) => patch({ completedCourses })}
       />
@@ -66,6 +67,7 @@ export default function App() {
       <Timetable
         plans={state.timetablePlans}
         setPlans={(timetablePlans) => patch({ timetablePlans })}
+        user={state.user}
         activePlan={state.activePlan}
         setActivePlan={(activePlan) => patch({ activePlan })}
         setRoadmap={setRoadmapState}

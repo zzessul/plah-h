@@ -2,7 +2,7 @@ import { Compass } from 'lucide-react';
 import Button from '../Button';
 import Card from '../Card';
 
-export default function RoadmapSummary({ actualCredits, totalCredits, remainingCredits, completedCount, onShowAll, onShowCurrent }) {
+export default function RoadmapSummary({ currentLabel, actualCredits, totalCredits, remainingCredits, completedCount, onShowAll, onShowCurrent }) {
   return (
     <div className="roadmapIntro">
       <div>
@@ -14,7 +14,7 @@ export default function RoadmapSummary({ actualCredits, totalCredits, remainingC
         <div className="summaryIcon"><Compass size={22} /></div>
         <div>
           <span>현재 위치</span>
-          <strong>4학년 1학기</strong>
+          <strong>{currentLabel}</strong>
         </div>
         <div>
           <span>이수 학점</span>

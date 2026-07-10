@@ -55,9 +55,9 @@ export default function SemesterDetailSheet({
         </header>
 
         <div className="requirementSnapshot">
-          <span>제1전공: 40 / 42학점</span>
-          <span>제2전공: {actualCredits > 108 ? 35 : 32} / 42학점</span>
-          <span>교양: 충족</span>
+          <span>SSAI 전공: {Math.min(Math.max(actualCredits - 25, 0), 58)} / 58학점</span>
+          <span>교양: 22 / 32학점</span>
+          <span>총학점: {actualCredits} / {metrics.totalRequired}학점</span>
           <span>졸업인증: 준비 중</span>
         </div>
 

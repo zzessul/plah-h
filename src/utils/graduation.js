@@ -11,8 +11,11 @@ export function calculateGraduation(user, requirements, completedCourses, roadma
   const remainingCredits = Math.max(totalRequired - earnedCredits, 0);
   const progress = Math.min(Math.round((earnedCredits / totalRequired) * 100), 100);
 
-  const primaryEarned = requirements.primaryMajor.earned + (completedCourses.find((c) => c.id === 'need01')?.completed ? 2 : 0);
-  const secondEarned = requirements.secondMajor.earned + (completedCourses.find((c) => c.id === 'need02')?.completed ? 3 : 0);
+  const newlyCompletedMajorCredits = completedCourses
+    .filter((course) => course.completed && course.id.startsWith('need'))
+    .reduce((sum, course) => sum + course.credits, 0);
+  const primaryEarned = requirements.primaryMajor.earned + newlyCompletedMajorCredits;
+  const secondEarned = requirements.secondMajor.earned;
   const requiredEarned = requirements.requiredCourses.earned + completedCourses.filter((c) => c.completed && c.id.startsWith('need')).length;
 
   const areas = [
@@ -22,7 +25,7 @@ export function calculateGraduation(user, requirements, completedCourses, roadma
       earned: primaryEarned,
       required: requirements.primaryMajor.required,
       status: primaryEarned >= requirements.primaryMajor.required ? '충족' : '진행 중',
-      detail: '융합일본지역전공 필수/선택 학점',
+      detail: 'SSAI 전공필수, 공통계열기초, 전공심화 학점',
     },
     {
       key: 'secondMajor',
@@ -30,7 +33,7 @@ export function calculateGraduation(user, requirements, completedCourses, roadma
       earned: secondEarned,
       required: requirements.secondMajor.required,
       status: secondEarned >= requirements.secondMajor.required ? '충족' : '미충족',
-      detail: '전공선택 과목 3개 이상 추가 수강 필요',
+      detail: requirements.secondMajor.required > 0 ? '이수유형에 따른 추가 전공 학점 확인 필요' : '전공심화 단일전공 기준에서는 별도 제2전공 학점이 필요하지 않습니다.',
     },
     {
       key: 'liberalArts',

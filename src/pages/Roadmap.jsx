@@ -6,7 +6,7 @@ import RoadmapSummary from '../components/roadmap/RoadmapSummary';
 import SemesterDetailSheet from '../components/roadmap/SemesterDetailSheet';
 import SemesterNode from '../components/roadmap/SemesterNode';
 
-const STORAGE_KEY = 'plan-h-roadmap-v2';
+const STORAGE_KEY = 'plan-h-roadmap-ssai-v1';
 
 function loadRoadmapState() {
   try {
@@ -44,8 +44,22 @@ function toAppRoadmap(semesters) {
   }));
 }
 
-export default function Roadmap({ setRoadmap, metrics, completedCourses, setCompletedCourses }) {
-  const [semesters, setSemesters] = useState(loadRoadmapState);
+function currentOrder(user) {
+  const grade = Number(String(user?.grade || '2학년').replace(/[^0-9]/g, '')) || 2;
+  const semester = String(user?.semester || '1학기').includes('2') ? 2 : 1;
+  return Math.min(Math.max((grade - 1) * 2 + semester, 1), 8);
+}
+
+function applyUserStatus(semesters, user) {
+  const order = currentOrder(user);
+  return semesters.map((semester) => ({
+    ...semester,
+    status: semester.order < order ? 'completed' : semester.order === order ? 'current' : semester.status === 'attention' ? 'attention' : 'planned',
+  }));
+}
+
+export default function Roadmap({ setRoadmap, metrics, user, completedCourses, setCompletedCourses }) {
+  const [semesters, setSemesters] = useState(() => applyUserStatus(loadRoadmapState(), user));
   const [selectedId, setSelectedId] = useState(null);
   const topRef = useRef(null);
   const currentRef = useRef(null);
@@ -91,8 +105,8 @@ export default function Roadmap({ setRoadmap, metrics, completedCourses, setComp
     );
     if (changes.completed !== undefined) {
       const courseMap = {
-        'y4s1-01': 'need02',
-        'y4s1-03': 'need01',
+        'ssai-302': 'need01',
+        'ssai-303': 'need02',
       };
       const linkedId = courseMap[courseId];
       if (linkedId && completedCourses && setCompletedCourses) {
@@ -155,6 +169,7 @@ export default function Roadmap({ setRoadmap, metrics, completedCourses, setComp
   return (
     <div className="roadmapPage" ref={topRef}>
       <RoadmapSummary
+        currentLabel={`${user.grade} ${user.semester}`}
         actualCredits={actualCredits}
         totalCredits={metrics.totalRequired}
         remainingCredits={Math.max(metrics.totalRequired - actualCredits, 0)}

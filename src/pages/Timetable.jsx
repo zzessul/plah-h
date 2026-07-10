@@ -8,7 +8,7 @@ import { replacements } from '../data/mockData';
 const days = ['월', '화', '수', '목', '금'];
 const hours = [9, 10, 11, 12, 13, 14, 15, 16, 17];
 
-export default function Timetable({ plans, setPlans, activePlan, setActivePlan, setRoadmap }) {
+export default function Timetable({ plans, setPlans, activePlan, setActivePlan, setRoadmap, user }) {
   const [resultOpen, setResultOpen] = useState(false);
   const [conditionOpen, setConditionOpen] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -16,10 +16,10 @@ export default function Timetable({ plans, setPlans, activePlan, setActivePlan, 
   const [failed, setFailed] = useState('');
   const [statuses, setStatuses] = useState({});
   const [conditions, setConditions] = useState({
-    freeDay: '월',
-    morning: true,
+    freeDay: String(user?.freeDay || '금요일').replace('요일', ''),
+    morning: !String(user?.preferredTime || '').includes('오후'),
     requiredFirst: true,
-    lowTeamwork: true,
+    lowTeamwork: String(user?.teamwork || '').includes('낮'),
     maxCredits: 18,
     allowConsecutive: true,
   });
@@ -28,13 +28,25 @@ export default function Timetable({ plans, setPlans, activePlan, setActivePlan, 
   const totalCredits = plan.courses.reduce((sum, course) => sum + Number(course.credits || 3), 0);
 
   const savePlan = () => {
+    setPlans({
+      ...plans,
+      [activePlan]: {
+        ...plan,
+        tags: [
+          `${conditions.freeDay}요일 공강 선호`,
+          conditions.morning ? '오전 수업 허용' : '오후 수업 중심',
+          conditions.requiredFirst ? '전공필수 우선' : '관심 과목 우선',
+          `최대 ${conditions.maxCredits}학점`,
+        ],
+      },
+    });
     setSaved(true);
     window.setTimeout(() => setSaved(false), 1500);
   };
 
   const generatePlan = () => {
-    const keys = Object.keys(plans);
-    const nextKey = keys[(keys.indexOf(activePlan) + 1) % keys.length];
+    const interest = String(user?.interests || '');
+    const nextKey = interest.includes('미디어') || interest.includes('정책') ? 'C' : conditions.morning ? 'B' : 'A';
     setActivePlan(nextKey);
     setSaved(true);
     window.setTimeout(() => setSaved(false), 1500);
@@ -42,6 +54,9 @@ export default function Timetable({ plans, setPlans, activePlan, setActivePlan, 
 
   const applyReplacement = () => {
     if (!replacement) return;
+    const grade = Number(String(user?.grade || '2학년').replace(/[^0-9]/g, '')) || 2;
+    const semesterNumber = String(user?.semester || '1학기').includes('2') ? 2 : 1;
+    const currentTermId = `year${grade}-semester${semesterNumber}`;
     const updated = {
       ...plans,
       [replacement.targetPlan]: {
@@ -55,7 +70,7 @@ export default function Timetable({ plans, setPlans, activePlan, setActivePlan, 
     setActivePlan(replacement.targetPlan);
     setRoadmap((roadmap) =>
       roadmap.map((term) =>
-        term.id === 'year4-semester1'
+        term.id === currentTermId
           ? {
               ...term,
               courses: [

@@ -52,8 +52,8 @@ export default function Onboarding({ user, setUser, onStart }) {
       </section>
       {error && <p className="formError">{error}</p>}
       <div className="stickyActions">
-        <Button variant="secondary" onClick={() => { setError(''); setUser({ ...demoUser, earnedCredits: 108, totalCredits: 134 }); onStart(); }}>
-          데모 정보로 시작하기
+        <Button variant="secondary" onClick={() => { setError(''); setUser({ ...demoUser, name: user.name || '', studentId: user.studentId || '' }); }}>
+          SSAI 정보로 채우기
         </Button>
         <Button onClick={start}>홈 화면으로 이동</Button>
       </div>

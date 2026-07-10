@@ -5,6 +5,7 @@ import Card from '../components/Card';
 
 export default function Home({ user, metrics, completedCourses, setCompletedCourses, setActiveTab, events = [] }) {
   const [openKey, setOpenKey] = useState('primaryMajor');
+  const displayName = user.name?.trim() ? `${user.name.slice(1)}님` : 'SSAI 학생님';
 
   const toggleCourse = (id) => {
     setCompletedCourses(completedCourses.map((course) => (course.id === id ? { ...course, completed: !course.completed } : course)));
@@ -19,7 +20,7 @@ export default function Home({ user, metrics, completedCourses, setCompletedCour
       <section className="homeHero">
         <div>
           <p>{user.grade} {user.semester}</p>
-          <h2>{user.name.slice(1)}님, 졸업까지 {metrics.remainingCredits}학점 남았어요</h2>
+          <h2>{displayName}, 졸업까지 {metrics.remainingCredits}학점 남았어요</h2>
         </div>
         <button className="avatar" onClick={() => setActiveTab('detail')} aria-label="프로필 및 졸업요건 확인">
           <UserRound size={24} />
@@ -48,7 +49,7 @@ export default function Home({ user, metrics, completedCourses, setCompletedCour
             <span>{openKey === area.key ? <ChevronDown size={18} /> : <ChevronRight size={18} />}{area.label}</span>
             <strong>{area.earned} / {area.required}{area.key === 'requiredCourses' ? '개' : '학점'}</strong>
           </button>
-          <div className="miniProgress"><span style={{ width: `${Math.min((area.earned / area.required) * 100, 100)}%` }} /></div>
+          <div className="miniProgress"><span style={{ width: `${area.required ? Math.min((area.earned / area.required) * 100, 100) : 100}%` }} /></div>
           {openKey === area.key && (
             <div className="courseList">
               {completedCourses

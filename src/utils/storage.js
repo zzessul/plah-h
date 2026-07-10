@@ -1,6 +1,6 @@
 import { aiKnowledge, calendarSeed, completedCourses, demoUser, requirements, roadmapSeed, timetablePlans } from '../data/mockData';
 
-export const STORAGE_KEY = 'plan-h-demo-state';
+export const STORAGE_KEY = 'plan-h-demo-state-ssai-v1';
 
 export function createInitialState() {
   return {
