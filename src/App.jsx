@@ -35,8 +35,7 @@ export default function App() {
     return (
       <Onboarding
         user={state.user}
-        setUser={(user) => patch({ user })}
-        onStart={() => patch({ onboarded: true, activeTab: 'home' })}
+        onStart={(user) => patch({ user, onboarded: true, activeTab: 'home' })}
       />
     );
   }

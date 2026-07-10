@@ -234,6 +234,13 @@ input, select {
   padding: 10px;
   font-weight: 800;
 }
+.formSuccess {
+  background: #e6f7ee;
+  color: #0f7a4f;
+  border-radius: 8px;
+  padding: 10px;
+  font-weight: 800;
+}
 .settingsList {
   display: grid;
   gap: 10px;
