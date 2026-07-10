@@ -27,11 +27,22 @@ export default function Chat({ chat, setChat, user, metrics, events = [] }) {
   const [input, setInput] = useState('');
   const [source, setSource] = useState(null);
   const [introOpen, setIntroOpen] = useState(false);
-  const [speech, setSpeech] = useState(() => {
+  const [currentSources, setCurrentSources] = useState([]);
+  const [advisorMood, setAdvisorMood] = useState('상담 중');
+  const [speechKey, setSpeechKey] = useState(0);
+  const [currentSpeech, setCurrentSpeech] = useState(() => {
     const name = user.name?.trim();
     return name ? `${name}님, 졸업까지 ${metrics.remainingCredits}학점 남았어요!` : '무엇이 궁금한가요?';
   });
   const [imageFailed, setImageFailed] = useState(false);
+
+  const updateSpeech = (text, sources = [], mood = '상담 중') => {
+    setCurrentSpeech(text);
+    setCurrentSources(sources);
+    setAdvisorMood(mood);
+    setSpeechKey((key) => key + 1);
+    setChat([{ role: 'assistant', text, sources }]);
+  };
 
   const ask = (question) => {
     if (!question.trim()) return;
@@ -49,13 +60,12 @@ export default function Chat({ chat, setChat, user, metrics, events = [] }) {
       : `${prefix}${answer.a
           .replace('108학점', `${metrics.earnedCredits}학점`)
           .replace('26학점', `${metrics.remainingCredits}학점`)}`;
-    setChat([...chat, { role: 'user', text: question, sources: [] }, { role: 'assistant', text: dynamicText, sources: answer.sources }]);
-    setSpeech(question.includes('졸업') ? `졸업까지 ${metrics.remainingCredits}학점 남았어요.` : planiLines[Math.floor(Math.random() * planiLines.length)]);
+    const mood = question.includes('졸업') ? '졸업 체크 중' : question.includes('과목') || question.includes('데이터') ? '추천 과목 안내 중' : '상담 중';
+    updateSpeech(dynamicText, answer.sources, mood);
     setInput('');
   };
   const clearChat = () => {
-    setChat([{ role: 'assistant', text: '대화를 초기화했어요. 졸업요건, 추천 과목, 시간표, 학사일정을 다시 물어볼 수 있어요.', sources: [] }]);
-    setSpeech('질문을 선택하거나 직접 입력해보세요.');
+    updateSpeech('질문을 선택하거나 직접 입력해보세요. 플래니가 바로 옆에서 정리해드릴게요.', [], '상담 중');
   };
 
   return (
@@ -67,10 +77,18 @@ export default function Chat({ chat, setChat, user, metrics, events = [] }) {
       </section>
 
       <section className="planiHero">
-        <div className="planiSpeech">{speech}</div>
+        <div className="planiSpeech" key={speechKey}>
+          <span className="planiMood">{advisorMood}</span>
+          <p>{currentSpeech}</p>
+          {!!currentSources.length && (
+            <div className="speechSources">
+              {currentSources.slice(0, 3).map((item) => <button key={item} onClick={() => setSource(item)}>{item}</button>)}
+            </div>
+          )}
+        </div>
         <button
           className="planiMascotButton"
-          onClick={() => setSpeech(planiLines[Math.floor(Math.random() * planiLines.length)])}
+          onClick={() => updateSpeech(planiLines[Math.floor(Math.random() * planiLines.length)], [], '상담 중')}
           aria-label="플래니에게 말 걸기"
         >
           {!imageFailed ? (
@@ -98,35 +116,8 @@ export default function Chat({ chat, setChat, user, metrics, events = [] }) {
         <Button variant="ghost" onClick={clearChat}>대화 초기화</Button>
       </Card>
 
-      <div className="messages">
-        {chat.length <= 1 && (
-          <div className="planiEmptyState">
-            <strong>질문을 선택하거나 직접 입력해보세요</strong>
-            <span>플래니가 SSAI 졸업요건과 다음 학기 계획을 함께 정리해드릴게요.</span>
-          </div>
-        )}
-        {chat.map((message, index) => (
-          <div key={`${message.role}-${index}`} className={`message ${message.role}`}>
-            {message.role === 'assistant' && (
-              <div className="miniPlaniAvatar">
-                {!imageFailed ? <img src={planiMascot} alt="" /> : <span>플</span>}
-              </div>
-            )}
-            <div className="messageBubble">
-              {message.role === 'assistant' && <strong className="messageLabel">플래니가 말해요</strong>}
-              <p>{message.text}</p>
-              {!!message.sources.length && (
-                <div className="sourceCards">
-                  {message.sources.map((item) => <button key={item} onClick={() => setSource(item)}>{item}</button>)}
-                </div>
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
-
       <div className="chatInput">
-        <input value={input} onChange={(event) => setInput(event.target.value)} onKeyDown={(event) => event.key === 'Enter' && ask(input)} placeholder="졸업요건을 물어보세요" />
+        <input value={input} onChange={(event) => setInput(event.target.value)} onKeyDown={(event) => event.key === 'Enter' && ask(input)} placeholder="플래니에게 궁금한 것을 물어보세요" />
         <button className="iconButton filled" onClick={() => ask(input)} aria-label="전송"><Send size={18} /></button>
       </div>
 
