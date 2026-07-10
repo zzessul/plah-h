@@ -107,13 +107,20 @@ export default function Chat({ chat, setChat, user, metrics, events = [] }) {
         )}
         {chat.map((message, index) => (
           <div key={`${message.role}-${index}`} className={`message ${message.role}`}>
-            {message.role === 'assistant' && <strong className="messageLabel">플래니</strong>}
-            <p>{message.text}</p>
-            {!!message.sources.length && (
-              <div className="sourceCards">
-                {message.sources.map((item) => <button key={item} onClick={() => setSource(item)}>{item}</button>)}
+            {message.role === 'assistant' && (
+              <div className="miniPlaniAvatar">
+                {!imageFailed ? <img src={planiMascot} alt="" /> : <span>플</span>}
               </div>
             )}
+            <div className="messageBubble">
+              {message.role === 'assistant' && <strong className="messageLabel">플래니가 말해요</strong>}
+              <p>{message.text}</p>
+              {!!message.sources.length && (
+                <div className="sourceCards">
+                  {message.sources.map((item) => <button key={item} onClick={() => setSource(item)}>{item}</button>)}
+                </div>
+              )}
+            </div>
           </div>
         ))}
       </div>
