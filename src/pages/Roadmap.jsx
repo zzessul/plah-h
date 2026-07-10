@@ -44,7 +44,7 @@ function toAppRoadmap(semesters) {
   }));
 }
 
-export default function Roadmap({ setRoadmap, metrics }) {
+export default function Roadmap({ setRoadmap, metrics, completedCourses, setCompletedCourses }) {
   const [semesters, setSemesters] = useState(loadRoadmapState);
   const [selectedId, setSelectedId] = useState(null);
   const topRef = useRef(null);
@@ -89,6 +89,58 @@ export default function Roadmap({ setRoadmap, metrics }) {
           : semester,
       ),
     );
+    if (changes.completed !== undefined) {
+      const courseMap = {
+        'y4s1-01': 'need02',
+        'y4s1-03': 'need01',
+      };
+      const linkedId = courseMap[courseId];
+      if (linkedId && completedCourses && setCompletedCourses) {
+        setCompletedCourses(completedCourses.map((course) => (course.id === linkedId ? { ...course, completed: changes.completed } : course)));
+      }
+    }
+  };
+
+  const addCourse = (semesterId, course) => {
+    setSemesters((current) =>
+      current.map((semester) =>
+        semester.id === semesterId && !semester.courses.some((item) => item.name === course.name)
+          ? { ...semester, courses: [...semester.courses, course] }
+          : semester,
+      ),
+    );
+  };
+
+  const removeCourse = (semesterId, courseId) => {
+    setSemesters((current) =>
+      current.map((semester) =>
+        semester.id === semesterId
+          ? {
+              ...semester,
+              status: semester.courses.find((course) => course.id === courseId)?.required ? 'attention' : semester.status,
+              courses: semester.courses.filter((course) => course.id !== courseId),
+            }
+          : semester,
+      ),
+    );
+  };
+
+  const moveCourse = (fromSemesterId, courseId, toSemesterId) => {
+    if (fromSemesterId === toSemesterId) return;
+    setSemesters((current) => {
+      const source = current.find((semester) => semester.id === fromSemesterId);
+      const moving = source?.courses.find((course) => course.id === courseId);
+      if (!moving) return current;
+      return current.map((semester) => {
+        if (semester.id === fromSemesterId) {
+          return { ...semester, courses: semester.courses.filter((course) => course.id !== courseId) };
+        }
+        if (semester.id === toSemesterId && !semester.courses.some((course) => course.id === courseId)) {
+          return { ...semester, courses: [...semester.courses, moving] };
+        }
+        return semester;
+      });
+    });
   };
 
   const scrollToCurrent = () => {
@@ -141,6 +193,10 @@ export default function Roadmap({ setRoadmap, metrics }) {
           onClose={() => setSelectedId(null)}
           onToggleComplete={(courseId, completed) => updateCourse(selectedSemester.id, courseId, { completed })}
           onToggleIncluded={(courseId, included) => updateCourse(selectedSemester.id, courseId, { included })}
+          semesters={semesters}
+          onAddCourse={addCourse}
+          onRemoveCourse={removeCourse}
+          onMoveCourse={moveCourse}
         />
       )}
     </div>

@@ -5,8 +5,9 @@ export function calculateGraduation(user, requirements, completedCourses, roadma
   const extraCompleted = completedCourses
     .filter((course) => course.completed && course.id.startsWith('need'))
     .reduce((sum, course) => sum + course.credits, 0);
-  const earnedCredits = 108 + extraCompleted;
-  const totalRequired = requirements.totalCredits;
+  const baseCredits = Number(user.earnedCredits || 108);
+  const earnedCredits = baseCredits + extraCompleted;
+  const totalRequired = Number(user.totalCredits || requirements.totalCredits);
   const remainingCredits = Math.max(totalRequired - earnedCredits, 0);
   const progress = Math.min(Math.round((earnedCredits / totalRequired) * 100), 100);
 

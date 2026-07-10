@@ -23,6 +23,13 @@ export default function App() {
   );
 
   const patch = (partial) => setState((current) => ({ ...current, ...partial }));
+  const setRoadmapState = (roadmap) =>
+    setState((current) => ({
+      ...current,
+      roadmap: typeof roadmap === 'function' ? roadmap(current.roadmap) : roadmap,
+    }));
+
+  const resetAll = () => setState({ ...resetState(), onboarded: true, activeTab: 'home' });
 
   if (!state.onboarded) {
     return (
@@ -42,20 +49,38 @@ export default function App() {
         completedCourses={state.completedCourses}
         setCompletedCourses={(completedCourses) => patch({ completedCourses })}
         setActiveTab={(activeTab) => patch({ activeTab })}
+        events={state.calendar}
       />
     ),
     detail: <GraduationDetail metrics={metrics} setActiveTab={(activeTab) => patch({ activeTab })} />,
-    roadmap: <Roadmap roadmap={state.roadmap} setRoadmap={(roadmap) => patch({ roadmap })} metrics={metrics} />,
-    timetable: <Timetable plans={state.timetablePlans} activePlan={state.activePlan} setActivePlan={(activePlan) => patch({ activePlan })} />,
+    roadmap: (
+      <Roadmap
+        roadmap={state.roadmap}
+        setRoadmap={setRoadmapState}
+        metrics={metrics}
+        completedCourses={state.completedCourses}
+        setCompletedCourses={(completedCourses) => patch({ completedCourses })}
+      />
+    ),
+    timetable: (
+      <Timetable
+        plans={state.timetablePlans}
+        setPlans={(timetablePlans) => patch({ timetablePlans })}
+        activePlan={state.activePlan}
+        setActivePlan={(activePlan) => patch({ activePlan })}
+        setRoadmap={setRoadmapState}
+      />
+    ),
     calendar: <CalendarPage events={state.calendar} setEvents={(calendar) => patch({ calendar })} />,
-    chat: <Chat chat={state.chat} setChat={(chat) => patch({ chat })} user={state.user} />,
+    chat: <Chat chat={state.chat} setChat={(chat) => patch({ chat })} user={state.user} metrics={metrics} events={state.calendar} />,
   }[state.activeTab];
 
   return (
     <AppShell
       activeTab={state.activeTab}
       setActiveTab={(activeTab) => patch({ activeTab })}
-      onReset={() => setState(resetState())}
+      onReset={resetAll}
+      onEditProfile={() => patch({ onboarded: false })}
     >
       {page}
     </AppShell>

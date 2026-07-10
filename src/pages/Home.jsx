@@ -1,16 +1,18 @@
-import { CheckCircle2, ChevronDown, ChevronRight, TriangleAlert, UserRound } from 'lucide-react';
+import { ChevronDown, ChevronRight, TriangleAlert, UserRound } from 'lucide-react';
 import { useState } from 'react';
 import Button from '../components/Button';
 import Card from '../components/Card';
 
-export default function Home({ user, metrics, completedCourses, setCompletedCourses, setActiveTab }) {
+export default function Home({ user, metrics, completedCourses, setCompletedCourses, setActiveTab, events = [] }) {
   const [openKey, setOpenKey] = useState('primaryMajor');
 
   const toggleCourse = (id) => {
     setCompletedCourses(completedCourses.map((course) => (course.id === id ? { ...course, completed: !course.completed } : course)));
   };
 
-  const upcoming = ['7월 15일 수강편람 공개', '8월 4일 수강신청 시작', '10월 15일 중간고사 기간', '12월 1일 졸업신청 서류 확인'];
+  const upcoming = [...events]
+    .sort((a, b) => a.date.localeCompare(b.date))
+    .slice(0, 4);
 
   return (
     <div className="pageStack">
@@ -19,9 +21,9 @@ export default function Home({ user, metrics, completedCourses, setCompletedCour
           <p>{user.grade} {user.semester}</p>
           <h2>{user.name.slice(1)}님, 졸업까지 {metrics.remainingCredits}학점 남았어요</h2>
         </div>
-        <div className="avatar">
+        <button className="avatar" onClick={() => setActiveTab('detail')} aria-label="프로필 및 졸업요건 확인">
           <UserRound size={24} />
-        </div>
+        </button>
       </section>
 
       <Card className="progressCard" onClick={() => setActiveTab('detail')}>
@@ -75,7 +77,11 @@ export default function Home({ user, metrics, completedCourses, setCompletedCour
       <Card>
         <h3>다음 일정</h3>
         <div className="eventList">
-          {upcoming.map((item) => <span key={item}>{item}</span>)}
+          {upcoming.map((item) => (
+            <button className="eventButton" key={item.id || item.title} onClick={() => setActiveTab('calendar')}>
+              {item.date?.slice(5).replace('-', '월 ')}일 · {item.title || item}
+            </button>
+          ))}
         </div>
       </Card>
     </div>
