@@ -1027,6 +1027,195 @@ input, select {
   background: #f7f9fc;
   padding-top: 8px;
 }
+.planiChatPage {
+  gap: 12px;
+}
+.planiHeader {
+  display: grid;
+  gap: 4px;
+}
+.planiHeader h2 {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.28;
+  letter-spacing: 0;
+}
+.planiHeader span {
+  color: #7a6ca7;
+  font-size: 12px;
+  font-weight: 800;
+}
+.planiHero {
+  position: relative;
+  min-height: 286px;
+  border: 1px solid #e3dbf7;
+  border-radius: 14px;
+  padding: 14px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 28%, rgba(255, 255, 255, .92), transparent 24%),
+    linear-gradient(180deg, #f2eaff 0%, #f9f7ff 100%);
+  box-shadow: 0 8px 24px rgba(93, 75, 150, .12);
+}
+.planiHero::before,
+.planiHero::after {
+  content: "✦";
+  position: absolute;
+  color: #d9b650;
+  font-size: 20px;
+  opacity: .72;
+}
+.planiHero::before { left: 34px; top: 86px; }
+.planiHero::after { right: 42px; top: 142px; color: #9d85d8; }
+.planiSpeech {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  max-width: 178px;
+  border-radius: 18px 18px 18px 6px;
+  padding: 10px 12px;
+  background: #fff;
+  color: #2a3150;
+  font-size: 13px;
+  font-weight: 900;
+  line-height: 1.35;
+  box-shadow: 0 8px 18px rgba(55, 42, 100, .13);
+  animation: speechIn .35s ease both;
+  z-index: 2;
+}
+.planiMascotButton {
+  position: absolute;
+  left: 50%;
+  top: 34px;
+  transform: translateX(-50%);
+  width: 205px;
+  height: 205px;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  animation: planiFloat 3.2s ease-in-out infinite;
+}
+.planiMascotButton img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 67%;
+  border-radius: 50%;
+  background: #eee5ff;
+  filter: drop-shadow(0 12px 18px rgba(40, 31, 87, .22));
+}
+.planiFallback {
+  width: 150px;
+  height: 150px;
+  margin: 24px auto 0;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #1d2f6f;
+  color: #fff;
+  font-weight: 900;
+}
+.planiBadge {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 14px;
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .88);
+  border: 1px solid rgba(145, 123, 199, .32);
+}
+.planiBadge strong {
+  color: #8065c7;
+  font-size: 18px;
+}
+.planiBadge span {
+  color: #625b73;
+  font-size: 11px;
+  text-align: center;
+  line-height: 1.25;
+}
+.planiIntroButton {
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  min-height: 34px;
+  border: 1px solid #ded3f5;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .86);
+  color: #6d57ad;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 10px;
+  font-size: 12px;
+  font-weight: 900;
+  z-index: 2;
+}
+.planiSuggestions {
+  background: #fff;
+}
+.suggestionChips {
+  display: flex;
+  gap: 7px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  scrollbar-width: none;
+}
+.suggestionChips::-webkit-scrollbar { display: none; }
+.suggestionChips button {
+  flex: 0 0 auto;
+  max-width: 220px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.planiEmptyState {
+  display: grid;
+  gap: 4px;
+  justify-items: center;
+  text-align: center;
+  border: 1px dashed #d8caef;
+  background: #faf7ff;
+  border-radius: 12px;
+  padding: 14px;
+  color: #6d5b8f;
+}
+.planiEmptyState span {
+  color: #7c748b;
+  font-size: 12px;
+  line-height: 1.4;
+}
+.messageLabel {
+  display: inline-flex;
+  margin-bottom: 5px;
+  color: #7b61bd;
+  font-size: 12px;
+}
+.planiIntroCard strong {
+  display: block;
+  margin-bottom: 6px;
+}
+.planiIntroCard p {
+  margin: 0;
+}
+.planiChatPage .chatInput {
+  border-top: 1px solid #e9e2f6;
+  padding: 8px 0 2px;
+}
+.planiChatPage .chatInput input {
+  border-radius: 999px;
+}
+@keyframes planiFloat {
+  0%, 100% { transform: translateX(-50%) translateY(0) scale(1); }
+  50% { transform: translateX(-50%) translateY(-7px) scale(1.015); }
+}
+@keyframes speechIn {
+  from { opacity: 0; transform: translateY(6px) scale(.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
 
 .modalBackdrop {
   position: fixed;
