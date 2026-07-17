@@ -17,11 +17,20 @@ export default function MyPage({ user, onEditProfile, onReset, setActiveTab }) {
   const [modal, setModal] = useState(null);
   const [feedback, setFeedback] = useState({ type: '사용성 피드백', message: '', contact: '' });
   const [feedbackSent, setFeedbackSent] = useState(false);
+  const [notifications, setNotifications] = useState({
+    enabled: true,
+    quiet: false,
+    badge: true,
+    academic: true,
+    registration: true,
+    graduation: true,
+  });
   const interests = String(user.interests || '').split(',').map((item) => item.trim()).filter(Boolean);
+  const toggleNotification = (key) => setNotifications((current) => ({ ...current, [key]: !current[key] }));
   const openMenu = (title) => {
     if (title === '학업 목표 설정') return setActiveTab('detail');
     if (title === '관심 분야') return onEditProfile();
-    if (title === '알림 설정') return setActiveTab('calendar');
+    if (title === '알림 설정') return setModal('notifications');
     if (title === '앱 설정') return setModal('settings');
     if (title === '문의 및 피드백') {
       setFeedbackSent(false);
@@ -60,6 +69,45 @@ export default function MyPage({ user, onEditProfile, onReset, setActiveTab }) {
       {modal === 'info' && (
         <Modal title="앱 정보" onClose={() => setModal(null)}>
           <p>Plan H · 한국외국어대학교 SSAI 학생 고객검증용 AI 학업 관리 프로토타입</p>
+        </Modal>
+      )}
+      {modal === 'notifications' && (
+        <Modal title="알림 설정" onClose={() => setModal(null)}>
+          <div className="notificationSettings">
+            <div className="notificationAppHeader">
+              <span><Bell size={20} /></span>
+              <div>
+                <strong>Plan H 알림</strong>
+                <p>학사일정과 수강신청, 졸업요건 점검 알림을 관리해요.</p>
+              </div>
+            </div>
+            <button className="notificationMaster" onClick={() => toggleNotification('enabled')}>
+              <span>알림 표시</span>
+              <span className={notifications.enabled ? 'toggleSwitch on' : 'toggleSwitch'} aria-hidden="true"><i /></span>
+            </button>
+            <section className={notifications.enabled ? 'notificationGroup' : 'notificationGroup disabled'}>
+              <p>알림 방식</p>
+              <label className="radioRow">
+                <input type="radio" checked={!notifications.quiet} onChange={() => setNotifications((current) => ({ ...current, quiet: false }))} disabled={!notifications.enabled} />
+                소리와 진동 허용
+              </label>
+              <label className="radioRow">
+                <input type="radio" checked={notifications.quiet} onChange={() => setNotifications((current) => ({ ...current, quiet: true }))} disabled={!notifications.enabled} />
+                알림 조용히 받기
+              </label>
+            </section>
+            {[
+              ['badge', '앱 아이콘 배지', '확인할 일정이 있으면 배지로 표시'],
+              ['academic', '학사일정 알림', '개강, 휴강, 시험, 성적 공지'],
+              ['registration', '수강신청 알림', '장바구니, 본신청, 정정 기간'],
+              ['graduation', '졸업요건 알림', '필수과목과 인증 점검'],
+            ].map(([key, title, detail]) => (
+              <button key={key} className={notifications.enabled ? 'notificationToggleRow' : 'notificationToggleRow disabled'} onClick={() => notifications.enabled && toggleNotification(key)}>
+                <span><strong>{title}</strong><small>{detail}</small></span>
+                <span className={notifications[key] && notifications.enabled ? 'toggleSwitch on' : 'toggleSwitch'} aria-hidden="true"><i /></span>
+              </button>
+            ))}
+          </div>
         </Modal>
       )}
       {modal === 'feedback' && (

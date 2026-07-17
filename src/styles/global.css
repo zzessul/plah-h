@@ -342,6 +342,135 @@ input, select {
   color: var(--muted);
   line-height: 1.5;
 }
+.notificationSettings {
+  display: grid;
+  gap: 12px;
+}
+.notificationAppHeader {
+  display: grid;
+  grid-template-columns: 46px 1fr;
+  gap: 11px;
+  align-items: center;
+}
+.notificationAppHeader > span {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(180deg, #eaf5fd, #dbeeff);
+  color: var(--blue);
+}
+.notificationAppHeader strong {
+  display: block;
+  color: var(--navy);
+  font-size: 16px;
+}
+.notificationAppHeader p {
+  margin: 3px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.4;
+}
+.notificationMaster,
+.notificationToggleRow {
+  width: 100%;
+  border: 0;
+  border-radius: 18px;
+  background: #f1f4f8;
+  color: var(--navy);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px;
+  text-align: left;
+}
+.notificationMaster {
+  min-height: 68px;
+  font-size: 18px;
+  font-weight: 900;
+}
+.notificationGroup {
+  display: grid;
+  gap: 0;
+  border-radius: 18px;
+  background: #fff;
+  overflow: hidden;
+  border: 1px solid #eef2f7;
+}
+.notificationGroup p {
+  margin: 0;
+  padding: 12px 16px 4px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+}
+.radioRow {
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+  color: var(--text);
+  font-weight: 850;
+}
+.radioRow + .radioRow {
+  border-top: 1px solid #eef2f7;
+}
+.radioRow input {
+  width: 22px;
+  height: 22px;
+  accent-color: #168bf2;
+}
+.notificationToggleRow {
+  min-height: 66px;
+  background: #fff;
+  border: 1px solid #eef2f7;
+}
+.notificationToggleRow strong,
+.notificationToggleRow small {
+  display: block;
+}
+.notificationToggleRow strong {
+  color: var(--text);
+  font-size: 14px;
+}
+.notificationToggleRow small {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 11px;
+}
+.notificationGroup.disabled,
+.notificationToggleRow.disabled {
+  opacity: .52;
+}
+.toggleSwitch {
+  position: relative;
+  width: 48px;
+  height: 28px;
+  border-radius: 999px;
+  background: #d4dbe6;
+  flex: 0 0 auto;
+  transition: background .18s ease;
+}
+.toggleSwitch i {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(20,43,99,.18);
+  transition: transform .18s ease;
+}
+.toggleSwitch.on {
+  background: #168bf2;
+}
+.toggleSwitch.on i {
+  transform: translateX(20px);
+}
 .switchRow {
   display: flex !important;
   align-items: center;
