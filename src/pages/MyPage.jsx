@@ -15,14 +15,24 @@ const menu = [
 
 export default function MyPage({ user, onEditProfile, onReset, setActiveTab }) {
   const [modal, setModal] = useState(null);
+  const [feedback, setFeedback] = useState({ type: '사용성 피드백', message: '', contact: '' });
+  const [feedbackSent, setFeedbackSent] = useState(false);
   const interests = String(user.interests || '').split(',').map((item) => item.trim()).filter(Boolean);
   const openMenu = (title) => {
     if (title === '학업 목표 설정') return setActiveTab('detail');
     if (title === '관심 분야') return onEditProfile();
     if (title === '알림 설정') return setActiveTab('calendar');
     if (title === '앱 설정') return setModal('settings');
-    if (title === '문의 및 피드백') return setActiveTab('chat');
+    if (title === '문의 및 피드백') {
+      setFeedbackSent(false);
+      return setModal('feedback');
+    }
     return setModal('info');
+  };
+  const submitFeedback = (event) => {
+    event.preventDefault();
+    if (!feedback.message.trim()) return;
+    setFeedbackSent(true);
   };
 
   return (
@@ -50,6 +60,35 @@ export default function MyPage({ user, onEditProfile, onReset, setActiveTab }) {
       {modal === 'info' && (
         <Modal title="앱 정보" onClose={() => setModal(null)}>
           <p>Plan H · 한국외국어대학교 SSAI 학생 고객검증용 AI 학업 관리 프로토타입</p>
+        </Modal>
+      )}
+      {modal === 'feedback' && (
+        <Modal title="문의 및 피드백" onClose={() => setModal(null)}>
+          {feedbackSent ? (
+            <div className="feedbackDone">
+              <strong>의견이 접수되었습니다.</strong>
+              <p>시연용 프로토타입이라 실제 서버 전송은 연결하지 않았지만, 입력 흐름과 접수 화면을 확인할 수 있어요.</p>
+              <Button onClick={() => setModal(null)}>확인</Button>
+            </div>
+          ) : (
+            <form className="feedbackForm" onSubmit={submitFeedback}>
+              <label>유형
+                <select value={feedback.type} onChange={(event) => setFeedback({ ...feedback, type: event.target.value })}>
+                  <option>사용성 피드백</option>
+                  <option>오류 제보</option>
+                  <option>데이터 수정 요청</option>
+                  <option>기능 제안</option>
+                </select>
+              </label>
+              <label>의견 내용
+                <textarea value={feedback.message} onChange={(event) => setFeedback({ ...feedback, message: event.target.value })} placeholder="불편했던 점이나 추가되면 좋을 기능을 적어주세요." rows={5} />
+              </label>
+              <label>연락처 또는 이메일 <span>선택</span>
+                <input value={feedback.contact} onChange={(event) => setFeedback({ ...feedback, contact: event.target.value })} placeholder="답변이 필요하면 입력해주세요" />
+              </label>
+              <Button type="submit">의견 보내기</Button>
+            </form>
+          )}
         </Modal>
       )}
     </div>

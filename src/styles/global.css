@@ -302,6 +302,45 @@ input, select {
   color: #667386;
   line-height: 1.45;
 }
+.feedbackForm {
+  display: grid;
+  gap: 12px;
+}
+.feedbackForm label {
+  display: grid;
+  gap: 7px;
+  color: var(--navy);
+  font-size: 13px;
+  font-weight: 900;
+}
+.feedbackForm label span {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+}
+.feedbackForm textarea {
+  width: 100%;
+  resize: vertical;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #f8fbff;
+  color: var(--text);
+  padding: 11px 12px;
+  line-height: 1.45;
+}
+.feedbackDone {
+  display: grid;
+  gap: 10px;
+}
+.feedbackDone strong {
+  color: var(--navy);
+  font-size: 17px;
+}
+.feedbackDone p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.5;
+}
 .switchRow {
   display: flex !important;
   align-items: center;
@@ -993,7 +1032,7 @@ input, select {
   min-width: 0;
   width: 100%;
 }
-.monthGrid button.selected { border-color: #1d2f6f; background: #edf4ff; }
+.monthGrid button.selected { border-color: #c8d6e8; background: var(--background); }
 .monthGrid i {
   width: 6px;
   height: 6px;
@@ -1557,7 +1596,7 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 .weekdayRow span:first-child { color: var(--danger); }
 .emptyDay { aspect-ratio: 1 / 1; }
 .monthGrid button { border: 1px solid #e1e7f0; border-radius: 8px; }
-.monthGrid button.selected { border-color: #1d2f6f; background: #edf4ff; color: var(--text); }
+.monthGrid button.selected { border-color: #c8d6e8; background: var(--background); color: var(--text); }
 
 @media (max-width: 350px) {
   .screen { padding-left: 12px; padding-right: 12px; }
