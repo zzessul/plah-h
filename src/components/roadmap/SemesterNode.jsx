@@ -1,5 +1,5 @@
 import { AlertTriangle, Check, Navigation } from 'lucide-react';
-import { semesterPositions } from '../../data/roadmapData';
+import { semesterPositions } from '../../data/legacyMockData/roadmapData';
 
 function NodeIcon({ semester }) {
   if (semester.status === 'completed') return <Check size={24} />;
@@ -26,7 +26,7 @@ export default function SemesterNode({ semester, isSelected, statusLabel, onClic
       <button className="semesterNodeText" onClick={onClick}>
         <strong>{semester.label}</strong>
         <span>{summary}</span>
-        {requiredCount > 0 && <small>전공필수 {requiredCount}과목</small>}
+        {requiredCount > 0 && <small>필수 {requiredCount}과목</small>}
         {semester.status === 'current' && <em>현재</em>}
         {semester.status === 'attention' && <em>주의</em>}
         <i>{statusLabel}</i>

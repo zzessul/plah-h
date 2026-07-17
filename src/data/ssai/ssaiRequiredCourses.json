@@ -1,0 +1,40 @@
+[
+  {
+    "requirementId": "ssai-current-curriculum-major-required",
+    "admissionYearFrom": 2024,
+    "admissionYearTo": null,
+    "completionType": null,
+    "requiredCourseIds": [
+      "ssai-소셜-데이터-프로그래밍-기초1",
+      "ssai-확률과통계",
+      "ssai-ai윤리",
+      "ssai-사회과학연구방법론1",
+      "ssai-기계학습",
+      "ssai-객체지향형프로그래밍",
+      "ssai-사회과학-데이터의-자료구조",
+      "ssai-딥러닝-및-응용",
+      "ssai-알고리즘"
+    ],
+    "chooseCount": null,
+    "minimumCredits": null,
+    "alternativeCourseGroups": [
+      [
+        "ssai-ai윤리",
+        "lai-ai-ethics"
+      ],
+      [
+        "ssai-확률과통계",
+        "lai-probability-statistics"
+      ]
+    ],
+    "source": {
+      "documentTitle": "한국외국어대학교 Social Science & AI융합학부 공식 홈페이지",
+      "page": null,
+      "url": "https://ssai.hufs.ac.kr/ssai/10867/subview.do",
+      "section": "SSAI학부 커리큘럼",
+      "originalText": "전공필수 열에 표시된 교과목"
+    },
+    "confidence": "high",
+    "verificationRequired": false
+  }
+]

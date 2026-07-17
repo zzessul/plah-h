@@ -1,0 +1,159 @@
+[
+  {
+    "id": "ssai-official-curriculum",
+    "name": "SSAI 공식 교육과정형",
+    "targetCompletionType": null,
+    "description": "SSAI 공식 홈페이지의 학년·학기별 교육과정",
+    "semesterPlans": [
+      {
+        "year": 1,
+        "semester": 1,
+        "recommendedCreditRange": [
+          19,
+          20
+        ],
+        "priorityCourseIds": [
+          "ssai-미네르바인문1",
+          "ssai-college-english-l-s",
+          "ssai-college-english-r-w",
+          "ssai-신입생-세미나",
+          "ssai-인공지능기초수학",
+          "ssai-기초프로그래밍-컴퓨팅사고",
+          "ssai-인공지능개론"
+        ],
+        "recommendedCategories": [],
+        "goals": [],
+        "constraints": [
+          "학기당 최대 20학점"
+        ]
+      },
+      {
+        "year": 1,
+        "semester": 2,
+        "recommendedCreditRange": [
+          21,
+          20
+        ],
+        "priorityCourseIds": [
+          "ssai-미네르바인문2",
+          "ssai-english-for-stem",
+          "ssai-writing-for-stem",
+          "ssai-소셜-데이터-프로그래밍-기초1",
+          "ssai-확률과통계",
+          "ssai-ai윤리"
+        ],
+        "recommendedCategories": [],
+        "goals": [],
+        "constraints": [
+          "학기당 최대 20학점"
+        ]
+      },
+      {
+        "year": 2,
+        "semester": 1,
+        "recommendedCreditRange": [
+          13,
+          20
+        ],
+        "priorityCourseIds": [
+          "ssai-사회과학연구방법론1",
+          "ssai-기계학습",
+          "ssai-객체지향형프로그래밍"
+        ],
+        "recommendedCategories": [],
+        "goals": [],
+        "constraints": [
+          "학기당 최대 20학점"
+        ]
+      },
+      {
+        "year": 2,
+        "semester": 2,
+        "recommendedCreditRange": [
+          9,
+          20
+        ],
+        "priorityCourseIds": [
+          "ssai-사회과학-데이터의-자료구조"
+        ],
+        "recommendedCategories": [],
+        "goals": [],
+        "constraints": [
+          "학기당 최대 20학점"
+        ]
+      },
+      {
+        "year": 3,
+        "semester": 1,
+        "recommendedCreditRange": [
+          15,
+          20
+        ],
+        "priorityCourseIds": [
+          "ssai-딥러닝-및-응용",
+          "ssai-알고리즘"
+        ],
+        "recommendedCategories": [],
+        "goals": [],
+        "constraints": [
+          "학기당 최대 20학점"
+        ]
+      },
+      {
+        "year": 3,
+        "semester": 2,
+        "recommendedCreditRange": [
+          null,
+          20
+        ],
+        "priorityCourseIds": [],
+        "recommendedCategories": [],
+        "goals": [],
+        "constraints": [
+          "학기당 최대 20학점"
+        ]
+      },
+      {
+        "year": 4,
+        "semester": 1,
+        "recommendedCreditRange": [
+          null,
+          20
+        ],
+        "priorityCourseIds": [],
+        "recommendedCategories": [],
+        "goals": [],
+        "constraints": [
+          "학기당 최대 20학점"
+        ]
+      },
+      {
+        "year": 4,
+        "semester": 2,
+        "recommendedCreditRange": [
+          null,
+          20
+        ],
+        "priorityCourseIds": [],
+        "recommendedCategories": [],
+        "goals": [],
+        "constraints": [
+          "학기당 최대 20학점"
+        ]
+      }
+    ],
+    "assumptions": [],
+    "warnings": [
+      "3학년 2학기 이후 과목은 공식 표에서 학기별로 분리되지 않음"
+    ],
+    "sourceType": "official",
+    "source": {
+      "documentTitle": "한국외국어대학교 Social Science & AI융합학부 공식 홈페이지",
+      "page": null,
+      "url": "https://ssai.hufs.ac.kr/ssai/10867/subview.do",
+      "section": "SSAI학부 커리큘럼",
+      "originalText": "학년·학기별 교육과정"
+    },
+    "verificationRequired": true
+  }
+]

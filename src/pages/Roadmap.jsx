@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { roadmapData } from '../data/roadmapData';
+import { roadmapData } from '../data/ssai/officialAppData';
 import GraduationNode from '../components/roadmap/GraduationNode';
 import RoadmapPath from '../components/roadmap/RoadmapPath';
 import RoadmapSummary from '../components/roadmap/RoadmapSummary';
 import SemesterDetailSheet from '../components/roadmap/SemesterDetailSheet';
 import SemesterNode from '../components/roadmap/SemesterNode';
 
-const STORAGE_KEY = 'plan-h-roadmap-ssai-v1';
+const STORAGE_KEY = 'plan-h-roadmap-official-ssai-v2';
 
 function loadRoadmapState() {
   try {
@@ -76,6 +76,7 @@ export default function Roadmap({ setRoadmap, metrics, user, completedCourses, s
 
   const selectedSemester = semesters.find((semester) => semester.id === selectedId);
   const actualCredits = useMemo(() => {
+    const profileCredits = Number(user?.earnedCredits || 0);
     const completedPast = semesters
       .filter((semester) => semester.status === 'completed')
       .reduce((sum, semester) => sum + semester.completedCredits, 0);
@@ -84,8 +85,8 @@ export default function Roadmap({ setRoadmap, metrics, user, completedCourses, s
       .flatMap((semester) => semester.courses)
       .filter((course) => course.included !== false && course.completed)
       .reduce((sum, course) => sum + course.credits, 0);
-    return completedPast + activeCompleted;
-  }, [semesters]);
+    return Math.max(profileCredits, completedPast) + activeCompleted;
+  }, [semesters, user?.earnedCredits]);
   const completedCount = semesters.filter((semester) => semester.status === 'completed').length;
   const lastRequiredMissing = semesters
     .find((semester) => semester.id === 'year4-semester2')

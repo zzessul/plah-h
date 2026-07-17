@@ -25,7 +25,8 @@ export default function CalendarPage({ events, setEvents }) {
   const monthDays = useMemo(() => {
     const [year, monthIndex] = month.split('-').map(Number);
     const lastDay = new Date(year, monthIndex, 0).getDate();
-    return Array.from({ length: lastDay }, (_, index) => `${month}-${String(index + 1).padStart(2, '0')}`);
+    const leading = new Date(year, monthIndex - 1, 1).getDay();
+    return [...Array.from({ length: leading }, () => null), ...Array.from({ length: lastDay }, (_, index) => `${month}-${String(index + 1).padStart(2, '0')}`)];
   }, [month]);
   const selectedEvents = events.filter((event) => event.date === selected);
   const visibleEvents = filter === '전체' ? selectedEvents : selectedEvents.filter((event) => event.category === filter);
@@ -61,8 +62,10 @@ export default function CalendarPage({ events, setEvents }) {
         </div>
         <span className="selectedDateLabel">선택한 날짜 · {selected.slice(5).replace('-', '월 ')}일</span>
         <Button variant="ghost" onClick={() => { setMonth('2026-07'); setSelected('2026-07-15'); }}>오늘로 이동</Button>
+        <div className="weekdayRow">{['일', '월', '화', '수', '목', '금', '토'].map((day) => <span key={day}>{day}</span>)}</div>
         <div className="monthGrid">
-          {monthDays.map((date) => {
+          {monthDays.map((date, index) => {
+            if (!date) return <span className="emptyDay" key={`empty-${index}`} aria-hidden="true" />;
             const hasEvents = events.filter((event) => event.date === date);
             return (
               <button key={date} className={selected === date ? 'selected' : ''} onClick={() => setSelected(date)}>

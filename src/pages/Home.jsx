@@ -1,89 +1,50 @@
-import { ChevronDown, ChevronRight, TriangleAlert, UserRound } from 'lucide-react';
-import { useState } from 'react';
-import Button from '../components/Button';
+import { ArrowRight, BookOpenCheck, CalendarDays, ChevronRight, Clock3, GraduationCap, Sparkles, TriangleAlert } from 'lucide-react';
 import Card from '../components/Card';
+import planiMascot from '../assets/plani-mascot.png';
 
-export default function Home({ user, metrics, completedCourses, setCompletedCourses, setActiveTab, events = [] }) {
-  const [openKey, setOpenKey] = useState('primaryMajor');
-  const displayName = user.name?.trim() ? `${user.name.slice(1)}님` : 'SSAI 학생님';
-
-  const toggleCourse = (id) => {
-    setCompletedCourses(completedCourses.map((course) => (course.id === id ? { ...course, completed: !course.completed } : course)));
-  };
-
-  const upcoming = [...events]
-    .sort((a, b) => a.date.localeCompare(b.date))
-    .slice(0, 4);
+export default function Home({ user, metrics, completedCourses, setActiveTab, events = [] }) {
+  const displayName = user.name?.trim() || 'SSAI 학생';
+  const upcoming = [...events].sort((a, b) => a.date.localeCompare(b.date))[0];
+  const requiredArea = metrics.areas.find((area) => area.key === 'requiredCourses');
+  const completedRequired = requiredArea?.earned || 0;
+  const requiredTotal = requiredArea?.required || completedCourses.filter((course) => course.required).length;
+  const plannedCourses = 6;
 
   return (
-    <div className="pageStack">
-      <section className="homeHero">
-        <div>
-          <p>{user.grade} {user.semester}</p>
-          <h2>{displayName}, 졸업까지 {metrics.remainingCredits}학점 남았어요</h2>
-        </div>
-        <button className="avatar" onClick={() => setActiveTab('detail')} aria-label="프로필 및 졸업요건 확인">
-          <UserRound size={24} />
-        </button>
+    <div className="pageStack homePage">
+      <section className="homeGreeting">
+        <div><p>안녕하세요,</p><h2>{displayName}님!</h2><span>{user.grade} {user.semester} · SSAI</span></div>
+        <img src={planiMascot} alt="AI 학업 도우미 플래니" />
       </section>
 
-      <Card className="progressCard" onClick={() => setActiveTab('detail')}>
-        <div className="progressRing" style={{ '--progress': `${metrics.progress}%` }}>
-          <strong>{metrics.progress}%</strong>
-          <span>졸업 준비도</span>
-        </div>
-        <div>
-          <p className="eyebrow">현재 이수 학점</p>
-          <h3>{metrics.earnedCredits} / {metrics.totalRequired}학점</h3>
-          <span className={`statusPill ${metrics.status === '예상 졸업 가능' ? 'ok' : 'warn'}`}>{metrics.status}</span>
-        </div>
+      <Card className="graduationHero" onClick={() => setActiveTab('detail')}>
+        <div className="heroTop"><div><p className="eyebrow">졸업 준비 현황</p><h2>졸업까지 <strong>{metrics.remainingCredits}학점</strong> 남았어요</h2></div><span>{metrics.progress}%</span></div>
+        <div className="largeProgress" aria-label={`졸업 진행률 ${metrics.progress}%`}><span style={{ width: `${metrics.progress}%` }} /></div>
+        <div className="heroBottom"><span>{metrics.earnedCredits} / {metrics.totalRequired}학점</span><button>상세 보기 <ChevronRight size={15} /></button></div>
       </Card>
 
-      <section className="sectionHeader">
-        <h3>영역별 졸업요건</h3>
-        <button onClick={() => setActiveTab('detail')}>상세 보기</button>
-      </section>
-      {metrics.areas.map((area) => (
-        <Card key={area.key} className="requirementCard">
-          <button className="requirementTop" onClick={() => setOpenKey(openKey === area.key ? '' : area.key)}>
-            <span>{openKey === area.key ? <ChevronDown size={18} /> : <ChevronRight size={18} />}{area.label}</span>
-            <strong>{area.earned} / {area.required}{area.key === 'requiredCourses' ? '개' : '학점'}</strong>
-          </button>
-          <div className="miniProgress"><span style={{ width: `${area.required ? Math.min((area.earned / area.required) * 100, 100) : 100}%` }} /></div>
-          {openKey === area.key && (
-            <div className="courseList">
-              {completedCourses
-                .filter((course) => course.area === area.label || area.label === '필수 교과목')
-                .slice(0, 4)
-                .map((course) => (
-                  <label className="courseToggle" key={course.id}>
-                    <input type="checkbox" checked={course.completed} onChange={() => toggleCourse(course.id)} />
-                    <span>{course.name}</span>
-                    <small>{course.credits}학점</small>
-                  </label>
-                ))}
-            </div>
-          )}
+      <section>
+        <div className="sectionHeader"><h3>이번 학기 요약</h3><button onClick={() => setActiveTab('roadmap')}>계획 보기</button></div>
+        <Card className="semesterSummary">
+          <div><span className="summaryMiniIcon blue"><GraduationCap size={18} /></span><small>신청 학점</small><strong>18학점</strong></div>
+          <div><span className="summaryMiniIcon sky"><BookOpenCheck size={18} /></span><small>수강 과목</small><strong>{plannedCourses}과목</strong></div>
+          <div><span className="summaryMiniIcon gold"><Clock3 size={18} /></span><small>현재 학기</small><strong>{user.grade} {user.semester}</strong></div>
+          <div><span className="summaryMiniIcon green"><Sparkles size={18} /></span><small>전공필수</small><strong>{completedRequired}/{requiredTotal} 완료</strong></div>
         </Card>
-      ))}
+      </section>
 
-      <Card className="alertCard">
-        <h3><TriangleAlert size={18} /> 이번 학기 주의</h3>
-        <p>전공필수 1과목 미이수</p>
-        <p>제2전공 10학점 부족</p>
-        <p>졸업인증 확인 필요</p>
-        <Button onClick={() => setActiveTab('roadmap')}>이번 학기 추천 계획 보기</Button>
+      <Card className="planiMessageCard">
+        <img src={planiMascot} alt="플래니" />
+        <div><span>오늘의 플래니 한마디</span><p>오늘도 무리하지 말고, 작은 계획부터 하나씩 완료해봐요.</p></div>
       </Card>
 
-      <Card>
-        <h3>다음 일정</h3>
-        <div className="eventList">
-          {upcoming.map((item) => (
-            <button className="eventButton" key={item.id || item.title} onClick={() => setActiveTab('calendar')}>
-              {item.date?.slice(5).replace('-', '월 ')}일 · {item.title || item}
-            </button>
-          ))}
-        </div>
+      <section className="quickGrid">
+        <button className="quickCard" onClick={() => setActiveTab('calendar')}><span><CalendarDays size={19} /></span><div><small>다음 일정</small><strong>{upcoming ? upcoming.title : '일정을 추가해보세요'}</strong><p>{upcoming?.date || '캘린더에서 관리'}</p></div><ChevronRight size={17} /></button>
+        <button className="quickCard" onClick={() => setActiveTab('recommendations')}><span><Sparkles size={19} /></span><div><small>맞춤 추천</small><strong>다음 학기 과목</strong><p>공식 권장 학기 기반</p></div><ArrowRight size={17} /></button>
+      </section>
+
+      <Card className="warningStrip" onClick={() => setActiveTab('detail')}>
+        <span><TriangleAlert size={18} /></span><div><strong>졸업요건 확인이 필요해요</strong><p>전공필수와 외국어 인증 상태를 점검해주세요.</p></div><ChevronRight size={18} />
       </Card>
     </div>
   );

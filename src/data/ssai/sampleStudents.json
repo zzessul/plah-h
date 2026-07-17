@@ -1,0 +1,48 @@
+[
+  {
+    "id": "sample-1",
+    "admissionYear": 2026,
+    "currentYear": 1,
+    "currentSemester": 1,
+    "completionType": "SSAI 전공심화(단일전공)",
+    "completedCourseIds": [],
+    "totalCompletedCredits": 0,
+    "majorCompletedCredits": 0,
+    "generalEducationCompletedCredits": 0,
+    "preferredCredits": 18,
+    "interests": [
+      "데이터분석"
+    ]
+  },
+  {
+    "id": "sample-2",
+    "admissionYear": 2024,
+    "currentYear": 3,
+    "currentSemester": 1,
+    "completionType": "SSAI 제1전공 + 이중전공",
+    "completedCourseIds": [],
+    "totalCompletedCredits": 70,
+    "majorCompletedCredits": 24,
+    "generalEducationCompletedCredits": 26,
+    "preferredCredits": 18,
+    "interests": [
+      "머신러닝"
+    ],
+    "preferredDaysOff": [
+      "월"
+    ]
+  },
+  {
+    "id": "sample-3",
+    "admissionYear": 2024,
+    "currentYear": 4,
+    "currentSemester": 1,
+    "completionType": "SSAI 전공심화(단일전공)",
+    "completedCourseIds": [],
+    "totalCompletedCredits": 120,
+    "majorCompletedCredits": 55,
+    "generalEducationCompletedCredits": 32,
+    "preferredCredits": 14,
+    "interests": []
+  }
+]

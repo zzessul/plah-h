@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Button from '../components/Button';
 import Card from '../components/Card';
 import Modal from '../components/Modal';
-import { replacements } from '../data/mockData';
+import { replacements } from '../data/ssai/officialAppData';
 
 const days = ['월', '화', '수', '목', '금'];
 const hours = [9, 10, 11, 12, 13, 14, 15, 16, 17];
@@ -185,7 +185,7 @@ export default function Timetable({ plans, setPlans, activePlan, setActivePlan, 
                   <Button variant="secondary" onClick={() => setFailed('')}>적용 취소</Button>
                 </>
               ) : (
-                <p>현재 조건에서는 시간 충돌이 없는 Plan B를 우선 추천합니다.</p>
+                <p>공식 분반·요일·시간 자료가 없어 대체 시간표를 확정할 수 없습니다.</p>
               )}
             </Card>
           )}
@@ -196,8 +196,9 @@ export default function Timetable({ plans, setPlans, activePlan, setActivePlan, 
           <Card>
             <h3>{detail.name}</h3>
             <p><Info size={14} /> {detail.day}요일 {detail.start}:00-{detail.end}:00 · {detail.room}</p>
-            <p>과목 코드: DEMO-{detail.name.slice(0, 2).charCodeAt(0)}</p>
-            <p>교수명: 시연용 교수 · {detail.credits || 3}학점 · {detail.status || '신청 전'}</p>
+            <p>학수번호: {detail.code || '공식 확인 필요'}</p>
+            <p>교수명: {detail.professor || '미정'} · {detail.credits || 3}학점 · {detail.area || '전공'}</p>
+            <p>{detail.status || '신청 전'} · 출처: {detail.source || '한국외대 강의시간표 조회'}</p>
           </Card>
         </Modal>
       )}

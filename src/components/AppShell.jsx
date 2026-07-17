@@ -1,4 +1,4 @@
-import { Bell, Bot, CalendarDays, Home, Map, RotateCcw, Settings, Table2 } from 'lucide-react';
+import { Bell, Bot, CalendarDays, ChevronLeft, Home, Map, RotateCcw, Settings, Table2, UserRound } from 'lucide-react';
 import { useState } from 'react';
 import Button from './Button';
 import Modal from './Modal';
@@ -18,7 +18,11 @@ const titles = {
   timetable: '추천 시간표',
   calendar: '학사 캘린더',
   chat: 'AI 상담',
+  recommendations: '과목 추천',
+  profile: '마이페이지',
 };
+
+const rootTabs = new Set(tabs.map((tab) => tab.id));
 
 export default function AppShell({ activeTab, setActiveTab, onReset, onEditProfile, children }) {
   const [panel, setPanel] = useState(null);
@@ -31,13 +35,13 @@ export default function AppShell({ activeTab, setActiveTab, onReset, onEditProfi
   return (
     <main className="phoneFrame">
       <header className="topBar">
-        <button className="iconButton" onClick={() => setPanel('reset')} aria-label="초기화">
-          <RotateCcw size={18} />
+        <button className="iconButton topLead" onClick={() => rootTabs.has(activeTab) ? setActiveTab('home') : setActiveTab('home')} aria-label={activeTab === 'home' ? '홈' : '홈으로 돌아가기'}>
+          {activeTab === 'home' ? <span className="brandMark">H</span> : <ChevronLeft size={20} />}
         </button>
         <h1>{titles[activeTab]}</h1>
         <div className="topActions">
-          <button className="iconButton" onClick={() => setPanel('settings')} aria-label="설정">
-            <Settings size={18} />
+          <button className="iconButton" onClick={() => setActiveTab('profile')} aria-label="마이페이지">
+            <UserRound size={18} />
           </button>
           <button className="iconButton" onClick={() => setPanel('alerts')} aria-label="알림">
             <Bell size={18} />
@@ -70,7 +74,7 @@ export default function AppShell({ activeTab, setActiveTab, onReset, onEditProfi
           <div className="settingsList">
             <button onClick={() => { onEditProfile(); setPanel(null); }}>사용자 정보 수정</button>
             <button onClick={() => setPanel('reset')}>시연 데이터 초기화</button>
-            <p>Plan H는 외부 학교 서버와 연결되지 않은 시연용 mock 데이터 앱입니다.</p>
+            <p>Plan H의 SSAI 교육과정과 졸업요건은 공식 자료를 기준으로 구성되어 있습니다. 분반·강의시간은 학교 시간표 확인이 필요합니다.</p>
           </div>
         </Modal>
       )}

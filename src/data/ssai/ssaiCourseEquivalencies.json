@@ -1,0 +1,62 @@
+[
+  {
+    "id": "equiv-ai-ethics-lai",
+    "sourceCourseId": "ssai-ai윤리",
+    "equivalentCourseIds": [
+      "lai-ai-ethics"
+    ],
+    "equivalencyType": "동일과목·전공교류",
+    "validFrom": "2024-2",
+    "validTo": null,
+    "note": "양 전공 AI윤리는 동일교과목이며 상호 전공교류 인정",
+    "source": {
+      "documentTitle": "한국외국어대학교 Social Science & AI융합학부 공식 홈페이지",
+      "page": null,
+      "url": "http://haksa.hufs.ac.kr/sites/haksa/manual/H1/H1_2026-1_manual.xls",
+      "section": "(7) 동일교과목 및 (3) 전공교류",
+      "originalText": "AI윤리 상호 인정"
+    },
+    "confidence": "high",
+    "verificationRequired": false
+  },
+  {
+    "id": "equiv-probability-lai",
+    "sourceCourseId": "ssai-확률과통계",
+    "equivalentCourseIds": [
+      "lai-probability-statistics"
+    ],
+    "equivalencyType": "동일과목·전공교류",
+    "validFrom": null,
+    "validTo": null,
+    "note": "양 전공 확률과통계는 동일교과목이며 상호 전공교류 인정",
+    "source": {
+      "documentTitle": "한국외국어대학교 Social Science & AI융합학부 공식 홈페이지",
+      "page": null,
+      "url": "http://haksa.hufs.ac.kr/sites/haksa/manual/H1/H1_2026-1_manual.xls",
+      "section": "(7) 동일교과목 및 (3) 전공교류",
+      "originalText": "확률과통계 상호 인정"
+    },
+    "confidence": "high",
+    "verificationRequired": false
+  },
+  {
+    "id": "equiv-probability-foundation",
+    "sourceCourseId": "ssai-확률과통계",
+    "equivalentCourseIds": [
+      "foundation-probability-statistics"
+    ],
+    "equivalencyType": "재수강·전공인정",
+    "validFrom": "2025-2",
+    "validTo": null,
+    "note": "24학년도 이전 학번은 기초 확률과통계 초수강 또는 SSAI 확률과통계 재수강으로 인정",
+    "source": {
+      "documentTitle": "한국외국어대학교 Social Science & AI융합학부 공식 홈페이지",
+      "page": null,
+      "url": "http://haksa.hufs.ac.kr/sites/haksa/manual/H1/H1_2026-1_manual.xls",
+      "section": "(3) 전공교류 및 (7) 동일교과목",
+      "originalText": "확률과통계-기초 25-2학기"
+    },
+    "confidence": "high",
+    "verificationRequired": false
+  }
+]

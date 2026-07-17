@@ -7,8 +7,11 @@ import Home from './pages/Home';
 import Onboarding from './pages/Onboarding';
 import Roadmap from './pages/Roadmap';
 import Timetable from './pages/Timetable';
+import Recommendations from './pages/Recommendations';
+import MyPage from './pages/MyPage';
 import { calculateGraduation } from './utils/graduation';
 import { loadState, resetState, saveState } from './utils/storage';
+import { getAppRequirements } from './data/ssai/officialAppData';
 
 export default function App() {
   const [state, setState] = useState(loadState);
@@ -35,7 +38,7 @@ export default function App() {
     return (
       <Onboarding
         user={state.user}
-        onStart={(user) => patch({ user, onboarded: true, activeTab: 'home' })}
+        onStart={(user) => patch({ user, requirements: getAppRequirements(user), onboarded: true, activeTab: 'home' })}
       />
     );
   }
@@ -52,6 +55,24 @@ export default function App() {
       />
     ),
     detail: <GraduationDetail metrics={metrics} setActiveTab={(activeTab) => patch({ activeTab })} />,
+    recommendations: (
+      <Recommendations
+        user={state.user}
+        roadmap={state.roadmap}
+        plans={state.timetablePlans}
+        setPlans={(timetablePlans) => patch({ timetablePlans })}
+        setActivePlan={(activePlan) => patch({ activePlan })}
+        setActiveTab={(activeTab) => patch({ activeTab })}
+      />
+    ),
+    profile: (
+      <MyPage
+        user={state.user}
+        onEditProfile={() => patch({ onboarded: false })}
+        onReset={resetAll}
+        setActiveTab={(activeTab) => patch({ activeTab })}
+      />
+    ),
     roadmap: (
       <Roadmap
         roadmap={state.roadmap}

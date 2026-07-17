@@ -1,0 +1,330 @@
+[
+  {
+    "id": "max-regular-credits",
+    "ruleType": "최대신청학점",
+    "title": "학기당 최대 신청학점",
+    "condition": {},
+    "value": 20,
+    "unit": "학점",
+    "description": "재수강학점을 포함하여 학기당 최대 20학점",
+    "source": {
+      "documentTitle": "(서울) 2026-1학기 수강편람.pdf",
+      "page": 13,
+      "section": "학기당 최대 신청학점",
+      "originalText": "학기당 최대 수강학점: 20학점"
+    },
+    "confidence": "high",
+    "verificationRequired": false
+  },
+  {
+    "id": "no-minimum-registration",
+    "ruleType": "최소신청학점",
+    "title": "최소 수강신청 학점 없음",
+    "condition": {},
+    "value": null,
+    "unit": "학점",
+    "description": "등록 후 미수강 시 학사경고 및 등록금 소멸",
+    "source": {
+      "documentTitle": "(서울) 2026-1학기 수강편람.pdf",
+      "page": 12,
+      "section": "최소 수강신청 학점 없음",
+      "originalText": "최소 수강신청 학점 없음"
+    },
+    "confidence": "high",
+    "verificationRequired": false
+  },
+  {
+    "id": "withdrawal-floor",
+    "ruleType": "수강취소",
+    "title": "수강취소 후 최소학점",
+    "condition": {
+      "gradeBelow": 4
+    },
+    "value": 12,
+    "unit": "학점",
+    "description": "4학년은 예외이나 전체 과목 취소 불가",
+    "source": {
+      "documentTitle": "(서울) 2026-1학기 수강편람.pdf",
+      "page": 14,
+      "section": "수강취소 후 최소학점",
+      "originalText": "12학점 미만으로 취소 불가"
+    },
+    "confidence": "high",
+    "verificationRequired": false
+  },
+  {
+    "id": "retake-eligibility",
+    "ruleType": "재수강",
+    "title": "재수강 가능 성적",
+    "condition": {
+      "previousGradeAtMost": "C+"
+    },
+    "value": "C+ 이하",
+    "unit": "성적",
+    "description": "타 대학 취득성적 및 학점인정 성적은 재수강 불가",
+    "source": {
+      "documentTitle": "(서울) 2026-1학기 수강편람.pdf",
+      "page": 15,
+      "section": "재수강 가능 성적",
+      "originalText": "이전 취득성적 C+ 이하인 과목"
+    },
+    "confidence": "high",
+    "verificationRequired": false
+  },
+  {
+    "id": "retake-total-limit",
+    "ruleType": "재수강",
+    "title": "재수강 누적 제한",
+    "condition": {},
+    "value": 21,
+    "unit": "학점",
+    "description": "계절학기 제외, 2016-1학기부터 산정",
+    "source": {
+      "documentTitle": "(서울) 2026-1학기 수강편람.pdf",
+      "page": 15,
+      "section": "재수강 누적 제한",
+      "originalText": "재학 중 총 21학점"
+    },
+    "confidence": "high",
+    "verificationRequired": false
+  },
+  {
+    "id": "retake-grade-cap",
+    "ruleType": "재수강",
+    "title": "재수강 성적 상한",
+    "condition": {},
+    "value": "A0",
+    "unit": "성적",
+    "description": "재수강 취득성적 상한",
+    "source": {
+      "documentTitle": "(서울) 2026-1학기 수강편람.pdf",
+      "page": 15,
+      "section": "재수강 성적 상한",
+      "originalText": "재수강 취득성적 상한 A0"
+    },
+    "confidence": "high",
+    "verificationRequired": false
+  },
+  {
+    "id": "credit-carryover",
+    "ruleType": "추가신청학점",
+    "title": "1학기 잔여학점 이월",
+    "condition": {
+      "targetSemester": 2
+    },
+    "value": 3,
+    "unit": "학점",
+    "description": "같은 학년도 2학기로 최대 3학점 이월; 적용 제외자 있음",
+    "source": {
+      "documentTitle": "(서울) 2026-1학기 수강편람.pdf",
+      "page": 13,
+      "section": "1학기 잔여학점 이월",
+      "originalText": "1학기 최대 수강학점에서 남은 학점 중 최대 3학점"
+    },
+    "confidence": "high",
+    "verificationRequired": false
+  },
+  {
+    "id": "recognized-credit-cap",
+    "ruleType": "학점인정",
+    "title": "재학 중 인정학점 상한",
+    "condition": {
+      "transferStudent": false
+    },
+    "value": 35,
+    "unit": "학점",
+    "description": "국내외 교류·인턴십·기타 인정학점 합산; 휴학 중 최대 6학점 포함",
+    "source": {
+      "documentTitle": "(서울) 2026-1학기 수강편람.pdf",
+      "page": 103,
+      "section": "재학 중 인정학점 상한",
+      "originalText": "모든 인정 학점은 35학점까지 인정"
+    },
+    "confidence": "high",
+    "verificationRequired": false
+  },
+  {
+    "id": "recognized-credit-cap-transfer",
+    "ruleType": "학점인정",
+    "title": "편입생 인정학점 상한",
+    "condition": {
+      "transferStudent": true
+    },
+    "value": 18,
+    "unit": "학점",
+    "description": "해외 복수학위 관련 인정학점은 별도",
+    "source": {
+      "documentTitle": "(서울) 2026-1학기 수강편람.pdf",
+      "page": 103,
+      "section": "편입생 인정학점 상한",
+      "originalText": "편입생의 경우 총 18학점"
+    },
+    "confidence": "high",
+    "verificationRequired": false
+  },
+  {
+    "id": "exchange-semester-cap",
+    "ruleType": "교환학생",
+    "title": "국외대학 정규학기 교류 상한",
+    "condition": {},
+    "value": 18,
+    "unit": "학점",
+    "description": "본교 수강 및 기타 인정학점 포함",
+    "source": {
+      "documentTitle": "(서울) 2026-1학기 수강편람.pdf",
+      "page": 103,
+      "section": "국외대학 정규학기 교류 상한",
+      "originalText": "국외대학 학점교류 최대 18학점"
+    },
+    "confidence": "high",
+    "verificationRequired": false
+  },
+  {
+    "id": "seasonal-cap",
+    "ruleType": "계절학기",
+    "title": "계절학기 취득 상한",
+    "condition": {},
+    "value": 6,
+    "unit": "학점",
+    "description": "정규/계절학기 취득가능 학점 초과 시 인정 불가",
+    "source": {
+      "documentTitle": "(서울) 2026-1학기 수강편람.pdf",
+      "page": 103,
+      "section": "계절학기 취득 상한",
+      "originalText": "계절학기 최대 6학점"
+    },
+    "confidence": "high",
+    "verificationRequired": false
+  },
+  {
+    "id": "double-major-2015",
+    "ruleType": "이중전공",
+    "title": "2015학번 이후 이중전공 이수학점",
+    "condition": {
+      "admissionYearFrom": 2015
+    },
+    "value": 42,
+    "unit": "학점",
+    "description": "전공별 필수과목은 학과 확인 필요",
+    "source": {
+      "documentTitle": "(서울) 2026-1학기 수강편람.pdf",
+      "page": 83,
+      "section": "2015학번 이후 이중전공 이수학점",
+      "originalText": "2015학번 이후 이중전공 42학점"
+    },
+    "confidence": "high",
+    "verificationRequired": false
+  },
+  {
+    "id": "minor-credit",
+    "ruleType": "부전공",
+    "title": "부전공 이수학점",
+    "condition": {},
+    "value": 21,
+    "unit": "학점",
+    "description": "전공별 필수과목은 학과 확인 필요",
+    "source": {
+      "documentTitle": "(서울) 2026-1학기 수강편람.pdf",
+      "page": 83,
+      "section": "부전공 이수학점",
+      "originalText": "부전공 21학점"
+    },
+    "confidence": "high",
+    "verificationRequired": false
+  },
+  {
+    "id": "ssai-double-major-block-computer",
+    "ruleType": "이중전공 제한",
+    "title": "SSAI 학생의 글로벌캠퍼스 컴퓨터공학전공 이중전공 제한",
+    "condition": {
+      "studentDepartment": "Social Science & AI융합학부",
+      "targetDepartment": "글로벌캠퍼스 컴퓨터공학전공"
+    },
+    "value": false,
+    "unit": "허용여부",
+    "description": "SSAI 학생은 글로벌캠퍼스 컴퓨터공학전공을 이중전공으로 이수할 수 없음",
+    "source": {
+      "documentTitle": "(서울) 2026-1학기 수강편람.pdf",
+      "page": 85,
+      "section": "SSAI 학생의 글로벌캠퍼스 컴퓨터공학전공 이중전공 제한",
+      "originalText": "Social Science & AI융합학부 학생: 글로벌캠퍼스 컴퓨터공학전공 이중전공 이수 불가"
+    },
+    "confidence": "high",
+    "verificationRequired": false
+  },
+  {
+    "id": "ssai-double-major-block-language-ai",
+    "ruleType": "이중전공 제한",
+    "title": "SSAI 학생의 서울캠퍼스 Language & AI융합전공 이중전공 제한",
+    "condition": {
+      "studentDepartment": "Social Science & AI융합학부",
+      "targetDepartment": "서울캠퍼스 Language & AI융합전공"
+    },
+    "value": false,
+    "unit": "허용여부",
+    "description": "SSAI 학생은 서울캠퍼스 Language & AI융합전공을 이중전공으로 이수할 수 없음",
+    "source": {
+      "documentTitle": "(서울) 2026-1학기 수강편람.pdf",
+      "page": 85,
+      "section": "SSAI 학생의 서울캠퍼스 Language & AI융합전공 이중전공 제한",
+      "originalText": "Social Science & AI융합학부 학생: 서울캠퍼스 Language & AI융합전공 이중전공 이수 불가"
+    },
+    "confidence": "high",
+    "verificationRequired": false
+  },
+  {
+    "id": "ai-college-minor-capacity",
+    "ruleType": "부전공 선발",
+    "title": "AI융합대학 부전공 선발 제한",
+    "condition": {
+      "college": "AI융합대학"
+    },
+    "value": 100,
+    "unit": "퍼센트 이내",
+    "description": "학과 편제 완성 연도까지 부전공 인원의 100% 이내에서 합격시킬 수 있어 불합격 가능",
+    "source": {
+      "documentTitle": "(서울) 2026-1학기 수강편람.pdf",
+      "page": 84,
+      "section": "AI융합대학 부전공 선발 제한",
+      "originalText": "AI융합대학의 경우 부전공 인원에 있어 학과 편제 완성 년도까지 100% 이내에서 합격시킬 수 있음"
+    },
+    "confidence": "high",
+    "verificationRequired": false
+  },
+  {
+    "id": "foreign-language-certification-2007",
+    "ruleType": "졸업인증",
+    "title": "2007학번 이후 외국어인증",
+    "condition": {
+      "admissionYearFrom": 2007
+    },
+    "value": true,
+    "unit": "필수여부",
+    "description": "면제대상은 별도 규정 적용. 졸업인증제(2004~2006)와 구분됨",
+    "source": {
+      "documentTitle": "(서울) 2026-1학기 수강편람.pdf",
+      "page": 18,
+      "section": "2007학번 이후 외국어인증",
+      "originalText": "외국어인증제 통과(2007학번 이후)"
+    },
+    "confidence": "high",
+    "verificationRequired": false
+  },
+  {
+    "id": "major-graduation-assessment",
+    "ruleType": "졸업시험논문",
+    "title": "제1전공·이중전공 졸업시험/논문",
+    "condition": {},
+    "value": true,
+    "unit": "필수여부",
+    "description": "시험 또는 논문 방식과 일정은 학과별 확인 필요",
+    "source": {
+      "documentTitle": "(서울) 2026-1학기 수강편람.pdf",
+      "page": 23,
+      "section": "제1전공·이중전공 졸업시험/논문",
+      "originalText": "1전공, 이중전공, 제2전공(2006학번 이전) 졸업시험/논문 통과 필수"
+    },
+    "confidence": "high",
+    "verificationRequired": false
+  }
+]

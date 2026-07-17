@@ -1,41 +1,29 @@
+import { BookOpenCheck, Check, ChevronRight, CircleAlert, Languages, LibraryBig, Medal, School, Sparkles } from 'lucide-react';
+import { useState } from 'react';
 import Card from '../components/Card';
-import Button from '../components/Button';
+import planiMascot from '../assets/plani-mascot.png';
 
-const extraItems = [
-  ['외국어 인증', '확인 필요', '졸업인증 제출 전까지 증빙을 준비해야 합니다.'],
-  ['졸업시험 또는 졸업논문', '진행 중', '캡스톤디자인 결과물로 대체 가능 여부를 확인하세요.'],
-  ['교환학생 인정 학점', '확인 필요', '교환학생 경험이 있다면 학점인정 심사를 확인하세요.'],
-  ['재수강 과목', '충족', '현재 졸업학점에서 제외될 재수강 과목은 없습니다.'],
-];
+const icons = { primaryMajor: School, secondMajor: LibraryBig, liberalArts: BookOpenCheck, requiredCourses: Medal, certification: Languages };
 
-export default function GraduationDetail({ metrics, setActiveTab }) {
+export default function GraduationDetail({ metrics }) {
+  const [view, setView] = useState('all');
+  const areas = view === 'all' ? metrics.areas : metrics.areas.filter((area) => area.earned < area.required);
   return (
-    <div className="pageStack">
-      <Card className="detailSummary">
-        <p className="eyebrow">총 졸업학점</p>
-        <h2>{metrics.earnedCredits} / {metrics.totalRequired}학점</h2>
-        <span className="statusPill warn">{metrics.status}</span>
+    <div className="pageStack graduationPage">
+      <div className="segmented two"><button className={view === 'all' ? 'active' : ''} onClick={() => setView('all')}>전체 요건</button><button className={view === 'detail' ? 'active' : ''} onClick={() => setView('detail')}>미충족 내역</button></div>
+      <Card className="graduationSummary">
+        <div><p className="eyebrow">전체 이수 현황</p><h2>{metrics.earnedCredits} / {metrics.totalRequired}학점</h2><span>{metrics.remainingCredits}학점 남음</span></div>
+        <div className="summaryRing" style={{ '--progress': `${metrics.progress * 3.6}deg` }}><strong>{metrics.progress}%</strong></div>
       </Card>
-      {metrics.areas.map((area) => (
-        <Card key={area.key} className="detailRow">
-          <div>
-            <h3>{area.label}</h3>
-            <p>{area.detail}</p>
-          </div>
-          <span className={`statusPill ${area.status === '충족' ? 'ok' : area.status === '미충족' ? 'danger' : 'warn'}`}>{area.status}</span>
-          {area.status !== '충족' && <p className="solution">{area.label} {Math.max(area.required - area.earned, 0)}학점 부족 - 추가 수강 또는 인증 확인이 필요합니다.</p>}
-        </Card>
-      ))}
-      {extraItems.map(([title, status, text]) => (
-        <Card key={title} className="detailRow">
-          <div>
-            <h3>{title}</h3>
-            <p>{text}</p>
-          </div>
-          <span className={`statusPill ${status === '충족' ? 'ok' : 'warn'}`}>{status}</span>
-        </Card>
-      ))}
-      <Button onClick={() => setActiveTab('home')}>홈으로 돌아가기</Button>
+      <div className="graduationList">
+        {areas.map((area) => {
+          const Icon = icons[area.key] || CircleAlert;
+          const progress = area.required ? Math.min(area.earned / area.required * 100, 100) : 100;
+          const done = area.earned >= area.required;
+          return <Card key={area.key} className="graduationRow"><span className={done ? 'requirementIcon done' : 'requirementIcon'}><Icon size={19} /></span><div><div className="requirementTitle"><strong>{area.label}</strong><span>{area.earned} / {area.required}{area.key === 'requiredCourses' ? '개' : area.key === 'certification' ? '건' : '학점'}</span></div><div className="miniProgress"><span className={done ? 'done' : ''} style={{ width: `${progress}%` }} /></div><small>{done ? '요건을 충족했어요' : `${Math.max(area.required - area.earned, 0)}${area.key === 'requiredCourses' ? '개' : '학점'} 더 필요해요`}</small></div>{done ? <Check className="doneCheck" size={18} /> : <ChevronRight size={18} />}</Card>;
+        })}
+      </div>
+      <Card className="planiGraduation"><img src={planiMascot} alt="졸업요건을 안내하는 플래니" /><div><span><Sparkles size={14} /> 플래니의 체크</span><strong>전공필수 과목과 외국어 인증 상태를 확인해주세요.</strong><p>불확실한 값은 학교 공식 시스템에서 최종 확인이 필요해요.</p></div></Card>
     </div>
   );
 }

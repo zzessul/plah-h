@@ -7,16 +7,17 @@ export function calculateGraduation(user, requirements, completedCourses, roadma
     .reduce((sum, course) => sum + course.credits, 0);
   const baseCredits = Number(user.earnedCredits || 108);
   const earnedCredits = baseCredits + extraCompleted;
-  const totalRequired = Number(user.totalCredits || requirements.totalCredits);
+  const totalRequired = Number(requirements.totalCredits || user.totalCredits);
   const remainingCredits = Math.max(totalRequired - earnedCredits, 0);
   const progress = Math.min(Math.round((earnedCredits / totalRequired) * 100), 100);
 
   const newlyCompletedMajorCredits = completedCourses
-    .filter((course) => course.completed && course.id.startsWith('need'))
+    .filter((course) => course.completed && course.area === 'SSAI 전공')
     .reduce((sum, course) => sum + course.credits, 0);
   const primaryEarned = requirements.primaryMajor.earned + newlyCompletedMajorCredits;
   const secondEarned = requirements.secondMajor.earned;
-  const requiredEarned = requirements.requiredCourses.earned + completedCourses.filter((c) => c.completed && c.id.startsWith('need')).length;
+  const requiredEarned = requirements.requiredCourses.earned + completedCourses.filter((course) => course.completed && course.required).length;
+  const liberalArtsEarned = requirements.liberalArts.earned + completedCourses.filter((course) => course.completed && course.area === '교양').reduce((sum,course)=>sum+course.credits,0);
 
   const areas = [
     {
@@ -38,10 +39,10 @@ export function calculateGraduation(user, requirements, completedCourses, roadma
     {
       key: 'liberalArts',
       label: '교양',
-      earned: requirements.liberalArts.earned,
+      earned: liberalArtsEarned,
       required: requirements.liberalArts.required,
-      status: '충족',
-      detail: '교양 필요 학점 초과 충족',
+      status: liberalArtsEarned >= requirements.liberalArts.required ? '충족' : '진행 중',
+      detail: '공식 교양 최소학점 기준',
     },
     {
       key: 'requiredCourses',
@@ -49,15 +50,15 @@ export function calculateGraduation(user, requirements, completedCourses, roadma
       earned: requiredEarned,
       required: requirements.requiredCourses.required,
       status: requiredEarned >= requirements.requiredCourses.required ? '충족' : '진행 중',
-      detail: '전공필수 1과목 확인 필요',
+      detail: 'SSAI 공식 교육과정 전공필수 9과목',
     },
     {
       key: 'certification',
-      label: '졸업인증',
+      label: requirements.certification.label || '외국어인증',
       earned: requirements.certification.earned,
       required: requirements.certification.required,
       status: requirements.certification.earned >= 1 ? '충족' : '확인 필요',
-      detail: '외국어 인증 또는 대체 인증 제출 필요',
+      detail: '2007학번 이후 외국어인증 또는 공식 면제·대체 요건 확인 필요',
     },
   ];
 

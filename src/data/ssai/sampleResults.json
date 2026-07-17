@@ -1,0 +1,881 @@
+[
+  {
+    "studentId": "sample-1",
+    "graduationProgress": 0,
+    "missingRequirements": {
+      "total": 126,
+      "major": 54,
+      "generalEducation": 32
+    },
+    "recommendedNextSemester": [],
+    "roadmap": [
+      {
+        "id": "year1-semester1",
+        "year": 1,
+        "semester": 1,
+        "label": "1학년 1학기",
+        "recommendedCredits": 19,
+        "minimumCredits": null,
+        "maximumCredits": 20,
+        "requiredCourseIds": [
+          "ssai-미네르바인문1",
+          "ssai-college-english-l-s",
+          "ssai-college-english-r-w",
+          "ssai-신입생-세미나",
+          "ssai-인공지능기초수학",
+          "ssai-기초프로그래밍-컴퓨팅사고",
+          "ssai-인공지능개론"
+        ],
+        "recommendedCourseIds": [
+          "ssai-미네르바인문1",
+          "ssai-college-english-l-s",
+          "ssai-college-english-r-w",
+          "ssai-신입생-세미나",
+          "ssai-인공지능기초수학",
+          "ssai-기초프로그래밍-컴퓨팅사고",
+          "ssai-인공지능개론"
+        ],
+        "electiveCourseIds": [],
+        "generalEducationCourseIds": [
+          "ssai-미네르바인문1",
+          "ssai-college-english-l-s",
+          "ssai-college-english-r-w",
+          "ssai-신입생-세미나"
+        ],
+        "goals": [],
+        "notes": [],
+        "source": {
+          "documentTitle": "한국외국어대학교 Social Science & AI융합학부 공식 홈페이지",
+          "page": null,
+          "url": "https://ssai.hufs.ac.kr/ssai/10867/subview.do",
+          "section": "SSAI학부 커리큘럼",
+          "originalText": "1학년 1학기"
+        },
+        "confidence": "high",
+        "verificationRequired": false
+      },
+      {
+        "id": "year1-semester2",
+        "year": 1,
+        "semester": 2,
+        "label": "1학년 2학기",
+        "recommendedCredits": 21,
+        "minimumCredits": null,
+        "maximumCredits": 20,
+        "requiredCourseIds": [
+          "ssai-미네르바인문2",
+          "ssai-english-for-stem",
+          "ssai-writing-for-stem",
+          "ssai-소셜-데이터-프로그래밍-기초1",
+          "ssai-확률과통계",
+          "ssai-ai윤리"
+        ],
+        "recommendedCourseIds": [
+          "ssai-미네르바인문2",
+          "ssai-english-for-stem",
+          "ssai-writing-for-stem",
+          "ssai-소셜-데이터-프로그래밍-기초1",
+          "ssai-확률과통계",
+          "ssai-ai윤리",
+          "ssai-사회과학과-데이터사이언스"
+        ],
+        "electiveCourseIds": [
+          "ssai-사회과학과-데이터사이언스"
+        ],
+        "generalEducationCourseIds": [
+          "ssai-미네르바인문2",
+          "ssai-english-for-stem",
+          "ssai-writing-for-stem"
+        ],
+        "goals": [],
+        "notes": [],
+        "source": {
+          "documentTitle": "한국외국어대학교 Social Science & AI융합학부 공식 홈페이지",
+          "page": null,
+          "url": "https://ssai.hufs.ac.kr/ssai/10867/subview.do",
+          "section": "SSAI학부 커리큘럼",
+          "originalText": "1학년 2학기"
+        },
+        "confidence": "high",
+        "verificationRequired": false
+      },
+      {
+        "id": "year2-semester1",
+        "year": 2,
+        "semester": 1,
+        "label": "2학년 1학기",
+        "recommendedCredits": 13,
+        "minimumCredits": null,
+        "maximumCredits": 20,
+        "requiredCourseIds": [
+          "ssai-사회과학연구방법론1",
+          "ssai-기계학습",
+          "ssai-객체지향형프로그래밍"
+        ],
+        "recommendedCourseIds": [
+          "ssai-hufs-career-design",
+          "ssai-사회과학연구방법론1",
+          "ssai-기계학습",
+          "ssai-객체지향형프로그래밍",
+          "ssai-텍스트-기반-사회과학-데이터분석1"
+        ],
+        "electiveCourseIds": [
+          "ssai-텍스트-기반-사회과학-데이터분석1"
+        ],
+        "generalEducationCourseIds": [
+          "ssai-hufs-career-design"
+        ],
+        "goals": [],
+        "notes": [],
+        "source": {
+          "documentTitle": "한국외국어대학교 Social Science & AI융합학부 공식 홈페이지",
+          "page": null,
+          "url": "https://ssai.hufs.ac.kr/ssai/10867/subview.do",
+          "section": "SSAI학부 커리큘럼",
+          "originalText": "2학년 1학기"
+        },
+        "confidence": "high",
+        "verificationRequired": false
+      },
+      {
+        "id": "year2-semester2",
+        "year": 2,
+        "semester": 2,
+        "label": "2학년 2학기",
+        "recommendedCredits": 9,
+        "minimumCredits": null,
+        "maximumCredits": 20,
+        "requiredCourseIds": [
+          "ssai-사회과학-데이터의-자료구조"
+        ],
+        "recommendedCourseIds": [
+          "ssai-사회과학-데이터의-자료구조",
+          "ssai-사회연결망-데이터-분석",
+          "ssai-사회과학과-빅데이터-시각화"
+        ],
+        "electiveCourseIds": [
+          "ssai-사회연결망-데이터-분석",
+          "ssai-사회과학과-빅데이터-시각화"
+        ],
+        "generalEducationCourseIds": [],
+        "goals": [],
+        "notes": [],
+        "source": {
+          "documentTitle": "한국외국어대학교 Social Science & AI융합학부 공식 홈페이지",
+          "page": null,
+          "url": "https://ssai.hufs.ac.kr/ssai/10867/subview.do",
+          "section": "SSAI학부 커리큘럼",
+          "originalText": "2학년 2학기"
+        },
+        "confidence": "high",
+        "verificationRequired": false
+      },
+      {
+        "id": "year3-semester1",
+        "year": 3,
+        "semester": 1,
+        "label": "3학년 1학기",
+        "recommendedCredits": 15,
+        "minimumCredits": null,
+        "maximumCredits": 20,
+        "requiredCourseIds": [
+          "ssai-딥러닝-및-응용",
+          "ssai-알고리즘"
+        ],
+        "recommendedCourseIds": [
+          "ssai-딥러닝-및-응용",
+          "ssai-알고리즘",
+          "ssai-인간인공지능상호작용",
+          "ssai-데이터마이닝",
+          "ssai-시계열분석"
+        ],
+        "electiveCourseIds": [
+          "ssai-인간인공지능상호작용",
+          "ssai-데이터마이닝",
+          "ssai-시계열분석"
+        ],
+        "generalEducationCourseIds": [],
+        "goals": [],
+        "notes": [],
+        "source": {
+          "documentTitle": "한국외국어대학교 Social Science & AI융합학부 공식 홈페이지",
+          "page": null,
+          "url": "https://ssai.hufs.ac.kr/ssai/10867/subview.do",
+          "section": "SSAI학부 커리큘럼",
+          "originalText": "3학년 1학기"
+        },
+        "confidence": "high",
+        "verificationRequired": false
+      },
+      {
+        "id": "year3-semester2",
+        "year": 3,
+        "semester": 2,
+        "label": "3학년 2학기",
+        "recommendedCredits": null,
+        "minimumCredits": null,
+        "maximumCredits": 20,
+        "requiredCourseIds": [],
+        "recommendedCourseIds": [],
+        "electiveCourseIds": [],
+        "generalEducationCourseIds": [],
+        "goals": [],
+        "notes": [
+          "공식 표가 3-2·4-1·4-2 과목을 통합 제시하므로 고학년 개별 과목 배치는 미확정"
+        ],
+        "source": {
+          "documentTitle": "한국외국어대학교 Social Science & AI융합학부 공식 홈페이지",
+          "page": null,
+          "url": "https://ssai.hufs.ac.kr/ssai/10867/subview.do",
+          "section": "SSAI학부 커리큘럼",
+          "originalText": "3학년 2학기"
+        },
+        "confidence": "medium",
+        "verificationRequired": true
+      },
+      {
+        "id": "year4-semester1",
+        "year": 4,
+        "semester": 1,
+        "label": "4학년 1학기",
+        "recommendedCredits": null,
+        "minimumCredits": null,
+        "maximumCredits": 20,
+        "requiredCourseIds": [],
+        "recommendedCourseIds": [],
+        "electiveCourseIds": [],
+        "generalEducationCourseIds": [],
+        "goals": [],
+        "notes": [
+          "공식 표가 3-2·4-1·4-2 과목을 통합 제시하므로 고학년 개별 과목 배치는 미확정"
+        ],
+        "source": {
+          "documentTitle": "한국외국어대학교 Social Science & AI융합학부 공식 홈페이지",
+          "page": null,
+          "url": "https://ssai.hufs.ac.kr/ssai/10867/subview.do",
+          "section": "SSAI학부 커리큘럼",
+          "originalText": "4학년 1학기"
+        },
+        "confidence": "medium",
+        "verificationRequired": true
+      },
+      {
+        "id": "year4-semester2",
+        "year": 4,
+        "semester": 2,
+        "label": "4학년 2학기",
+        "recommendedCredits": null,
+        "minimumCredits": null,
+        "maximumCredits": 20,
+        "requiredCourseIds": [],
+        "recommendedCourseIds": [],
+        "electiveCourseIds": [],
+        "generalEducationCourseIds": [],
+        "goals": [],
+        "notes": [
+          "공식 표가 3-2·4-1·4-2 과목을 통합 제시하므로 고학년 개별 과목 배치는 미확정"
+        ],
+        "source": {
+          "documentTitle": "한국외국어대학교 Social Science & AI융합학부 공식 홈페이지",
+          "page": null,
+          "url": "https://ssai.hufs.ac.kr/ssai/10867/subview.do",
+          "section": "SSAI학부 커리큘럼",
+          "originalText": "4학년 2학기"
+        },
+        "confidence": "medium",
+        "verificationRequired": true
+      }
+    ],
+    "estimatedGraduationSemester": null,
+    "warnings": [
+      "SSAI 공식 과목표 미확보로 과목 추천과 필수과목 판정은 보류"
+    ],
+    "dataConfidence": "high"
+  },
+  {
+    "studentId": "sample-2",
+    "graduationProgress": 52,
+    "missingRequirements": {
+      "total": 64,
+      "major": 18,
+      "generalEducation": 6
+    },
+    "recommendedNextSemester": [],
+    "roadmap": [
+      {
+        "id": "year1-semester1",
+        "year": 1,
+        "semester": 1,
+        "label": "1학년 1학기",
+        "recommendedCredits": 19,
+        "minimumCredits": null,
+        "maximumCredits": 20,
+        "requiredCourseIds": [
+          "ssai-미네르바인문1",
+          "ssai-college-english-l-s",
+          "ssai-college-english-r-w",
+          "ssai-신입생-세미나",
+          "ssai-인공지능기초수학",
+          "ssai-기초프로그래밍-컴퓨팅사고",
+          "ssai-인공지능개론"
+        ],
+        "recommendedCourseIds": [
+          "ssai-미네르바인문1",
+          "ssai-college-english-l-s",
+          "ssai-college-english-r-w",
+          "ssai-신입생-세미나",
+          "ssai-인공지능기초수학",
+          "ssai-기초프로그래밍-컴퓨팅사고",
+          "ssai-인공지능개론"
+        ],
+        "electiveCourseIds": [],
+        "generalEducationCourseIds": [
+          "ssai-미네르바인문1",
+          "ssai-college-english-l-s",
+          "ssai-college-english-r-w",
+          "ssai-신입생-세미나"
+        ],
+        "goals": [],
+        "notes": [],
+        "source": {
+          "documentTitle": "한국외국어대학교 Social Science & AI융합학부 공식 홈페이지",
+          "page": null,
+          "url": "https://ssai.hufs.ac.kr/ssai/10867/subview.do",
+          "section": "SSAI학부 커리큘럼",
+          "originalText": "1학년 1학기"
+        },
+        "confidence": "high",
+        "verificationRequired": false
+      },
+      {
+        "id": "year1-semester2",
+        "year": 1,
+        "semester": 2,
+        "label": "1학년 2학기",
+        "recommendedCredits": 21,
+        "minimumCredits": null,
+        "maximumCredits": 20,
+        "requiredCourseIds": [
+          "ssai-미네르바인문2",
+          "ssai-english-for-stem",
+          "ssai-writing-for-stem",
+          "ssai-소셜-데이터-프로그래밍-기초1",
+          "ssai-확률과통계",
+          "ssai-ai윤리"
+        ],
+        "recommendedCourseIds": [
+          "ssai-미네르바인문2",
+          "ssai-english-for-stem",
+          "ssai-writing-for-stem",
+          "ssai-소셜-데이터-프로그래밍-기초1",
+          "ssai-확률과통계",
+          "ssai-ai윤리",
+          "ssai-사회과학과-데이터사이언스"
+        ],
+        "electiveCourseIds": [
+          "ssai-사회과학과-데이터사이언스"
+        ],
+        "generalEducationCourseIds": [
+          "ssai-미네르바인문2",
+          "ssai-english-for-stem",
+          "ssai-writing-for-stem"
+        ],
+        "goals": [],
+        "notes": [],
+        "source": {
+          "documentTitle": "한국외국어대학교 Social Science & AI융합학부 공식 홈페이지",
+          "page": null,
+          "url": "https://ssai.hufs.ac.kr/ssai/10867/subview.do",
+          "section": "SSAI학부 커리큘럼",
+          "originalText": "1학년 2학기"
+        },
+        "confidence": "high",
+        "verificationRequired": false
+      },
+      {
+        "id": "year2-semester1",
+        "year": 2,
+        "semester": 1,
+        "label": "2학년 1학기",
+        "recommendedCredits": 13,
+        "minimumCredits": null,
+        "maximumCredits": 20,
+        "requiredCourseIds": [
+          "ssai-사회과학연구방법론1",
+          "ssai-기계학습",
+          "ssai-객체지향형프로그래밍"
+        ],
+        "recommendedCourseIds": [
+          "ssai-hufs-career-design",
+          "ssai-사회과학연구방법론1",
+          "ssai-기계학습",
+          "ssai-객체지향형프로그래밍",
+          "ssai-텍스트-기반-사회과학-데이터분석1"
+        ],
+        "electiveCourseIds": [
+          "ssai-텍스트-기반-사회과학-데이터분석1"
+        ],
+        "generalEducationCourseIds": [
+          "ssai-hufs-career-design"
+        ],
+        "goals": [],
+        "notes": [],
+        "source": {
+          "documentTitle": "한국외국어대학교 Social Science & AI융합학부 공식 홈페이지",
+          "page": null,
+          "url": "https://ssai.hufs.ac.kr/ssai/10867/subview.do",
+          "section": "SSAI학부 커리큘럼",
+          "originalText": "2학년 1학기"
+        },
+        "confidence": "high",
+        "verificationRequired": false
+      },
+      {
+        "id": "year2-semester2",
+        "year": 2,
+        "semester": 2,
+        "label": "2학년 2학기",
+        "recommendedCredits": 9,
+        "minimumCredits": null,
+        "maximumCredits": 20,
+        "requiredCourseIds": [
+          "ssai-사회과학-데이터의-자료구조"
+        ],
+        "recommendedCourseIds": [
+          "ssai-사회과학-데이터의-자료구조",
+          "ssai-사회연결망-데이터-분석",
+          "ssai-사회과학과-빅데이터-시각화"
+        ],
+        "electiveCourseIds": [
+          "ssai-사회연결망-데이터-분석",
+          "ssai-사회과학과-빅데이터-시각화"
+        ],
+        "generalEducationCourseIds": [],
+        "goals": [],
+        "notes": [],
+        "source": {
+          "documentTitle": "한국외국어대학교 Social Science & AI융합학부 공식 홈페이지",
+          "page": null,
+          "url": "https://ssai.hufs.ac.kr/ssai/10867/subview.do",
+          "section": "SSAI학부 커리큘럼",
+          "originalText": "2학년 2학기"
+        },
+        "confidence": "high",
+        "verificationRequired": false
+      },
+      {
+        "id": "year3-semester1",
+        "year": 3,
+        "semester": 1,
+        "label": "3학년 1학기",
+        "recommendedCredits": 15,
+        "minimumCredits": null,
+        "maximumCredits": 20,
+        "requiredCourseIds": [
+          "ssai-딥러닝-및-응용",
+          "ssai-알고리즘"
+        ],
+        "recommendedCourseIds": [
+          "ssai-딥러닝-및-응용",
+          "ssai-알고리즘",
+          "ssai-인간인공지능상호작용",
+          "ssai-데이터마이닝",
+          "ssai-시계열분석"
+        ],
+        "electiveCourseIds": [
+          "ssai-인간인공지능상호작용",
+          "ssai-데이터마이닝",
+          "ssai-시계열분석"
+        ],
+        "generalEducationCourseIds": [],
+        "goals": [],
+        "notes": [],
+        "source": {
+          "documentTitle": "한국외국어대학교 Social Science & AI융합학부 공식 홈페이지",
+          "page": null,
+          "url": "https://ssai.hufs.ac.kr/ssai/10867/subview.do",
+          "section": "SSAI학부 커리큘럼",
+          "originalText": "3학년 1학기"
+        },
+        "confidence": "high",
+        "verificationRequired": false
+      },
+      {
+        "id": "year3-semester2",
+        "year": 3,
+        "semester": 2,
+        "label": "3학년 2학기",
+        "recommendedCredits": null,
+        "minimumCredits": null,
+        "maximumCredits": 20,
+        "requiredCourseIds": [],
+        "recommendedCourseIds": [],
+        "electiveCourseIds": [],
+        "generalEducationCourseIds": [],
+        "goals": [],
+        "notes": [
+          "공식 표가 3-2·4-1·4-2 과목을 통합 제시하므로 고학년 개별 과목 배치는 미확정"
+        ],
+        "source": {
+          "documentTitle": "한국외국어대학교 Social Science & AI융합학부 공식 홈페이지",
+          "page": null,
+          "url": "https://ssai.hufs.ac.kr/ssai/10867/subview.do",
+          "section": "SSAI학부 커리큘럼",
+          "originalText": "3학년 2학기"
+        },
+        "confidence": "medium",
+        "verificationRequired": true
+      },
+      {
+        "id": "year4-semester1",
+        "year": 4,
+        "semester": 1,
+        "label": "4학년 1학기",
+        "recommendedCredits": null,
+        "minimumCredits": null,
+        "maximumCredits": 20,
+        "requiredCourseIds": [],
+        "recommendedCourseIds": [],
+        "electiveCourseIds": [],
+        "generalEducationCourseIds": [],
+        "goals": [],
+        "notes": [
+          "공식 표가 3-2·4-1·4-2 과목을 통합 제시하므로 고학년 개별 과목 배치는 미확정"
+        ],
+        "source": {
+          "documentTitle": "한국외국어대학교 Social Science & AI융합학부 공식 홈페이지",
+          "page": null,
+          "url": "https://ssai.hufs.ac.kr/ssai/10867/subview.do",
+          "section": "SSAI학부 커리큘럼",
+          "originalText": "4학년 1학기"
+        },
+        "confidence": "medium",
+        "verificationRequired": true
+      },
+      {
+        "id": "year4-semester2",
+        "year": 4,
+        "semester": 2,
+        "label": "4학년 2학기",
+        "recommendedCredits": null,
+        "minimumCredits": null,
+        "maximumCredits": 20,
+        "requiredCourseIds": [],
+        "recommendedCourseIds": [],
+        "electiveCourseIds": [],
+        "generalEducationCourseIds": [],
+        "goals": [],
+        "notes": [
+          "공식 표가 3-2·4-1·4-2 과목을 통합 제시하므로 고학년 개별 과목 배치는 미확정"
+        ],
+        "source": {
+          "documentTitle": "한국외국어대학교 Social Science & AI융합학부 공식 홈페이지",
+          "page": null,
+          "url": "https://ssai.hufs.ac.kr/ssai/10867/subview.do",
+          "section": "SSAI학부 커리큘럼",
+          "originalText": "4학년 2학기"
+        },
+        "confidence": "medium",
+        "verificationRequired": true
+      }
+    ],
+    "estimatedGraduationSemester": null,
+    "warnings": [
+      "SSAI 공식 과목표 미확보로 과목 추천과 필수과목 판정은 보류"
+    ],
+    "dataConfidence": "high"
+  },
+  {
+    "studentId": "sample-3",
+    "graduationProgress": 90,
+    "missingRequirements": {
+      "total": 14,
+      "major": 3,
+      "generalEducation": 0
+    },
+    "recommendedNextSemester": [],
+    "roadmap": [
+      {
+        "id": "year1-semester1",
+        "year": 1,
+        "semester": 1,
+        "label": "1학년 1학기",
+        "recommendedCredits": 19,
+        "minimumCredits": null,
+        "maximumCredits": 20,
+        "requiredCourseIds": [
+          "ssai-미네르바인문1",
+          "ssai-college-english-l-s",
+          "ssai-college-english-r-w",
+          "ssai-신입생-세미나",
+          "ssai-인공지능기초수학",
+          "ssai-기초프로그래밍-컴퓨팅사고",
+          "ssai-인공지능개론"
+        ],
+        "recommendedCourseIds": [
+          "ssai-미네르바인문1",
+          "ssai-college-english-l-s",
+          "ssai-college-english-r-w",
+          "ssai-신입생-세미나",
+          "ssai-인공지능기초수학",
+          "ssai-기초프로그래밍-컴퓨팅사고",
+          "ssai-인공지능개론"
+        ],
+        "electiveCourseIds": [],
+        "generalEducationCourseIds": [
+          "ssai-미네르바인문1",
+          "ssai-college-english-l-s",
+          "ssai-college-english-r-w",
+          "ssai-신입생-세미나"
+        ],
+        "goals": [],
+        "notes": [],
+        "source": {
+          "documentTitle": "한국외국어대학교 Social Science & AI융합학부 공식 홈페이지",
+          "page": null,
+          "url": "https://ssai.hufs.ac.kr/ssai/10867/subview.do",
+          "section": "SSAI학부 커리큘럼",
+          "originalText": "1학년 1학기"
+        },
+        "confidence": "high",
+        "verificationRequired": false
+      },
+      {
+        "id": "year1-semester2",
+        "year": 1,
+        "semester": 2,
+        "label": "1학년 2학기",
+        "recommendedCredits": 21,
+        "minimumCredits": null,
+        "maximumCredits": 20,
+        "requiredCourseIds": [
+          "ssai-미네르바인문2",
+          "ssai-english-for-stem",
+          "ssai-writing-for-stem",
+          "ssai-소셜-데이터-프로그래밍-기초1",
+          "ssai-확률과통계",
+          "ssai-ai윤리"
+        ],
+        "recommendedCourseIds": [
+          "ssai-미네르바인문2",
+          "ssai-english-for-stem",
+          "ssai-writing-for-stem",
+          "ssai-소셜-데이터-프로그래밍-기초1",
+          "ssai-확률과통계",
+          "ssai-ai윤리",
+          "ssai-사회과학과-데이터사이언스"
+        ],
+        "electiveCourseIds": [
+          "ssai-사회과학과-데이터사이언스"
+        ],
+        "generalEducationCourseIds": [
+          "ssai-미네르바인문2",
+          "ssai-english-for-stem",
+          "ssai-writing-for-stem"
+        ],
+        "goals": [],
+        "notes": [],
+        "source": {
+          "documentTitle": "한국외국어대학교 Social Science & AI융합학부 공식 홈페이지",
+          "page": null,
+          "url": "https://ssai.hufs.ac.kr/ssai/10867/subview.do",
+          "section": "SSAI학부 커리큘럼",
+          "originalText": "1학년 2학기"
+        },
+        "confidence": "high",
+        "verificationRequired": false
+      },
+      {
+        "id": "year2-semester1",
+        "year": 2,
+        "semester": 1,
+        "label": "2학년 1학기",
+        "recommendedCredits": 13,
+        "minimumCredits": null,
+        "maximumCredits": 20,
+        "requiredCourseIds": [
+          "ssai-사회과학연구방법론1",
+          "ssai-기계학습",
+          "ssai-객체지향형프로그래밍"
+        ],
+        "recommendedCourseIds": [
+          "ssai-hufs-career-design",
+          "ssai-사회과학연구방법론1",
+          "ssai-기계학습",
+          "ssai-객체지향형프로그래밍",
+          "ssai-텍스트-기반-사회과학-데이터분석1"
+        ],
+        "electiveCourseIds": [
+          "ssai-텍스트-기반-사회과학-데이터분석1"
+        ],
+        "generalEducationCourseIds": [
+          "ssai-hufs-career-design"
+        ],
+        "goals": [],
+        "notes": [],
+        "source": {
+          "documentTitle": "한국외국어대학교 Social Science & AI융합학부 공식 홈페이지",
+          "page": null,
+          "url": "https://ssai.hufs.ac.kr/ssai/10867/subview.do",
+          "section": "SSAI학부 커리큘럼",
+          "originalText": "2학년 1학기"
+        },
+        "confidence": "high",
+        "verificationRequired": false
+      },
+      {
+        "id": "year2-semester2",
+        "year": 2,
+        "semester": 2,
+        "label": "2학년 2학기",
+        "recommendedCredits": 9,
+        "minimumCredits": null,
+        "maximumCredits": 20,
+        "requiredCourseIds": [
+          "ssai-사회과학-데이터의-자료구조"
+        ],
+        "recommendedCourseIds": [
+          "ssai-사회과학-데이터의-자료구조",
+          "ssai-사회연결망-데이터-분석",
+          "ssai-사회과학과-빅데이터-시각화"
+        ],
+        "electiveCourseIds": [
+          "ssai-사회연결망-데이터-분석",
+          "ssai-사회과학과-빅데이터-시각화"
+        ],
+        "generalEducationCourseIds": [],
+        "goals": [],
+        "notes": [],
+        "source": {
+          "documentTitle": "한국외국어대학교 Social Science & AI융합학부 공식 홈페이지",
+          "page": null,
+          "url": "https://ssai.hufs.ac.kr/ssai/10867/subview.do",
+          "section": "SSAI학부 커리큘럼",
+          "originalText": "2학년 2학기"
+        },
+        "confidence": "high",
+        "verificationRequired": false
+      },
+      {
+        "id": "year3-semester1",
+        "year": 3,
+        "semester": 1,
+        "label": "3학년 1학기",
+        "recommendedCredits": 15,
+        "minimumCredits": null,
+        "maximumCredits": 20,
+        "requiredCourseIds": [
+          "ssai-딥러닝-및-응용",
+          "ssai-알고리즘"
+        ],
+        "recommendedCourseIds": [
+          "ssai-딥러닝-및-응용",
+          "ssai-알고리즘",
+          "ssai-인간인공지능상호작용",
+          "ssai-데이터마이닝",
+          "ssai-시계열분석"
+        ],
+        "electiveCourseIds": [
+          "ssai-인간인공지능상호작용",
+          "ssai-데이터마이닝",
+          "ssai-시계열분석"
+        ],
+        "generalEducationCourseIds": [],
+        "goals": [],
+        "notes": [],
+        "source": {
+          "documentTitle": "한국외국어대학교 Social Science & AI융합학부 공식 홈페이지",
+          "page": null,
+          "url": "https://ssai.hufs.ac.kr/ssai/10867/subview.do",
+          "section": "SSAI학부 커리큘럼",
+          "originalText": "3학년 1학기"
+        },
+        "confidence": "high",
+        "verificationRequired": false
+      },
+      {
+        "id": "year3-semester2",
+        "year": 3,
+        "semester": 2,
+        "label": "3학년 2학기",
+        "recommendedCredits": null,
+        "minimumCredits": null,
+        "maximumCredits": 20,
+        "requiredCourseIds": [],
+        "recommendedCourseIds": [],
+        "electiveCourseIds": [],
+        "generalEducationCourseIds": [],
+        "goals": [],
+        "notes": [
+          "공식 표가 3-2·4-1·4-2 과목을 통합 제시하므로 고학년 개별 과목 배치는 미확정"
+        ],
+        "source": {
+          "documentTitle": "한국외국어대학교 Social Science & AI융합학부 공식 홈페이지",
+          "page": null,
+          "url": "https://ssai.hufs.ac.kr/ssai/10867/subview.do",
+          "section": "SSAI학부 커리큘럼",
+          "originalText": "3학년 2학기"
+        },
+        "confidence": "medium",
+        "verificationRequired": true
+      },
+      {
+        "id": "year4-semester1",
+        "year": 4,
+        "semester": 1,
+        "label": "4학년 1학기",
+        "recommendedCredits": null,
+        "minimumCredits": null,
+        "maximumCredits": 20,
+        "requiredCourseIds": [],
+        "recommendedCourseIds": [],
+        "electiveCourseIds": [],
+        "generalEducationCourseIds": [],
+        "goals": [],
+        "notes": [
+          "공식 표가 3-2·4-1·4-2 과목을 통합 제시하므로 고학년 개별 과목 배치는 미확정"
+        ],
+        "source": {
+          "documentTitle": "한국외국어대학교 Social Science & AI융합학부 공식 홈페이지",
+          "page": null,
+          "url": "https://ssai.hufs.ac.kr/ssai/10867/subview.do",
+          "section": "SSAI학부 커리큘럼",
+          "originalText": "4학년 1학기"
+        },
+        "confidence": "medium",
+        "verificationRequired": true
+      },
+      {
+        "id": "year4-semester2",
+        "year": 4,
+        "semester": 2,
+        "label": "4학년 2학기",
+        "recommendedCredits": null,
+        "minimumCredits": null,
+        "maximumCredits": 20,
+        "requiredCourseIds": [],
+        "recommendedCourseIds": [],
+        "electiveCourseIds": [],
+        "generalEducationCourseIds": [],
+        "goals": [],
+        "notes": [
+          "공식 표가 3-2·4-1·4-2 과목을 통합 제시하므로 고학년 개별 과목 배치는 미확정"
+        ],
+        "source": {
+          "documentTitle": "한국외국어대학교 Social Science & AI융합학부 공식 홈페이지",
+          "page": null,
+          "url": "https://ssai.hufs.ac.kr/ssai/10867/subview.do",
+          "section": "SSAI학부 커리큘럼",
+          "originalText": "4학년 2학기"
+        },
+        "confidence": "medium",
+        "verificationRequired": true
+      }
+    ],
+    "estimatedGraduationSemester": null,
+    "warnings": [
+      "SSAI 공식 과목표 미확보로 과목 추천과 필수과목 판정은 보류"
+    ],
+    "dataConfidence": "high"
+  }
+]

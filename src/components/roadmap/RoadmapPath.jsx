@@ -1,4 +1,4 @@
-import { roadmapPath, roadmapSegments } from '../../data/roadmapData';
+import { roadmapPath, roadmapSegments } from '../../data/legacyMockData/roadmapData';
 
 function segmentClass(from, semesters) {
   const semester = semesters.find((item) => item.order === from);

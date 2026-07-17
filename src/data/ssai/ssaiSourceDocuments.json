@@ -1,0 +1,111 @@
+[
+  {
+    "id": "hufs-seoul-2026-1-guide",
+    "documentTitle": "(서울) 2026-1학기 수강편람.pdf",
+    "campus": "서울캠퍼스",
+    "academicTerm": "2026-1",
+    "pageCount": 141,
+    "filePath": "/Users/seolin/Desktop/LINK/(서울) 2026-1학기 수강편람.pdf",
+    "analyzedPages": [
+      3,
+      6,
+      12,
+      13,
+      14,
+      15,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      26,
+      83,
+      84,
+      85,
+      86,
+      103,
+      104,
+      138,
+      139,
+      140,
+      141
+    ],
+    "limitations": [
+      "SSAI 세부 교육과정은 학부 홈페이지와 별도 Excel에서 보완",
+      "2026-2 분반·교수·강의시간 정보는 한국외대 강의시간표 조회 데이터로 보완"
+    ],
+    "confidence": "high"
+  },
+  {
+    "id": "hufs-2026-2-ssai-class-schedule",
+    "documentTitle": "한국외국어대학교 강의시간표 조회",
+    "campus": "서울캠퍼스",
+    "academicTerm": "2026-2",
+    "pageCount": null,
+    "url": "https://wis.hufs.ac.kr/src08/jsp/lecture/LECTURE2020L.jsp",
+    "analyzedSections": [
+      "Social Science & AI융합전공(A0B01)",
+      "전공/부전공 강의시간표"
+    ],
+    "limitations": [
+      "2026년 7월 17일 조회 기준",
+      "강의계획서는 조회 응답 기준 미공개",
+      "일부 강의실은 미정"
+    ],
+    "confidence": "high"
+  },
+  {
+    "id": "ssai-official-curriculum-web",
+    "documentTitle": "SSAI학부 교육과정",
+    "campus": "서울캠퍼스",
+    "academicTerm": null,
+    "pageCount": null,
+    "url": "https://ssai.hufs.ac.kr/ssai/10867/subview.do",
+    "analyzedSections": [
+      "SSAI학부 커리큘럼"
+    ],
+    "limitations": [
+      "3학년 2학기·4학년 과목이 통합 열로 제시됨",
+      "선수과목과 과목코드 미표시"
+    ],
+    "confidence": "high"
+  },
+  {
+    "id": "hufs-2026-1-course-cautions-xls",
+    "documentTitle": "2026-1 수강유의교과목 Excel",
+    "campus": "서울캠퍼스",
+    "academicTerm": "2026-1",
+    "pageCount": null,
+    "url": "http://haksa.hufs.ac.kr/sites/haksa/manual/H1/H1_2026-1_manual.xls",
+    "analyzedSections": [
+      "전공필수교과목",
+      "전공교류(인정)교과목현황",
+      "동일교과목현황(전공,기초)"
+    ],
+    "limitations": [
+      "SSAI 선수과목과 강의시간 미표시"
+    ],
+    "confidence": "high"
+  },
+  {
+    "id": "ssai-official-graduation-web",
+    "documentTitle": "SSAI학부 졸업요건",
+    "campus": "서울캠퍼스",
+    "academicTerm": "2025-1 기준",
+    "pageCount": null,
+    "url": "https://ssai.hufs.ac.kr/ssai/10868/subview.do",
+    "analyzedSections": [
+      "전공 심화",
+      "전공 심화+부전공",
+      "SSAI 이중전공",
+      "SSAI 부전공"
+    ],
+    "limitations": [
+      "2025학번 이후 변경 전 기준이므로 최신 수강편람을 우선 적용"
+    ],
+    "confidence": "high"
+  }
+]
