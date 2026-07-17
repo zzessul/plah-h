@@ -13,18 +13,10 @@ const menu = [
   [Info, '앱 정보', 'Plan H · SSAI 공식 자료 기반'],
 ];
 
-export default function MyPage({ user, onEditProfile, onReset, setActiveTab }) {
+export default function MyPage({ user, notifications, setNotifications, onEditProfile, onReset, setActiveTab }) {
   const [modal, setModal] = useState(null);
   const [feedback, setFeedback] = useState({ type: '사용성 피드백', message: '', contact: '' });
   const [feedbackSent, setFeedbackSent] = useState(false);
-  const [notifications, setNotifications] = useState({
-    enabled: true,
-    quiet: false,
-    badge: true,
-    academic: true,
-    registration: true,
-    graduation: true,
-  });
   const interests = String(user.interests || '').split(',').map((item) => item.trim()).filter(Boolean);
   const toggleNotification = (key) => setNotifications((current) => ({ ...current, [key]: !current[key] }));
   const openMenu = (title) => {

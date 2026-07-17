@@ -15,6 +15,14 @@ export function createInitialState() {
     timetablePlans,
     activePlan: 'A',
     calendar: calendarSeed,
+    notifications: {
+      enabled: true,
+      quiet: false,
+      badge: true,
+      academic: true,
+      registration: true,
+      graduation: true,
+    },
     chat: [
       {
         role: 'assistant',
@@ -48,6 +56,7 @@ function mergeState(base, saved) {
     completedCourses: Array.isArray(saved.completedCourses) ? saved.completedCourses : base.completedCourses,
     roadmap: Array.isArray(saved.roadmap) ? saved.roadmap : base.roadmap,
     calendar: Array.isArray(saved.calendar) ? saved.calendar : base.calendar,
+    notifications: { ...base.notifications, ...(saved.notifications || {}) },
     chat: Array.isArray(saved.chat) ? saved.chat : base.chat,
   };
 }

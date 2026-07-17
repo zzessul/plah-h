@@ -23,6 +23,7 @@ export default function CalendarPage({ events, setEvents }) {
   const [category, setCategory] = useState('과제');
   const [filter, setFilter] = useState('전체');
   const [editing, setEditing] = useState(null);
+  const [formMessage, setFormMessage] = useState('');
   const monthDays = useMemo(() => {
     const [year, monthIndex] = month.split('-').map(Number);
     const lastDay = new Date(year, monthIndex, 0).getDate();
@@ -33,9 +34,12 @@ export default function CalendarPage({ events, setEvents }) {
   const visibleEvents = filter === '전체' ? selectedEvents : selectedEvents.filter((event) => event.category === filter);
 
   const addEvent = () => {
-    if (!title.trim()) return;
-    setEvents([...events, { id: `e-${Date.now()}`, date: selected, title, category, startTime: '09:00', endTime: '10:00', description: '시연 중 추가한 일정입니다.', notify: true }]);
+    const nextTitle = title.trim();
+    if (!nextTitle) return setFormMessage('일정 이름을 입력해주세요.');
+    setEvents([...events, { id: `e-${Date.now()}`, date: selected, title: nextTitle, category, startTime: '09:00', endTime: '10:00', description: '시연 중 추가한 일정입니다.', notify: true }]);
     setTitle('');
+    setFilter('전체');
+    setFormMessage('일정이 추가되었습니다.');
   };
   const shiftMonth = (delta) => {
     const [year, monthIndex] = month.split('-').map(Number);
@@ -45,6 +49,7 @@ export default function CalendarPage({ events, setEvents }) {
     setSelected(`${nextMonth}-01`);
   };
   const updateEvent = () => {
+    if (!editing.title?.trim() || !editing.date) return;
     setEvents(events.map((event) => (event.id === editing.id ? editing : event)));
     setEditing(null);
   };
@@ -98,12 +103,13 @@ export default function CalendarPage({ events, setEvents }) {
       <Card className="calendarPanel">
         <h3>새 일정 추가</h3>
         <div className="inlineInput">
-          <input value={title} onChange={(event) => setTitle(event.target.value)} placeholder="일정 이름" />
+          <input value={title} onChange={(event) => { setTitle(event.target.value); setFormMessage(''); }} placeholder="일정 이름" />
           <select value={category} onChange={(event) => setCategory(event.target.value)}>
             {Object.keys(categoryClass).map((item) => <option key={item}>{item}</option>)}
           </select>
           <button className="iconButton filled" onClick={addEvent} aria-label="일정 추가"><Plus size={18} /></button>
         </div>
+        {formMessage && <p className={formMessage.includes('추가') ? 'formSuccess compact' : 'formError compact'}>{formMessage}</p>}
         <Button variant="ghost" onClick={addEvent}>선택한 날짜에 추가</Button>
       </Card>
       {editing && (

@@ -68,6 +68,13 @@ export default function App() {
     profile: (
       <MyPage
         user={state.user}
+        notifications={state.notifications}
+        setNotifications={(notifications) =>
+          setState((current) => ({
+            ...current,
+            notifications: typeof notifications === 'function' ? notifications(current.notifications) : notifications,
+          }))
+        }
         onEditProfile={() => patch({ onboarded: false })}
         onReset={resetAll}
         setActiveTab={(activeTab) => patch({ activeTab })}

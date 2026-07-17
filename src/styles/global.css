@@ -284,6 +284,12 @@ input, select {
   padding: 10px;
   font-weight: 800;
 }
+.formError.compact,
+.formSuccess.compact {
+  margin: 0;
+  padding: 8px 10px;
+  font-size: 12px;
+}
 .settingsList {
   display: grid;
   gap: 10px;

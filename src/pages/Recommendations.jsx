@@ -11,6 +11,7 @@ export default function Recommendations({ user, plans, setPlans, setActivePlan, 
   const [query, setQuery] = useState('');
   const [searchOpen, setSearchOpen] = useState(false);
   const [added, setAdded] = useState([]);
+  const planCourseKeys = new Set((plans.A?.courses || []).map((course) => course.id || course.name));
   const interests = String(user.interests || '').split(',').map((item) => item.trim()).filter(Boolean);
   const current = Math.min(Math.max((Number(String(user.grade).replace(/\D/g, '')) - 1) * 2 + (String(user.semester).includes('2') ? 2 : 1), 1), 8);
   const candidates = useMemo(() => {
@@ -29,7 +30,7 @@ export default function Recommendations({ user, plans, setPlans, setActivePlan, 
   });
 
   const addToPlan = (course) => {
-    if (added.includes(course.id)) return;
+    if (added.includes(course.id) || planCourseKeys.has(course.id) || planCourseKeys.has(course.name)) return;
     setPlans({ ...plans, A: { ...plans.A, courses: [...plans.A.courses, { ...course, day: null, start: null, end: null, room: '시간 미정', status: '검증 필요' }] } });
     setAdded([...added, course.id]);
   };
@@ -56,8 +57,8 @@ export default function Recommendations({ user, plans, setPlans, setActivePlan, 
             <div className="recommendTitle"><div><span>{course.required ? '전공필수' : '전공선택'} · {course.credits}학점</span><h3>{course.name}</h3></div><strong><Star size={14} fill="currentColor" /> {(4.9 - index * .1).toFixed(1)}</strong></div>
             <p>{course.reason || 'SSAI 공식 교육과정에 포함된 과목입니다.'}</p>
             <div className="tagRow"><span>{course.required ? '필수' : '권장'}</span><span><Clock3 size={12} /> 공식 시간 확인 필요</span></div>
-            <button className={added.includes(course.id) ? 'courseAddButton added' : 'courseAddButton'} onClick={() => addToPlan(course)}>
-              {added.includes(course.id) ? <><Check size={16} /> Plan A에 추가됨</> : <><Plus size={16} /> 시간표 후보에 추가</>}
+            <button className={added.includes(course.id) || planCourseKeys.has(course.id) || planCourseKeys.has(course.name) ? 'courseAddButton added' : 'courseAddButton'} onClick={() => addToPlan(course)}>
+              {added.includes(course.id) || planCourseKeys.has(course.id) || planCourseKeys.has(course.name) ? <><Check size={16} /> Plan A에 추가됨</> : <><Plus size={16} /> 시간표 후보에 추가</>}
             </button>
           </div>
         </Card>
