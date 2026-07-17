@@ -990,18 +990,26 @@ input, select {
 }
 .monthGrid button.selected { border-color: #1d2f6f; background: #edf4ff; }
 .monthGrid i {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   display: inline-block;
-  margin-right: 2px;
+  margin-right: 3px;
+  background: #1d72d2;
+  box-shadow: 0 0 0 2px rgba(29, 114, 210, .14);
 }
-.eventItem.sky, .monthGrid i.sky { background: #e0f4ff; color: #166b98; }
-.eventItem.rose, .monthGrid i.rose { background: #ffe8ec; color: #b92737; }
-.eventItem.orange, .monthGrid i.orange { background: #fff0dc; color: #ad5705; }
-.eventItem.green, .monthGrid i.green { background: #e4f7ef; color: #0f7a4f; }
-.eventItem.indigo, .monthGrid i.indigo { background: #edf0ff; color: #1d2f6f; }
-.eventItem.purple, .monthGrid i.purple { background: #e0f4ff; color: #166b98; }
+.monthGrid i.sky { background: #1f9eea; box-shadow: 0 0 0 2px rgba(31, 158, 234, .16); }
+.monthGrid i.rose { background: #3178d4; box-shadow: 0 0 0 2px rgba(49, 120, 212, .16); }
+.monthGrid i.orange { background: #0b78b9; box-shadow: 0 0 0 2px rgba(11, 120, 185, .16); }
+.monthGrid i.green { background: #1697c8; box-shadow: 0 0 0 2px rgba(22, 151, 200, .16); }
+.monthGrid i.indigo { background: #1d2f6f; box-shadow: 0 0 0 2px rgba(29, 47, 111, .18); }
+.monthGrid i.purple { background: #2563c7; box-shadow: 0 0 0 2px rgba(37, 99, 199, .16); }
+.eventItem.sky { background: #e0f4ff; color: #166b98; }
+.eventItem.rose { background: #ffe8ec; color: #b92737; }
+.eventItem.orange { background: #fff0dc; color: #ad5705; }
+.eventItem.green { background: #e4f7ef; color: #0f7a4f; }
+.eventItem.indigo { background: #edf0ff; color: #1d2f6f; }
+.eventItem.purple { background: #e0f4ff; color: #166b98; }
 .calendarPanel {
   display: grid;
   gap: 12px;
