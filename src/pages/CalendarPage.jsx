@@ -16,8 +16,9 @@ const categoryClass = {
 };
 
 export default function CalendarPage({ events, setEvents }) {
-  const [selected, setSelected] = useState('2026-07-15');
-  const [month, setMonth] = useState('2026-07');
+  const today = new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' });
+  const [selected, setSelected] = useState(today);
+  const [month, setMonth] = useState(today.slice(0, 7));
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState('과제');
   const [filter, setFilter] = useState('전체');
@@ -61,7 +62,7 @@ export default function CalendarPage({ events, setEvents }) {
           <button className="iconButton" onClick={() => shiftMonth(1)} aria-label="다음 달"><ChevronRight size={18} /></button>
         </div>
         <span className="selectedDateLabel">선택한 날짜 · {selected.slice(5).replace('-', '월 ')}일</span>
-        <Button variant="ghost" onClick={() => { setMonth('2026-07'); setSelected('2026-07-15'); }}>오늘로 이동</Button>
+        <Button variant="ghost" onClick={() => { setMonth(today.slice(0, 7)); setSelected(today); }}>오늘로 이동</Button>
         <div className="weekdayRow">{['일', '월', '화', '수', '목', '금', '토'].map((day) => <span key={day}>{day}</span>)}</div>
         <div className="monthGrid">
           {monthDays.map((date, index) => {

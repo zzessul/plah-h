@@ -6,7 +6,7 @@ import RoadmapSummary from '../components/roadmap/RoadmapSummary';
 import SemesterDetailSheet from '../components/roadmap/SemesterDetailSheet';
 import SemesterNode from '../components/roadmap/SemesterNode';
 
-const STORAGE_KEY = 'plan-h-roadmap-official-ssai-v2';
+const STORAGE_KEY = 'plan-h-roadmap-official-ssai-v3';
 
 function loadRoadmapState() {
   try {
@@ -73,6 +73,10 @@ export default function Roadmap({ setRoadmap, metrics, user, completedCourses, s
     const timer = window.setTimeout(() => currentRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 450);
     return () => window.clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    setSemesters((current) => applyUserStatus(current, user));
+  }, [user?.grade, user?.semester]);
 
   const selectedSemester = semesters.find((semester) => semester.id === selectedId);
   const actualCredits = useMemo(() => {
@@ -160,7 +164,7 @@ export default function Roadmap({ setRoadmap, metrics, user, completedCourses, s
 
   const scrollToCurrent = () => {
     currentRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    setSelectedId('year4-semester1');
+    setSelectedId(semesters.find((semester) => semester.status === 'current')?.id || 'year1-semester1');
   };
 
   const scrollToTop = () => {

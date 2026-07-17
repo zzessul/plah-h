@@ -34,7 +34,7 @@ const completionTypeMap = {
 
 const interestKeywords = ['사회과학 데이터 분석', '정책 AI', '자연어 처리', '사회연결망 분석', '빅데이터 시각화', '미디어 데이터', '비즈니스 데이터', 'GIS/공간 데이터', 'AI 윤리', '헬스 애널리틱스'];
 const steps = [
-  { label: '기본 정보', title: '먼저 서린님의 학교 정보를 알려주세요', description: '학년과 학기를 기준으로 맞춤 로드맵을 만들어요.', icon: UserRound },
+  { label: '기본 정보', title: '먼저 학교 정보를 알려주세요', description: '학년과 학기를 기준으로 맞춤 로드맵을 만들어요.', icon: UserRound },
   { label: '학업 정보', title: '현재 이수 현황을 확인할게요', description: '입학연도별 졸업요건과 남은 학점을 계산해요.', icon: GraduationCap },
   { label: '맞춤 설정', title: '마지막으로 수업 취향을 알려주세요', description: '관심 분야와 선호 조건을 과목 추천에 반영해요.', icon: Sparkles },
 ];

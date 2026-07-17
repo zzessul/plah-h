@@ -5,7 +5,7 @@ export function calculateGraduation(user, requirements, completedCourses, roadma
   const extraCompleted = completedCourses
     .filter((course) => course.completed && course.id.startsWith('need'))
     .reduce((sum, course) => sum + course.credits, 0);
-  const baseCredits = Number(user.earnedCredits || 108);
+  const baseCredits = Number(user.earnedCredits ?? 0);
   const earnedCredits = baseCredits + extraCompleted;
   const totalRequired = Number(requirements.totalCredits || user.totalCredits);
   const remainingCredits = Math.max(totalRequired - earnedCredits, 0);
@@ -85,11 +85,21 @@ export function termCredits(term) {
 }
 
 export function getAiAnswer(question, knowledge, user) {
-  const found = knowledge.find((item) => question.includes(item.q.slice(0, 8)) || item.q.includes(question));
+  const normalized = question.replace(/\s/g, '');
+  const found = knowledge.find((item) => {
+    const itemQuestion = item.q.replace(/\s/g, '');
+    return normalized.includes(itemQuestion.slice(0, 6)) || itemQuestion.includes(normalized);
+  }) || knowledge.find((item) => {
+    if (normalized.includes('전공필수') || normalized.includes('추천과목') || normalized.includes('다음학기')) return item.q.includes('전공필수');
+    if (normalized.includes('데이터') || normalized.includes('분석')) return item.q.includes('데이터 분석');
+    if (normalized.includes('졸업')) return item.q.includes('졸업');
+    if (normalized.includes('교환')) return item.q.includes('교환학생');
+    return false;
+  });
   if (found) return found;
   return {
     q: question,
-    a: `${user.name}님 기준으로 보면 현재 이수 학점과 전공별 부족 학점을 함께 확인해야 합니다. 졸업까지 남은 26학점을 제1전공, 제2전공, 졸업인증 순서로 점검하는 계획을 추천합니다.`,
-    sources: ['2026학년도 졸업요건', '개인 이수 학점 현황'],
+    a: `${user.name || 'SSAI 학생'}님 기준으로 현재 이수 학점과 전공별 부족 학점을 함께 확인해야 합니다. 제1전공, 이수 유형, 외국어 인증 순서로 점검하는 계획을 추천합니다.`,
+    sources: ['SSAI 공식 졸업요건', 'SSAI 공식 교육과정'],
   };
 }

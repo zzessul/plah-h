@@ -26,6 +26,7 @@ export default function Timetable({ plans, setPlans, activePlan, setActivePlan, 
   const plan = plans[activePlan];
   const replacement = replacements[failed];
   const totalCredits = plan.courses.reduce((sum, course) => sum + Number(course.credits || 3), 0);
+  const unscheduledCourses = plan.courses.filter((course) => !course.day || !course.start || !course.end);
 
   const savePlan = () => {
     setPlans({
@@ -94,6 +95,18 @@ export default function Timetable({ plans, setPlans, activePlan, setActivePlan, 
           </button>
         ))}
       </div>
+
+      {!!unscheduledCourses.length && (
+        <Card className="unscheduledCourses">
+          <h3>시간 미정 후보</h3>
+          {unscheduledCourses.map((course) => (
+            <button key={course.id || course.name} onClick={() => setDetail(course)}>
+              <span>{course.name}</span>
+              <strong>{course.credits || 3}학점 · {course.area || course.type || '전공'}</strong>
+            </button>
+          ))}
+        </Card>
+      )}
 
       <Card>
         <p className="eyebrow">{plan.summary}</p>
@@ -195,7 +208,7 @@ export default function Timetable({ plans, setPlans, activePlan, setActivePlan, 
         <Modal title="과목 상세" onClose={() => setDetail(null)}>
           <Card>
             <h3>{detail.name}</h3>
-            <p><Info size={14} /> {detail.day}요일 {detail.start}:00-{detail.end}:00 · {detail.room}</p>
+            <p><Info size={14} /> {detail.day ? `${detail.day}요일 ${detail.start}:00-${detail.end}:00` : '시간 미정'} · {detail.room}</p>
             <p>학수번호: {detail.code || '공식 확인 필요'}</p>
             <p>교수명: {detail.professor || '미정'} · {detail.credits || 3}학점 · {detail.area || '전공'}</p>
             <p>{detail.status || '신청 전'} · 출처: {detail.source || '한국외대 강의시간표 조회'}</p>

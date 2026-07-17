@@ -43,6 +43,9 @@ export default function AppShell({ activeTab, setActiveTab, onReset, onEditProfi
           <button className="iconButton" onClick={() => setActiveTab('profile')} aria-label="마이페이지">
             <UserRound size={18} />
           </button>
+          <button className="iconButton" onClick={() => setPanel('settings')} aria-label="설정">
+            <Settings size={18} />
+          </button>
           <button className="iconButton" onClick={() => setPanel('alerts')} aria-label="알림">
             <Bell size={18} />
           </button>

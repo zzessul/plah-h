@@ -4,7 +4,9 @@ import planiMascot from '../assets/plani-mascot.png';
 
 export default function Home({ user, metrics, completedCourses, setActiveTab, events = [] }) {
   const displayName = user.name?.trim() || 'SSAI 학생';
-  const upcoming = [...events].sort((a, b) => a.date.localeCompare(b.date))[0];
+  const today = new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' });
+  const upcoming = [...events].filter((event) => event.date >= today).sort((a, b) => a.date.localeCompare(b.date))[0]
+    || [...events].sort((a, b) => b.date.localeCompare(a.date))[0];
   const requiredArea = metrics.areas.find((area) => area.key === 'requiredCourses');
   const completedRequired = requiredArea?.earned || 0;
   const requiredTotal = requiredArea?.required || completedCourses.filter((course) => course.required).length;

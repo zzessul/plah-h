@@ -2,6 +2,7 @@ import { aiKnowledge, calendarSeed, completedCourses, demoUser, requirements, ro
 import { calculateGraduationProgress } from './ssaiAcademicPlan';
 
 export const STORAGE_KEY = 'plan-h-official-state-ssai-v4';
+export const ROADMAP_STORAGE_KEYS = ['plan-h-roadmap-official-ssai-v2', 'plan-h-roadmap-official-ssai-v3'];
 
 export function createInitialState() {
   return {
@@ -70,5 +71,6 @@ export function saveState(state) {
 
 export function resetState() {
   localStorage.removeItem(STORAGE_KEY);
+  ROADMAP_STORAGE_KEYS.forEach((key) => localStorage.removeItem(key));
   return createInitialState();
 }
