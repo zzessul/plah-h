@@ -1,7 +1,7 @@
 import { aiKnowledge, calendarSeed, completedCourses, demoUser, requirements, roadmapSeed, timetablePlans } from '../data/ssai/officialAppData';
 import { calculateGraduationProgress } from './ssaiAcademicPlan';
 
-export const STORAGE_KEY = 'plan-h-official-state-ssai-v3';
+export const STORAGE_KEY = 'plan-h-official-state-ssai-v4';
 
 export function createInitialState() {
   return {
