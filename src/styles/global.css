@@ -1652,6 +1652,7 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 .planiMessageCard p { margin: 5px 0 0; color: var(--text); font-size: 13px; }
 .quickGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .quickCard { min-width: 0; min-height: 120px; border: 1px solid var(--border); border-radius: 17px; background: white; padding: 13px; display: grid; grid-template-columns: 36px 1fr; gap: 8px; text-align: left; color: var(--text); box-shadow: var(--shadow); }
+.quickCard.subtle { grid-column: 1 / -1; min-height: 86px; }
 .quickCard > span { width: 36px; height: 36px; border-radius: 12px; background: var(--pale-blue); color: var(--blue); display: grid; place-items: center; }
 .quickCard > svg { align-self: end; justify-self: end; color: var(--blue); }
 .quickCard div { min-width: 0; }
@@ -1692,6 +1693,37 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
   color: var(--text);
   box-shadow: var(--shadow);
 }
+.opportunityHeaderIcon {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: var(--pale-blue);
+  color: var(--blue);
+  flex: 0 0 auto;
+}
+.opportunityMiniSummary { background: linear-gradient(180deg, #f8fbff, #eef7ff); }
+.opportunityMiniSummary strong { color: var(--navy); }
+.opportunityMiniSummary p { margin-bottom: 0; }
+.opportunityCard {
+  display: grid;
+  grid-template-columns: 44px 1fr auto;
+  gap: 12px;
+  align-items: center;
+}
+.opportunityType {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+}
+.opportunityType.contest { background: #fff5d9; color: #b67900; }
+.opportunityType.job { background: var(--pale-blue); color: var(--blue); }
+.opportunityTitle span { color: var(--muted); font-size: 11px; font-weight: 800; }
+.opportunityTitle h3 { margin: 4px 0; font-size: 15px; }
+.opportunityCard p { margin: 5px 0 10px; font-size: 12px; }
 .profileCard { display: grid; grid-template-columns: 64px 1fr; gap: 14px; align-items: center; }
 .profileAvatar { width: 64px; height: 64px; border-radius: 50%; background: var(--pale-blue); color: var(--navy); display: grid; place-items: center; }
 .profileCard h2 { margin: 2px 0; font-size: 21px; }

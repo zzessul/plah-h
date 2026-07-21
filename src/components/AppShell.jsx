@@ -14,6 +14,7 @@ const tabs = [
 const titles = {
   home: 'Plan H',
   detail: '졸업요건 상세',
+  opportunities: '기회 추천',
   roadmap: '학업 로드맵',
   timetable: '추천 시간표',
   calendar: '학사 캘린더',

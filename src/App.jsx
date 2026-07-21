@@ -5,6 +5,7 @@ import Chat from './pages/Chat';
 import GraduationDetail from './pages/GraduationDetail';
 import Home from './pages/Home';
 import Onboarding from './pages/Onboarding';
+import Opportunities from './pages/Opportunities';
 import Roadmap from './pages/Roadmap';
 import Timetable from './pages/Timetable';
 import Recommendations from './pages/Recommendations';
@@ -55,6 +56,7 @@ export default function App() {
       />
     ),
     detail: <GraduationDetail metrics={metrics} setActiveTab={(activeTab) => patch({ activeTab })} />,
+    opportunities: <Opportunities user={state.user} />,
     recommendations: (
       <Recommendations
         user={state.user}

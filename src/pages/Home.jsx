@@ -1,4 +1,4 @@
-import { ArrowRight, BookOpenCheck, CalendarDays, ChevronRight, Clock3, GraduationCap, Sparkles, TriangleAlert } from 'lucide-react';
+import { ArrowRight, BookOpenCheck, BriefcaseBusiness, CalendarDays, ChevronRight, Clock3, GraduationCap, Sparkles, TriangleAlert } from 'lucide-react';
 import Card from '../components/Card';
 import planiMascot from '../assets/plani-mascot.png';
 
@@ -43,6 +43,7 @@ export default function Home({ user, metrics, completedCourses, setActiveTab, ev
       <section className="quickGrid">
         <button className="quickCard" onClick={() => setActiveTab('calendar')}><span><CalendarDays size={19} /></span><div><small>다음 일정</small><strong>{upcoming ? upcoming.title : '일정을 추가해보세요'}</strong><p>{upcoming?.date || '캘린더에서 관리'}</p></div><ChevronRight size={17} /></button>
         <button className="quickCard" onClick={() => setActiveTab('recommendations')}><span><Sparkles size={19} /></span><div><small>맞춤 추천</small><strong>다음 학기 과목</strong><p>공식 권장 학기 기반</p></div><ArrowRight size={17} /></button>
+        <button className="quickCard subtle" onClick={() => setActiveTab('opportunities')}><span><BriefcaseBusiness size={19} /></span><div><small>서브 기능</small><strong>공모전·취준 추천</strong><p>관심 분야 기반</p></div><ArrowRight size={17} /></button>
       </section>
 
       <Card className="warningStrip" onClick={() => setActiveTab('detail')}>

@@ -1,4 +1,4 @@
-import { Bell, ChevronRight, Flag, Heart, Info, MessageCircle, RotateCcw, SlidersHorizontal, UserRound } from 'lucide-react';
+import { Bell, BriefcaseBusiness, ChevronRight, Flag, Heart, Info, MessageCircle, RotateCcw, SlidersHorizontal, UserRound } from 'lucide-react';
 import { useState } from 'react';
 import Card from '../components/Card';
 import Button from '../components/Button';
@@ -7,6 +7,7 @@ import Modal from '../components/Modal';
 const menu = [
   [Flag, '학업 목표 설정', '졸업 목표와 학기당 학점'],
   [Heart, '관심 분야', '추천 과목 개인화'],
+  [BriefcaseBusiness, '공모전·취준 추천', '관심 분야 기반 기회'],
   [Bell, '알림 설정', '학사일정과 수강신청 알림'],
   [SlidersHorizontal, '앱 설정', '화면과 데이터 설정'],
   [MessageCircle, '문의 및 피드백', 'Plan H에 의견 보내기'],
@@ -22,6 +23,7 @@ export default function MyPage({ user, notifications, setNotifications, onEditPr
   const openMenu = (title) => {
     if (title === '학업 목표 설정') return setActiveTab('detail');
     if (title === '관심 분야') return onEditProfile();
+    if (title === '공모전·취준 추천') return setActiveTab('opportunities');
     if (title === '알림 설정') return setModal('notifications');
     if (title === '앱 설정') return setModal('settings');
     if (title === '문의 및 피드백') {
