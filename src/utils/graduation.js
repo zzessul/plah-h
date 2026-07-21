@@ -11,13 +11,19 @@ export function calculateGraduation(user, requirements, completedCourses, roadma
   const remainingCredits = Math.max(totalRequired - earnedCredits, 0);
   const progress = Math.min(Math.round((earnedCredits / totalRequired) * 100), 100);
 
+  const userMajorCredits = Number(user.majorCompletedCredits || 0);
+  const userGeneralCredits = Number(user.generalEducationCompletedCredits || 0);
+  const userRequiredCourses = Number(user.requiredCourseCount || 0);
+  const userCertification = user.languageCertification === '완료' ? 1 : 0;
+
   const newlyCompletedMajorCredits = completedCourses
     .filter((course) => course.completed && course.area === 'SSAI 전공')
     .reduce((sum, course) => sum + course.credits, 0);
-  const primaryEarned = requirements.primaryMajor.earned + newlyCompletedMajorCredits;
+  const primaryEarned = Math.max(Number(requirements.primaryMajor.earned || 0), userMajorCredits) + newlyCompletedMajorCredits;
   const secondEarned = requirements.secondMajor.earned;
-  const requiredEarned = requirements.requiredCourses.earned + completedCourses.filter((course) => course.completed && course.required).length;
-  const liberalArtsEarned = requirements.liberalArts.earned + completedCourses.filter((course) => course.completed && course.area === '교양').reduce((sum,course)=>sum+course.credits,0);
+  const requiredEarned = Math.max(Number(requirements.requiredCourses.earned || 0), userRequiredCourses) + completedCourses.filter((course) => course.completed && course.required).length;
+  const liberalArtsEarned = Math.max(Number(requirements.liberalArts.earned || 0), userGeneralCredits) + completedCourses.filter((course) => course.completed && course.area === '교양').reduce((sum,course)=>sum+course.credits,0);
+  const certificationEarned = Math.max(Number(requirements.certification.earned || 0), userCertification);
 
   const areas = [
     {
@@ -55,9 +61,9 @@ export function calculateGraduation(user, requirements, completedCourses, roadma
     {
       key: 'certification',
       label: requirements.certification.label || '외국어인증',
-      earned: requirements.certification.earned,
+      earned: certificationEarned,
       required: requirements.certification.required,
-      status: requirements.certification.earned >= 1 ? '충족' : '확인 필요',
+      status: requirements.certification.required === 0 || certificationEarned >= 1 ? '충족' : '확인 필요',
       detail: '2007학번 이후 외국어인증 또는 공식 면제·대체 요건 확인 필요',
     },
   ];
@@ -99,7 +105,7 @@ export function getAiAnswer(question, knowledge, user) {
   if (found) return found;
   return {
     q: question,
-    a: `${user.name || 'SSAI 학생'}님 기준으로 현재 이수 학점과 전공별 부족 학점을 함께 확인해야 합니다. 제1전공, 이수 유형, 외국어 인증 순서로 점검하는 계획을 추천합니다.`,
+    a: `현재 ${user?.earnedCredits || 0}학점 이수로 저장되어 있어요. 졸업요건 질문은 전공학점, 교양, 전공필수 중 하나로 물어보면 바로 계산해드릴게요.`,
     sources: ['SSAI 공식 졸업요건', 'SSAI 공식 교육과정'],
   };
 }

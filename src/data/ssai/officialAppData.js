@@ -13,7 +13,8 @@ const appCourse = (id, required = false) => {
 export const demoUser = {
   name:'', studentId:'2024학번', school:'한국외국어대학교', admissionYear:'2024', grade:'2학년', semester:'1학기',
   primaryMajor:'Social Science & AI융합학부', secondMajor:'전공심화(단일전공)', completionType:'single-major', exchange:'없음',
-  interests:'사회과학 데이터 분석, 정책 AI, 자연어 처리', preferredTime:'오후 수업', freeDay:'금요일', teamwork:'보통', onlinePreference:'보통', earnedCredits:52, totalCredits:134,
+  interests:'사회과학 데이터 분석, 정책 AI, 자연어 처리', preferredTime:'오후 수업', freeDay:'금요일', teamwork:'보통', onlinePreference:'보통',
+  earnedCredits:52, majorCompletedCredits:24, generalEducationCompletedCredits:26, requiredCourseCount:4, languageCertification:'미완료', totalCredits:134,
 };
 
 export const requirements = {
@@ -220,10 +221,10 @@ export const calendarSeed = [
   academicEvent('hufs-2027-02-22-register-first', '2027-02-22', '수강신청 1학년·전체 (02.22~02.23)', '수강신청'),
 ];
 export const aiKnowledge = [
-  {q:'졸업하려면 어떤 과목을 더 들어야 해?',a:'입학연도별 총학점·전공·교양 기준과 공식 전공필수 9과목의 이수 여부를 함께 확인해야 합니다.',sources:['SSAI 공식 졸업요건','SSAI 공식 교육과정']},
-  {q:'다음 학기 전공필수 과목을 추천해줘.',a:'2026-2 공식 시간표 기준 전공필수로 소셜데이터프로그래밍기초, 자료구조, 데이터베이스가 개설되어 있습니다. 현재 이수 여부와 시간 충돌을 먼저 확인하세요.',sources:['한국외대 2026-2 SSAI 강의시간표','SSAI 공식 교육과정']},
-  {q:'교환학생 학점도 졸업학점에 포함돼?',a:'국외대학 교류학점은 승인 절차를 거쳐 인정되며 정규학기 최대 18학점, 재학 중 전체 인정학점은 최대 35학점입니다.',sources:['2026-1 서울캠퍼스 수강편람 PDF 103-104쪽']},
-  {q:'데이터 분석과 관련된 과목을 추천해줘.',a:'2026-2 개설강좌 중 사회과학과데이터사이언스, 산업데이터시각화, 데이터베이스를 우선 추천합니다. 심화 관심이면 클라우드컴퓨팅과 기술개발연구프로젝트도 함께 볼 수 있어요.',sources:['한국외대 2026-2 SSAI 강의시간표','SSAI 공식 교육과정']},
+  {q:'졸업하려면 어떤 과목을 더 들어야 해?',a:'졸업까지 남은 학점과 미충족 영역을 먼저 채우면 돼요.',sources:['SSAI 공식 졸업요건','SSAI 공식 교육과정']},
+  {q:'다음 학기 전공필수 과목을 추천해줘.',a:'소셜데이터프로그래밍기초, 자료구조, 데이터베이스.',sources:['한국외대 2026-2 SSAI 강의시간표','SSAI 공식 교육과정']},
+  {q:'교환학생 학점도 졸업학점에 포함돼?',a:'승인되면 포함돼요. 정규학기 최대 18학점, 재학 중 최대 35학점 기준이에요.',sources:['2026-1 서울캠퍼스 수강편람 PDF 103-104쪽']},
+  {q:'데이터 분석과 관련된 과목을 추천해줘.',a:'사회과학과데이터사이언스, 산업데이터시각화, 데이터베이스.',sources:['한국외대 2026-2 SSAI 강의시간표','SSAI 공식 교육과정']},
 ];
 export const sourceDocs = {
   'SSAI 공식 졸업요건':'https://ssai.hufs.ac.kr/ssai/10868/subview.do',

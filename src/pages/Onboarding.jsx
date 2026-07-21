@@ -15,6 +15,10 @@ const academicFields = [
   { key: 'primaryMajor', label: '제1전공', options: ['Social Science & AI융합학부'] },
   { key: 'secondMajor', label: '이수 유형', options: ['전공심화(단일전공)', '전공심화 + 부전공', 'SSAI 이중전공', 'SSAI 부전공'] },
   { key: 'earnedCredits', label: '현재 이수 학점', type: 'number', placeholder: '예: 52' },
+  { key: 'majorCompletedCredits', label: 'SSAI 전공 이수학점', type: 'number', placeholder: '예: 24' },
+  { key: 'generalEducationCompletedCredits', label: '교양 이수학점', type: 'number', placeholder: '예: 26' },
+  { key: 'requiredCourseCount', label: '전공필수 이수 과목 수', type: 'number', placeholder: '예: 4' },
+  { key: 'languageCertification', label: '외국어인증', options: ['미완료', '완료', '면제/대체 예정'] },
   { key: 'exchange', label: '교환학생 경험', options: ['없음', '예정', '다녀옴', '학점인정 확인 필요'] },
 ];
 
@@ -107,7 +111,13 @@ export default function Onboarding({ user, onStart }) {
     const earned = Number(profile.earnedCredits || 0);
     if (!profile.name?.trim()) { setStep(0); return setError('이름을 입력해주세요.'); }
     if (earned > Number(profile.totalCredits || 134)) { setStep(1); return setError('현재 이수 학점을 다시 확인해주세요.'); }
-    onStart({ ...profile, earnedCredits: earned });
+    onStart({
+      ...profile,
+      earnedCredits: earned,
+      majorCompletedCredits: Number(profile.majorCompletedCredits || 0),
+      generalEducationCompletedCredits: Number(profile.generalEducationCompletedCredits || 0),
+      requiredCourseCount: Number(profile.requiredCourseCount || 0),
+    });
   };
 
   return (
