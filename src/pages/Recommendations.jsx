@@ -2,9 +2,10 @@ import { BookOpen, Check, Clock3, Plus, Search, Sparkles, Star } from 'lucide-re
 import { useMemo, useState } from 'react';
 import Card from '../components/Card';
 import Button from '../components/Button';
-import { roadmapData } from '../data/ssai/officialAppData';
+import { official2026SecondSemesterCourses, roadmapData } from '../data/ssai/officialAppData';
 
 const filters = ['전체', '전공필수', '전공선택', '관심 분야'];
+const scheduleCourseByName = new Map(official2026SecondSemesterCourses.map((course) => [course.courseName.replace(/\s/g, ''), course]));
 
 export default function Recommendations({ user, plans, setPlans, setActivePlan, setActiveTab }) {
   const [filter, setFilter] = useState('전체');
@@ -17,7 +18,10 @@ export default function Recommendations({ user, plans, setPlans, setActivePlan, 
   const candidates = useMemo(() => {
     const terms = roadmapData.filter((term) => term.order >= current).slice(0, 3);
     const unique = new Map();
-    terms.flatMap((term) => term.courses).forEach((course) => unique.set(course.id, course));
+    terms.flatMap((term) => term.courses).forEach((course) => {
+      const scheduleCourse = scheduleCourseByName.get(course.name.replace(/\s/g, ''));
+      unique.set(course.id, scheduleCourse ? { ...course, etaReview: scheduleCourse.etaReview, professor: scheduleCourse.professor, day: scheduleCourse.day, periods: scheduleCourse.periods } : course);
+    });
     return [...unique.values()];
   }, [current]);
   const visible = candidates.filter((course) => {
@@ -54,9 +58,10 @@ export default function Recommendations({ user, plans, setPlans, setActivePlan, 
         <Card className="recommendCard" key={course.id}>
           <div className="courseIcon"><BookOpen size={20} /></div>
           <div className="recommendBody">
-            <div className="recommendTitle"><div><span>{course.required ? '전공필수' : '전공선택'} · {course.credits}학점</span><h3>{course.name}</h3></div><strong><Star size={14} fill="currentColor" /> {(4.9 - index * .1).toFixed(1)}</strong></div>
+            <div className="recommendTitle"><div><span>{course.required ? '전공필수' : '전공선택'} · {course.credits}학점</span><h3>{course.name}</h3></div><strong><Star size={14} fill="currentColor" /> {course.etaReview?.rating ? course.etaReview.rating.toFixed(2) : (4.9 - index * .1).toFixed(1)}</strong></div>
             <p>{course.reason || 'SSAI 공식 교육과정에 포함된 과목입니다.'}</p>
-            <div className="tagRow"><span>{course.required ? '필수' : '권장'}</span><span><Clock3 size={12} /> 공식 시간 확인 필요</span></div>
+            <div className="tagRow"><span>{course.required ? '필수' : '권장'}</span><span><Clock3 size={12} /> {course.day ? `${course.day} ${course.periods?.join('')}` : '공식 시간 확인 필요'}</span>{course.etaReview && <span>{course.etaReview.ratingLabel}</span>}</div>
+            {course.etaReview && <p className="reviewSummary">{[course.etaReview.assignment, course.etaReview.teamProject, course.etaReview.exams].filter(Boolean).join(' · ') || '아직 상세 강의평이 충분하지 않아요.'}</p>}
             <button className={added.includes(course.id) || planCourseKeys.has(course.id) || planCourseKeys.has(course.name) ? 'courseAddButton added' : 'courseAddButton'} onClick={() => addToPlan(course)}>
               {added.includes(course.id) || planCourseKeys.has(course.id) || planCourseKeys.has(course.name) ? <><Check size={16} /> Plan A에 추가됨</> : <><Plus size={16} /> 시간표 후보에 추가</>}
             </button>

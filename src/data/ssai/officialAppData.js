@@ -58,7 +58,22 @@ export const roadmapData = curriculum.map((term,index)=>({
 
 export const roadmapSeed = roadmapData.filter((term)=>term.order>=3).slice(0,3).map((term)=>({id:term.id,term:term.label,goal:term.goal,courses:term.courses,reason:term.aiReason}));
 
-const scheduleMap = new Map(ssai2026SecondSemesterSchedule.map((course) => [course.courseCode, course]));
+export const etaLectureReviews = {
+  M04101101: { rating:null, ratingLabel:'강의평 없음', reviewCount:0, assignment:null, teamProject:null, grading:null, attendance:null, exams:null, source:'에브리타임 강의평 사용자 제공' },
+  M04103201: { rating:4.54, ratingLabel:'평점 4.54', reviewCount:null, assignment:'과제 없음', teamProject:'조모임 없음', grading:'성적 보통', attendance:'전자출결', exams:'시험 2번', source:'에브리타임 강의평 사용자 제공' },
+  M04110201: { rating:null, ratingLabel:'강의평 없음', reviewCount:0, assignment:null, teamProject:null, grading:null, attendance:null, exams:null, source:'에브리타임 강의평 사용자 제공' },
+  M04113101: { rating:5.0, ratingLabel:'평점 5.0', reviewCount:1, assignment:null, teamProject:null, grading:null, attendance:null, exams:null, source:'에브리타임 강의평 사용자 제공' },
+  M04111101: { rating:4.60, ratingLabel:'평점 4.60', reviewCount:null, assignment:'과제 보통', teamProject:'조모임 없음', grading:'성적 보통', attendance:'전자출결', exams:'시험 2번', source:'에브리타임 강의평 사용자 제공' },
+  M04109101: { rating:4.13, ratingLabel:'평점 4.13', reviewCount:null, assignment:'과제 없음', teamProject:'조모임 없음', grading:'성적 보통', attendance:'직접호명', exams:'시험 2번', source:'에브리타임 강의평 사용자 제공' },
+  M04123101: { rating:null, ratingLabel:'강의평 없음', reviewCount:0, assignment:null, teamProject:null, grading:null, attendance:null, exams:null, source:'에브리타임 강의평 사용자 제공' },
+  M04112201: { rating:null, ratingLabel:'강의평 없음', reviewCount:0, assignment:null, teamProject:null, grading:null, attendance:null, exams:null, source:'에브리타임 강의평 사용자 제공' },
+  M04121101: { rating:null, ratingLabel:'강의평 없음', reviewCount:0, assignment:null, teamProject:null, grading:null, attendance:null, exams:null, source:'에브리타임 강의평 사용자 제공' },
+  M04122101: { rating:null, ratingLabel:'강의평 없음', reviewCount:0, assignment:null, teamProject:null, grading:null, attendance:null, exams:null, source:'에브리타임 강의평 사용자 제공' },
+};
+
+const withEtaReview = (course) => ({ ...course, etaReview: etaLectureReviews[course.courseCode] || null });
+const secondSemesterCourses = ssai2026SecondSemesterSchedule.map(withEtaReview);
+const scheduleMap = new Map(secondSemesterCourses.map((course) => [course.courseCode, course]));
 const planCourse = (courseCode, color) => {
   const course = scheduleMap.get(courseCode);
   return course ? {
@@ -78,11 +93,12 @@ const planCourse = (courseCode, color) => {
     color,
     status: course.syllabusAvailable ? '강의계획서 공개' : '강의계획서 미공개',
     source: course.source,
+    etaReview: course.etaReview,
   } : null;
 };
 const compact = (items) => items.filter(Boolean);
 
-export const official2026SecondSemesterCourses = ssai2026SecondSemesterSchedule;
+export const official2026SecondSemesterCourses = secondSemesterCourses;
 
 export const timetablePlans = {
   A: {

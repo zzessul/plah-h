@@ -1031,6 +1031,44 @@ input, select {
   font-size: 12px;
   font-weight: 800;
 }
+.courseReviewBox {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+  border: 1px solid #dce7f5;
+  border-radius: 12px;
+  background: #f8fbff;
+  padding: 12px;
+}
+.courseReviewBox strong {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--navy);
+}
+.courseReviewBox strong svg {
+  color: #d19500;
+}
+.courseReviewBox span,
+.courseReviewBox small {
+  color: var(--muted);
+  font-size: 12px;
+}
+.courseReviewBox div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.courseReviewBox em {
+  border-radius: 999px;
+  background: white;
+  border: 1px solid #dce7f5;
+  color: #1d5f91;
+  padding: 5px 7px;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 800;
+}
 .timetableGrid {
   display: grid;
   grid-template-columns: 42px repeat(5, 1fr);
@@ -1640,6 +1678,7 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 .recommendTitle > strong { color: #ba8200; font-size: 12px; display: flex; gap: 3px; align-items: center; }
 .recommendBody p { font-size: 12px; margin: 5px 0 10px; }
 .recommendBody .tagRow span { display: inline-flex; align-items: center; gap: 3px; padding: 5px 7px; font-size: 10px; }
+.reviewSummary { color: var(--muted); }
 .courseAddButton { margin-top: 12px; width: 100%; min-height: 42px; border: 0; border-radius: 12px; background: var(--navy); color: white; display: flex; gap: 6px; align-items: center; justify-content: center; font-weight: 900; }
 .courseAddButton.added { background: #e9f7ef; color: #238554; }
 .emptyState { min-height: 170px; display: grid; justify-items: center; align-content: center; gap: 8px; text-align: center; color: var(--blue); }

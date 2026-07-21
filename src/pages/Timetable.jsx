@@ -1,4 +1,4 @@
-import { Info, RefreshCcw, Save, SlidersHorizontal } from 'lucide-react';
+import { Info, RefreshCcw, Save, SlidersHorizontal, Star } from 'lucide-react';
 import { useState } from 'react';
 import Button from '../components/Button';
 import Card from '../components/Card';
@@ -212,6 +212,16 @@ export default function Timetable({ plans, setPlans, activePlan, setActivePlan, 
             <p>학수번호: {detail.code || '공식 확인 필요'}</p>
             <p>교수명: {detail.professor || '미정'} · {detail.credits || 3}학점 · {detail.area || '전공'}</p>
             <p>{detail.status || '신청 전'} · 출처: {detail.source || '한국외대 강의시간표 조회'}</p>
+            {detail.etaReview && (
+              <div className="courseReviewBox">
+                <strong><Star size={15} fill="currentColor" /> 에타 강의평 · {detail.etaReview.ratingLabel}</strong>
+                {detail.etaReview.reviewCount != null && <span>강의평 {detail.etaReview.reviewCount}개</span>}
+                <div>
+                  {[detail.etaReview.assignment, detail.etaReview.teamProject, detail.etaReview.grading, detail.etaReview.attendance, detail.etaReview.exams].filter(Boolean).map((item) => <em key={item}>{item}</em>)}
+                </div>
+                <small>{detail.etaReview.source}</small>
+              </div>
+            )}
           </Card>
         </Modal>
       )}
