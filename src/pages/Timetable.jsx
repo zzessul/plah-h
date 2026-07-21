@@ -3,10 +3,62 @@ import { useState } from 'react';
 import Button from '../components/Button';
 import Card from '../components/Card';
 import Modal from '../components/Modal';
-import { replacements } from '../data/ssai/officialAppData';
+import { official2026SecondSemesterCourses, replacements } from '../data/ssai/officialAppData';
 
 const days = ['월', '화', '수', '목', '금'];
+const freeDayOptions = [...days, '상관없음'];
 const hours = [9, 10, 11, 12, 13, 14, 15, 16, 17];
+const planColors = ['sky', 'indigo', 'green', 'orange', 'rose'];
+
+function makePlanCourse(course, color) {
+  return {
+    id: course.id,
+    code: course.courseCode,
+    professor: course.professor,
+    professorEnglish: course.professorEnglish,
+    name: course.courseName,
+    englishName: course.englishName,
+    room: course.room === '미정' ? '강의실 미정' : course.room,
+    day: course.day,
+    start: course.start,
+    end: course.end,
+    periods: course.periods,
+    credits: course.credits,
+    area: course.isRequired ? '전공필수' : '전공선택',
+    color,
+    status: course.syllabusAvailable ? '강의계획서 공개' : '강의계획서 미공개',
+    source: course.source,
+    etaReview: course.etaReview,
+  };
+}
+
+function hasTimeConflict(selected, course, allowConsecutive) {
+  return selected.some((item) => {
+    if (!item.day || item.day !== course.day) return false;
+    const overlaps = course.start < item.end && course.end > item.start;
+    const touches = course.start === item.end || course.end === item.start;
+    return overlaps || (!allowConsecutive && touches);
+  });
+}
+
+function scoreCourse(course, conditions, user) {
+  const review = course.etaReview || {};
+  const timePreference = conditions.timePreference || user?.preferredTime || '상관없음';
+  const interest = String(user?.interests || '');
+  let score = 0;
+  if (conditions.requiredFirst && course.isRequired) score += 40;
+  if (review.rating) score += review.rating * 6;
+  if (conditions.lowTeamwork && review.teamProject?.includes('없음')) score += 14;
+  if (conditions.lowTeamwork && review.teamProject && !review.teamProject.includes('없음')) score -= 80;
+  if (review.assignment?.includes('없음')) score += 5;
+  if (interest.includes('데이터') && course.courseName.includes('데이터')) score += 10;
+  if (interest.includes('미디어') && course.courseName.includes('콘텐츠')) score += 8;
+  if (interest.includes('정책') && course.courseName.includes('사회')) score += 6;
+  if (timePreference.includes('오전') && course.start < 12) score += 12;
+  if (timePreference.includes('오후') && course.start >= 12 && course.start < 18) score += 12;
+  if (timePreference.includes('저녁') && course.start >= 15) score += 12;
+  return score;
+}
 
 export default function Timetable({ plans, setPlans, activePlan, setActivePlan, setRoadmap, user }) {
   const [resultOpen, setResultOpen] = useState(false);
@@ -17,7 +69,7 @@ export default function Timetable({ plans, setPlans, activePlan, setActivePlan, 
   const [statuses, setStatuses] = useState({});
   const [conditions, setConditions] = useState({
     freeDay: String(user?.freeDay || '금요일').replace('요일', ''),
-    morning: !String(user?.preferredTime || '').includes('오후'),
+    timePreference: user?.preferredTime || '상관없음',
     requiredFirst: true,
     lowTeamwork: String(user?.teamwork || '').includes('낮'),
     maxCredits: 18,
@@ -27,18 +79,20 @@ export default function Timetable({ plans, setPlans, activePlan, setActivePlan, 
   const replacement = replacements[failed];
   const totalCredits = plan.courses.reduce((sum, course) => sum + Number(course.credits || 3), 0);
   const unscheduledCourses = plan.courses.filter((course) => !course.day || !course.start || !course.end);
+  const planTags = [
+    conditions.freeDay === '상관없음' ? '공강 요일 상관없음' : `${conditions.freeDay}요일 공강 선호`,
+    `${conditions.timePreference} 선호`,
+    conditions.requiredFirst ? '전공필수 우선' : '관심 과목 우선',
+    conditions.lowTeamwork ? '팀플 적은 과목 우선' : '팀플 조건 보통',
+    `최대 ${conditions.maxCredits}학점`,
+  ];
 
   const savePlan = () => {
     setPlans({
       ...plans,
       [activePlan]: {
         ...plan,
-        tags: [
-          `${conditions.freeDay}요일 공강 선호`,
-          conditions.morning ? '오전 수업 허용' : '오후 수업 중심',
-          conditions.requiredFirst ? '전공필수 우선' : '관심 과목 우선',
-          `최대 ${conditions.maxCredits}학점`,
-        ],
+        tags: planTags,
       },
     });
     setSaved(true);
@@ -46,9 +100,32 @@ export default function Timetable({ plans, setPlans, activePlan, setActivePlan, 
   };
 
   const generatePlan = () => {
-    const interest = String(user?.interests || '');
-    const nextKey = interest.includes('미디어') || interest.includes('정책') ? 'C' : conditions.morning ? 'B' : 'A';
-    setActivePlan(nextKey);
+    const maxCredits = Number(conditions.maxCredits || 18);
+    const candidates = official2026SecondSemesterCourses
+      .filter((course) => conditions.freeDay === '상관없음' || course.day !== conditions.freeDay)
+      .filter((course) => !conditions.lowTeamwork || !course.etaReview?.teamProject || course.etaReview.teamProject.includes('없음'))
+      .sort((a, b) => scoreCourse(b, conditions, user) - scoreCourse(a, conditions, user));
+    const selected = [];
+    let credits = 0;
+    candidates.forEach((course) => {
+      if (credits + Number(course.credits || 3) > maxCredits) return;
+      if (hasTimeConflict(selected, course, conditions.allowConsecutive)) return;
+      selected.push(course);
+      credits += Number(course.credits || 3);
+    });
+    const generatedCourses = selected.map((course, index) => makePlanCourse(course, planColors[index % planColors.length]));
+    const freeDaySummary = conditions.freeDay === '상관없음' ? '공강 요일 제한 없음' : `${conditions.freeDay}요일 공강 반영`;
+    setPlans({
+      ...plans,
+      A: {
+        title: 'Plan A',
+        summary: `사용자 선호 기반 자동 생성 · ${freeDaySummary} · 에타 강의평 반영`,
+        tags: planTags,
+        courses: generatedCourses,
+        verificationRequired: false,
+      },
+    });
+    setActivePlan('A');
     setSaved(true);
     window.setTimeout(() => setSaved(false), 1500);
   };
@@ -156,10 +233,10 @@ export default function Timetable({ plans, setPlans, activePlan, setActivePlan, 
       {conditionOpen && (
         <Modal title="시간표 조건 수정" onClose={() => setConditionOpen(false)}>
           <div className="settingsList">
-            <label>공강 희망 요일<select value={conditions.freeDay} onChange={(event) => setConditions({ ...conditions, freeDay: event.target.value })}>{days.map((day) => <option key={day}>{day}</option>)}</select></label>
+            <label>공강 희망 요일<select value={conditions.freeDay} onChange={(event) => setConditions({ ...conditions, freeDay: event.target.value })}>{freeDayOptions.map((day) => <option key={day}>{day}</option>)}</select></label>
+            <label>선호 수업 시간<select value={conditions.timePreference} onChange={(event) => setConditions({ ...conditions, timePreference: event.target.value })}>{['오전 수업', '오후 수업', '저녁 수업', '상관없음'].map((time) => <option key={time}>{time}</option>)}</select></label>
             <label>최대 신청 학점<input type="number" value={conditions.maxCredits} onChange={(event) => setConditions({ ...conditions, maxCredits: event.target.value })} /></label>
             {[
-              ['morning', '오전 수업 최소화'],
               ['requiredFirst', '전공필수 우선'],
               ['lowTeamwork', '팀플 적은 과목 우선'],
               ['allowConsecutive', '연속 수업 허용'],
