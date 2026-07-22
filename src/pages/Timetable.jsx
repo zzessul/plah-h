@@ -75,10 +75,13 @@ export default function Timetable({ plans, setPlans, activePlan, setActivePlan, 
     maxCredits: 18,
     allowConsecutive: true,
   });
-  const plan = plans[activePlan];
+  const safePlans = plans && typeof plans === 'object' ? plans : {};
+  const plan = safePlans[activePlan] || safePlans.A || Object.values(safePlans)[0] || { summary: '시간표 정보 없음', tags: [], courses: [] };
+  const planCourses = Array.isArray(plan.courses) ? plan.courses : [];
   const replacement = replacements[failed];
-  const totalCredits = plan.courses.reduce((sum, course) => sum + Number(course.credits || 3), 0);
-  const unscheduledCourses = plan.courses.filter((course) => !course.day || !course.start || !course.end);
+  const totalCredits = planCourses.reduce((sum, course) => sum + Number(course.credits || 3), 0);
+  const unscheduledCourses = planCourses.filter((course) => !course.day || !course.start || !course.end);
+  const visibleTags = (Array.isArray(plan.tags) ? plan.tags : []).filter((tag) => !/^총\s*\d+\s*학점$/.test(String(tag).trim()));
   const planTags = [
     conditions.freeDay === '상관없음' ? '공강 요일 상관없음' : `${conditions.freeDay}요일 공강 선호`,
     `${conditions.timePreference} 선호`,
@@ -89,7 +92,7 @@ export default function Timetable({ plans, setPlans, activePlan, setActivePlan, 
 
   const savePlan = () => {
     setPlans({
-      ...plans,
+      ...safePlans,
       [activePlan]: {
         ...plan,
         tags: planTags,
@@ -116,7 +119,7 @@ export default function Timetable({ plans, setPlans, activePlan, setActivePlan, 
     const generatedCourses = selected.map((course, index) => makePlanCourse(course, planColors[index % planColors.length]));
     const freeDaySummary = conditions.freeDay === '상관없음' ? '공강 요일 제한 없음' : `${conditions.freeDay}요일 공강 반영`;
     setPlans({
-      ...plans,
+      ...safePlans,
       A: {
         title: 'Plan A',
         summary: `사용자 선호 기반 자동 생성 · ${freeDaySummary} · 에타 강의평 반영`,
@@ -136,10 +139,10 @@ export default function Timetable({ plans, setPlans, activePlan, setActivePlan, 
     const semesterNumber = String(user?.semester || '1학기').includes('2') ? 2 : 1;
     const currentTermId = `year${grade}-semester${semesterNumber}`;
     const updated = {
-      ...plans,
+      ...safePlans,
       [replacement.targetPlan]: {
-        ...plans[replacement.targetPlan],
-        courses: plans[replacement.targetPlan].courses.map((course) =>
+        ...safePlans[replacement.targetPlan],
+        courses: (Array.isArray(safePlans[replacement.targetPlan]?.courses) ? safePlans[replacement.targetPlan].courses : []).map((course) =>
           course.name === replacement.alternative ? { ...course, replacement: true, status: '대체 추천' } : course,
         ),
       },
@@ -152,7 +155,7 @@ export default function Timetable({ plans, setPlans, activePlan, setActivePlan, 
           ? {
               ...term,
               courses: [
-                ...term.courses.filter((course) => course.name !== failed),
+                ...(Array.isArray(term.courses) ? term.courses : []).filter((course) => course.name !== failed),
                 { id: `replacement-${Date.now()}`, name: replacement.alternative, credits: 3, type: '전공선택', required: false },
               ],
             }
@@ -166,7 +169,7 @@ export default function Timetable({ plans, setPlans, activePlan, setActivePlan, 
   return (
     <div className="pageStack">
       <div className="segmented">
-        {Object.keys(plans).map((key) => (
+        {Object.keys(safePlans).map((key) => (
           <button key={key} className={activePlan === key ? 'active' : ''} onClick={() => setActivePlan(key)}>
             Plan {key}
           </button>
@@ -188,7 +191,7 @@ export default function Timetable({ plans, setPlans, activePlan, setActivePlan, 
       <Card>
         <p className="eyebrow">{plan.summary}</p>
         <div className="tagRow">
-          {plan.tags.map((tag) => <span key={tag}>{tag}</span>)}
+          {visibleTags.map((tag) => <span key={tag}>{tag}</span>)}
           <span>총 {totalCredits}학점</span>
         </div>
       </Card>
@@ -201,7 +204,7 @@ export default function Timetable({ plans, setPlans, activePlan, setActivePlan, 
             <div className="hourLabel">{hour}:00</div>
             {days.map((day) => (
               <div className="timeCell" key={`${day}-${hour}`}>
-                {plan.courses
+                {planCourses
                   .filter((course) => course.day === day && course.start === hour)
                   .map((course) => (
                     <button
@@ -251,7 +254,7 @@ export default function Timetable({ plans, setPlans, activePlan, setActivePlan, 
       {resultOpen && (
         <Modal title="수강신청 결과 반영" onClose={() => setResultOpen(false)}>
           <div className="resultList">
-            {plan.courses.map((course) => (
+            {planCourses.map((course) => (
               <button key={course.name} className={failed === course.name ? 'failed' : ''} onClick={() => { setFailed(course.name); setStatuses({ ...statuses, [course.name]: '실패' }); }}>
                 <span>{course.name}</span>
                 <strong>{statuses[course.name] || '미확인'}</strong>

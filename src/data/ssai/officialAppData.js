@@ -105,7 +105,7 @@ export const timetablePlans = {
   A: {
     title: 'Plan A',
     summary: '공식 2026-2 SSAI 개설강좌 기반 · 전공필수와 데이터 분석 균형',
-    tags: ['2026-2 공식 시간표', '전공필수 3과목', '총 15학점', '화·목·금 중심'],
+    tags: ['2026-2 공식 시간표', '전공필수 3과목', '화·목·금 중심'],
     courses: compact([
       planCourse('M04101101', 'sky'),
       planCourse('M04121101', 'indigo'),
@@ -118,7 +118,7 @@ export const timetablePlans = {
   B: {
     title: 'Plan B',
     summary: '공식 2026-2 SSAI 개설강좌 기반 · 오전/이른 오후 중심',
-    tags: ['2026-2 공식 시간표', '금요일 15시 이후 비움', '총 15학점', '강의실 일부 미정'],
+    tags: ['2026-2 공식 시간표', '금요일 15시 이후 비움', '강의실 일부 미정'],
     courses: compact([
       planCourse('M04101101', 'sky'),
       planCourse('M04121101', 'indigo'),
@@ -131,7 +131,7 @@ export const timetablePlans = {
   C: {
     title: 'Plan C',
     summary: '공식 2026-2 SSAI 개설강좌 기반 · 데이터 인프라/프로젝트 심화',
-    tags: ['2026-2 공식 시간표', '데이터베이스·클라우드', '프로젝트 포함', '총 15학점'],
+    tags: ['2026-2 공식 시간표', '데이터베이스·클라우드', '프로젝트 포함'],
     courses: compact([
       planCourse('M04121101', 'indigo'),
       planCourse('M04122101', 'sky'),
